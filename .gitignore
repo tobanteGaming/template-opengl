@@ -1,0 +1,7 @@
+# Editors
+.idea
+.vscode
+.atom
+
+# CMake
+build

@@ -1,0 +1,11 @@
+# [submodule "lib/glm"]
+# 	path = lib/glm
+# 	url = https://github.com/g-truc/glm
+
+
+[submodule "lib/glew"]
+	path = lib/glew
+	url = https://github.com/omniavinco/glew-cmake
+[submodule "lib/glfw"]
+	path = lib/glfw
+	url = https://github.com/glfw/glfw
