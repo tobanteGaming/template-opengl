@@ -43,18 +43,12 @@ int Application::Run()
   glfwMakeContextCurrent(window);
 
 
-  auto key_callback =
-    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode,
-                                  int action, int mods) {
-      if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
-    });
+  glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode,
+                                int action, int mods) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+      glfwSetWindowShouldClose(window, GLFW_TRUE);
+  });
 
-  if (key_callback == nullptr)
-  {
-    std::cout << "Error setting the key callback" << std::endl;
-    return EXIT_FAILURE;
-  }
 
   // GLEW
   if (glewInit() != GLEW_OK)

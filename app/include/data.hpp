@@ -2,7 +2,7 @@
 
 namespace tobanteGaming
 {
-static const struct
+constexpr struct
 {
   float x, y;
   float r, g, b;
@@ -10,23 +10,31 @@ static const struct
                  {0.6f, -0.4f, 0.f, 1.f, 0.f},
                  {0.f, 0.6f, 0.f, 0.f, 1.f}};
 
-static const char* vertex_shader_text =
-  "#version 110\n"
-  "uniform mat4 MVP;\n"
-  "attribute vec3 vCol;\n"
-  "attribute vec2 vPos;\n"
-  "varying vec3 color;\n"
-  "void main()\n"
-  "{\n"
-  "    gl_Position = MVP * vec4(vPos, 0.0, 1.0);\n"
-  "    color = vCol;\n"
-  "}\n";
+constexpr char* vertex_shader_text = R"(
+    #version 110
+    
+    attribute vec3 vCol;
+    attribute vec2 vPos;
+    
+    uniform mat4 MVP;
+    varying vec3 color;
 
-static const char* fragment_shader_text =
-  "#version 110\n"
-  "varying vec3 color;\n"
-  "void main()\n"
-  "{\n"
-  "    gl_FragColor = vec4(color, 1.0);\n"
-  "}\n";
+    void main()
+    {
+        gl_Position = MVP * vec4(vPos, 0.0, 1.0);
+        color = vCol;
+    };
+)";
+
+constexpr char* fragment_shader_text = R"(
+    #version 110
+
+    varying vec3 color;
+    
+    void main()
+    {
+        gl_FragColor = vec4(color, 1.0);
+    }
+)";
+
 } // namespace tobanteGaming
