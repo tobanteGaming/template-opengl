@@ -9,6 +9,8 @@ class Application
 public:
     Application(std::string name);
 
+    int Run();
+
 private:
     std::string m_name;
 };
