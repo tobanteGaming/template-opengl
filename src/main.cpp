@@ -12,14 +12,14 @@
 
 int main(void)
 {
-    GLFWwindow* window;
+    GLFWwindow *window;
 
     /* Initialize the library */
     if (!glfwInit())
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Template OpenGL", NULL, NULL);
+    window = glfwCreateWindow(1280, 720, "Template OpenGL", nullptr, nullptr);
     if (!window)
     {
         glfwTerminate();
@@ -34,7 +34,7 @@ int main(void)
 
     // Get OpenGL version
     std::cout << glGetString(GL_VERSION) << std::endl;
-        
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -45,7 +45,7 @@ int main(void)
         glVertex2f(0.0f, 0.5f);
         glVertex2f(0.5f, -0.5f);
         glEnd();
-        
+
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
