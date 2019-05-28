@@ -1,6 +1,8 @@
 cmake_minimum_required (VERSION 3.8)
 project (template-opengl)
 
+set(BUILD_SHARED_LIBS OFF CACHE STRING "" FORCE)
+
 # glfw
 set(GLFW_BUILD_EXAMPLES OFF CACHE STRING "" FORCE)
 set(GLFW_BUILD_TESTS    OFF CACHE STRING "" FORCE)
@@ -9,11 +11,12 @@ add_subdirectory(lib/glfw)
 
 # glew
 add_definitions(-DGLEW_STATIC)
-option(glew-cmake_BUILD_SHARED "" OFF)
+set(glew-cmake_BUILD_SHARED OFF CACHE STRING "" FORCE)
 add_subdirectory(lib/glew)
 
 # glm
-# include_directories(lib/glm)
+set(GLM_TEST_ENABLE_CXX_17 ON CACHE STRING "" FORCE)
+add_subdirectory(lib/glm)
 
 
 add_subdirectory(src)
