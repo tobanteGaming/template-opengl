@@ -43,7 +43,7 @@
   }                                                                            \
   LINMATH_H_FUNC void vec##n##_norm(vec##n r, vec##n const v)                  \
   {                                                                            \
-    float k = 1.0 / vec##n##_len(v);                                           \
+    float k = 1.0f / vec##n##_len(v);                                          \
     vec##n##_scale(r, v, k);                                                   \
   }                                                                            \
   LINMATH_H_FUNC void vec##n##_min(vec##n r, vec##n const a, vec##n const b)   \
