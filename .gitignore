@@ -5,6 +5,7 @@
 
 # CMake
 build
+build-*
 
 # MacOS
 .DS_Store
