@@ -140,6 +140,11 @@ int main()
     // VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
+    // STATS
+    int nrAttr;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttr);
+    std::cout << "Max # of vertex attributes supported: " << nrAttr << '\n';
+
     // MAIN LOOP
     while (!glfwWindowShouldClose(window))
     {
@@ -149,8 +154,14 @@ int main()
 
         // Draw triangle
         glUseProgram(shaderProgram);
+
+        // Animate color
+        const float timeValue  = static_cast<float>(glfwGetTime());
+        const float greenValue = sin(timeValue) / 2.0f + 0.5f;
+        const int vColorLoc = glGetUniformLocation(shaderProgram, "ourColor");
+        glUniform4f(vColorLoc, 0.0f, greenValue, 0.0f, 1.0f);
+
         glBindVertexArray(VAO);
-        // glDrawArrays(GL_TRIANGLES, 0, 3);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         // Check and call events and swap the buffers
