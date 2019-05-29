@@ -11,7 +11,7 @@ class SpriteRenderer
 {
 public:
     // Constructor (inits shaders/shapes)
-    SpriteRenderer(Shader& shader);
+    SpriteRenderer(Shader& s);
     // Destructor
     ~SpriteRenderer();
     // Renders a defined quad textured with given sprite
