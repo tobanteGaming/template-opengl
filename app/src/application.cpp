@@ -20,7 +20,7 @@ Application::Application(std::string name)
 
 int Application::Run()
 {
-  GLFWwindow* window;
+
 
   glfwSetErrorCallback([](int error, const char* description) {
     std::cout << "Error: " << description << std::endl;
@@ -31,23 +31,7 @@ int Application::Run()
     return EXIT_FAILURE;
   }
 
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-
-  window = glfwCreateWindow(1280, 720, m_name.c_str(), nullptr, nullptr);
-  if (!window)
-  {
-    glfwTerminate();
-    return EXIT_FAILURE;
-  }
-  glfwMakeContextCurrent(window);
-
-
-  glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode,
-                                int action, int mods) {
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-      glfwSetWindowShouldClose(window, GLFW_TRUE);
-  });
+  m_window.Init(m_name);
 
 
   // GLEW
@@ -86,12 +70,12 @@ int Application::Run()
   glEnableVertexAttribArray(vcol_location);
   glVertexAttribPointer(vcol_location, 3, GL_FLOAT, GL_FALSE,
                         sizeof(vertices[0]), (void*)(sizeof(float) * 2));
-  while (!glfwWindowShouldClose(window))
+  while (!glfwWindowShouldClose(m_window.getRawWindow()))
   {
     float ratio;
     int width, height;
     mat4x4 m, p, mvp;
-    glfwGetFramebufferSize(window, &width, &height);
+    glfwGetFramebufferSize(m_window.getRawWindow(), &width, &height);
     ratio = width / (float)height;
     glViewport(0, 0, width, height);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -102,11 +86,11 @@ int Application::Run()
     glUseProgram(program);
     glUniformMatrix4fv(mvp_location, 1, GL_FALSE, (const GLfloat*)mvp);
     glDrawArrays(GL_TRIANGLES, 0, 3);
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(m_window.getRawWindow());
     glfwPollEvents();
   }
 
-  glfwDestroyWindow(window);
+  m_window.Destroy();
   glfwTerminate();
   return EXIT_SUCCESS;
 }

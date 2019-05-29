@@ -3,6 +3,7 @@ project(template-opengl-demo)
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/application.cpp
+    src/window.cpp
 )
 
 add_library(${PROJECT_LIBRARY} STATIC ${LIB_SOURCES} )
