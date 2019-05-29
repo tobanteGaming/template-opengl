@@ -42,8 +42,7 @@ GLboolean GameLevel::IsCompleted()
     return GL_TRUE;
 }
 
-void GameLevel::init(std::vector<std::vector<GLuint>> tileData,
-                     GLuint levelWidth, GLuint levelHeight)
+void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight)
 {
     // Calculate dimensions
     GLuint height = tileData.size();
@@ -63,8 +62,7 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData,
             {
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                GameObject obj(pos, size,
-                               ResourceManager::GetTexture("block_solid"),
+                GameObject obj(pos, size, ResourceManager::GetTexture("block_solid"),
                                glm::vec3(0.8f, 0.8f, 0.7f));
                 obj.IsSolid = GL_TRUE;
                 this->Bricks.push_back(obj);
@@ -84,8 +82,8 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData,
 
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                this->Bricks.push_back(GameObject(
-                    pos, size, ResourceManager::GetTexture("block"), color));
+                this->Bricks.push_back(
+                    GameObject(pos, size, ResourceManager::GetTexture("block"), color));
             }
         }
     }

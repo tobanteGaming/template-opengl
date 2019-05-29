@@ -8,8 +8,7 @@
 #include "settings.hpp"
 
 // GLFW function declerations
-void key_callback(GLFWwindow* window, int key, int scancode, int action,
-                  int mode);
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 Game Breakout(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
 
@@ -21,9 +20,8 @@ int main(int argc, char* argv[])
     // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     // glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    GLFWwindow* window
-        = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT,
-                           rr::GAME_NAME, nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT,
+                                          rr::GAME_NAME, nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     glewExperimental = GL_TRUE;
@@ -79,13 +77,11 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action,
-                  int mode)
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
     // When a user presses the escape key, we set the WindowShouldClose property
     // to true, closing the application
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE);
     if (key >= 0 && key < 1024)
     {
         if (action == GLFW_PRESS)

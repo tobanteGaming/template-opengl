@@ -21,9 +21,8 @@ Game::~Game()
 void Game::Init()
 {
     // Load shaders
-    ResourceManager::LoadShader(
-        R"(shaders\sprite_vs.glsl)",
-        R"(shaders\sprite_fs.glsl)", nullptr, "sprite");
+    ResourceManager::LoadShader(R"(shaders\sprite_vs.glsl)", R"(shaders\sprite_fs.glsl)", nullptr,
+                                "sprite");
     // Configure shaders
     const auto f_width  = static_cast<float>(Width);
     const auto f_height = static_cast<float>(Height);
@@ -32,16 +31,11 @@ void Game::Init()
     ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
 
     // Load textures
-    ResourceManager::LoadTexture(
-        R"(texture\background.jpg)", GL_FALSE, "background");
-    ResourceManager::LoadTexture(
-        R"(texture\awesomeface.png)", GL_TRUE, "face");
-    ResourceManager::LoadTexture(
-        R"(texture\block.png)", GL_FALSE, "block");
-    ResourceManager::LoadTexture(
-        R"(texture\block_solid.png)", GL_FALSE, "block_solid");
-    ResourceManager::LoadTexture(
-        R"(texture\paddle.png)", true, "paddle");
+    ResourceManager::LoadTexture(R"(texture\background.jpg)", GL_FALSE, "background");
+    ResourceManager::LoadTexture(R"(texture\awesomeface.png)", GL_TRUE, "face");
+    ResourceManager::LoadTexture(R"(texture\block.png)", GL_FALSE, "block");
+    ResourceManager::LoadTexture(R"(texture\block_solid.png)", GL_FALSE, "block_solid");
+    ResourceManager::LoadTexture(R"(texture\paddle.png)", true, "paddle");
 
     // Set render-specific controls
     Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
