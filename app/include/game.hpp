@@ -6,6 +6,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "collision.hpp"
 #include "entity/ball_object.hpp"
 #include "entity/game_object.hpp"
 #include "game_level.hpp"
@@ -62,6 +63,9 @@ public:
 
 private:
     void DoCollisions();
+    // Reset
+    void ResetLevel();
+    void ResetPlayer();
 
 private:
     // Game-related State data

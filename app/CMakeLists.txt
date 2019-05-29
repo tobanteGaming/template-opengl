@@ -2,6 +2,7 @@ project(template-opengl-demo)
 
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
+    src/collision.cpp
     src/entity/ball_object.cpp
     src/entity/game_object.cpp
     src/game.cpp
