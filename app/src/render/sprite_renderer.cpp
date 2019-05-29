@@ -13,8 +13,8 @@ void SpriteRenderer::DrawSprite(Texture2D& texture, glm::vec2 position,
 {
     // Prepare transformations
     this->shader.Use();
-    glm::mat4 model;
-    model = glm::translate(
+    glm::mat4 model = glm::mat4(1.0f);
+    model           = glm::translate(
         model, glm::vec3(position,
                          0.0f));  // First translate (transformations are: scale
                                   // happens first, then rotation and then
