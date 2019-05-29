@@ -4,6 +4,7 @@ default: all
 # Source
 SOURCE_DIR = app
 EXAMPLES_DIR = examples
+RESOURCE_DIR = resources
 
 # Build
 BUILD_DIR = build
@@ -30,7 +31,7 @@ clean:
 	@rm -rf $(BUILD_DOC_DIR)
 
 stats:
-	@cloc $(SOURCE_DIR) $(EXAMPLES_DIR)
+	@cloc $(SOURCE_DIR) cmake CMakeLists.txt $(RESOURCE_DIR)/shaders
 
 format:
 	@find $(SOURCE_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
