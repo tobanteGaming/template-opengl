@@ -3,6 +3,7 @@ project(template-opengl-demo)
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/game.cpp
+    src/render/sprite_renderer.cpp
     src/resource_manager.cpp
     src/shader.cpp
     src/texture.cpp

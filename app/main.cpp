@@ -5,28 +5,25 @@
 
 #include "game.hpp"
 #include "resource_manager.hpp"
+#include "settings.hpp"
 
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action,
                   int mode);
 
-// The Width of the screen
-const GLuint SCREEN_WIDTH = 800;
-// The height of the screen
-const GLuint SCREEN_HEIGHT = 600;
-
-Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
+Game Breakout(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
 
 int main(int argc, char* argv[])
 {
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT,
-                                          "Breakout", nullptr, nullptr);
+    GLFWwindow* window
+        = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT,
+                           rr::GAME_NAME, nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     glewExperimental = GL_TRUE;
@@ -37,7 +34,7 @@ int main(int argc, char* argv[])
     glfwSetKeyCallback(window, key_callback);
 
     // OpenGL configuration
-    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    glViewport(0, 0, rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -55,7 +52,7 @@ int main(int argc, char* argv[])
     while (!glfwWindowShouldClose(window))
     {
         // Calculate delta time
-        GLfloat currentFrame = glfwGetTime();
+        GLfloat currentFrame = static_cast<GLfloat>(glfwGetTime());
         deltaTime            = currentFrame - lastFrame;
         lastFrame            = currentFrame;
         glfwPollEvents();
