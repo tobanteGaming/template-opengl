@@ -10,6 +10,7 @@
 #include "entity/ball_object.hpp"
 #include "entity/game_object.hpp"
 #include "game_level.hpp"
+#include "render/particle_generator.hpp"
 #include "render/sprite_renderer.hpp"
 
 /**
@@ -72,4 +73,5 @@ private:
     std::unique_ptr<SpriteRenderer> Renderer;
     std::unique_ptr<GameObject> Player;
     std::unique_ptr<BallObject> Ball;
+    std::unique_ptr<ParticleGenerator> Particles;
 };

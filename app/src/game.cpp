@@ -11,12 +11,16 @@ void Game::Init()
     // Load shaders
     ResourceManager::LoadShader(R"(shaders\sprite_vs.glsl)", R"(shaders\sprite_fs.glsl)", nullptr,
                                 "sprite");
+    ResourceManager::LoadShader(R"(shaders\particle_vs.glsl)", R"(shaders\particle_fs.glsl)", nullptr,
+                                "particle");
     // Configure shaders
     const auto f_width  = static_cast<float>(Width);
     const auto f_height = static_cast<float>(Height);
     auto projection     = glm::ortho(0.0f, f_width, f_height, 0.0f, -1.0f, 1.0f);
     ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
     ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+    ResourceManager::GetShader("particle").Use().SetInteger("sprite", 0);
+    ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
 
     // Load textures
     ResourceManager::LoadTexture(R"(texture\background.jpg)", GL_FALSE, "background");
@@ -24,10 +28,12 @@ void Game::Init()
     ResourceManager::LoadTexture(R"(texture\block.png)", GL_FALSE, "block");
     ResourceManager::LoadTexture(R"(texture\block_solid.png)", GL_FALSE, "block_solid");
     ResourceManager::LoadTexture(R"(texture\paddle.png)", true, "paddle");
+    ResourceManager::LoadTexture(R"(texture\particle.png)", true, "particle");
 
     // Set render-specific controls
-    Renderer = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
-
+    Renderer  = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
+    Particles = std::make_unique<ParticleGenerator>(ResourceManager::GetShader("particle"),
+                                                    ResourceManager::GetTexture("particle"), 500);
     // Load levels
     GameLevel one;
     GameLevel two;
@@ -61,6 +67,8 @@ void Game::Update(GLfloat dt)
     Ball->Move(dt, this->Width);
     // Check for collisions
     this->DoCollisions();
+    // Update particles
+    Particles->Update(dt, *Ball, 2, glm::vec2(Ball->Radius / 2));
     // Check loss condition
     if (Ball->Position.y >= this->Height)  // Did ball reach bottom edge?
     {
@@ -106,6 +114,8 @@ void Game::Render()
         this->Levels[this->Level].Draw(*Renderer);
         // Draw player
         Player->Draw(*Renderer);
+        // Draw particles
+        Particles->Draw();
         // Draw ball
         Ball->Draw(*Renderer);
     }
@@ -114,13 +124,13 @@ void Game::Render()
 void Game::ResetLevel()
 {
     if (this->Level == 0)
-        this->Levels[0].Load("levels/one.lvl", this->Width, this->Height * 0.5f);
+        this->Levels[0].Load("levels/001.lvl", this->Width, this->Height * 0.5f);
     else if (this->Level == 1)
-        this->Levels[1].Load("levels/two.lvl", this->Width, this->Height * 0.5f);
+        this->Levels[1].Load("levels/002.lvl", this->Width, this->Height * 0.5f);
     else if (this->Level == 2)
-        this->Levels[2].Load("levels/three.lvl", this->Width, this->Height * 0.5f);
+        this->Levels[2].Load("levels/003.lvl", this->Width, this->Height * 0.5f);
     else if (this->Level == 3)
-        this->Levels[3].Load("levels/four.lvl", this->Width, this->Height * 0.5f);
+        this->Levels[3].Load("levels/004.lvl", this->Width, this->Height * 0.5f);
 }
 
 void Game::ResetPlayer()
