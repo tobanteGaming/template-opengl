@@ -19,3 +19,4 @@ add_subdirectory(lib/glew)
 
 
 add_subdirectory(app)
+add_subdirectory(examples)
