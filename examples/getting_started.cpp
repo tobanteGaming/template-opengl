@@ -8,8 +8,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-constexpr int WIDTH  = 1280;
-constexpr int HEIGHT = 720;
+#include "settings.hpp"
+#include "shaders.hpp"
+
+float vertices[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
 
 int main()
 {
@@ -43,6 +45,26 @@ int main()
     // RESIZE
     glfwSetFramebufferSizeCallback(
         window, [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); });
+
+    // 3D SETUP
+    unsigned int VBO;
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // VERTEX SHADER
+    unsigned int vertexShader;
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &VERTEX_SHADER_SOURCE, NULL);
+    glCompileShader(vertexShader);
+    int success;
+    char infoLog[512];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
 
     // MAIN LOOP
     while (!glfwWindowShouldClose(window))
