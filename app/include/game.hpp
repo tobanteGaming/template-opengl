@@ -1,12 +1,15 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include "entity/ball_object.hpp"
+#include "entity/game_object.hpp"
 #include "game_level.hpp"
+#include "render/sprite_renderer.hpp"
 
 /**
  * @brief Represents the current state of the game.
@@ -35,7 +38,8 @@ public:
     /**
      * @brief Destructor.
      */
-    ~Game();
+    ~Game() = default;
+
     /**
      * @brief Initialize game state (load all shaders/textures/levels).
      */
@@ -55,4 +59,10 @@ public:
 
     std::vector<GameLevel> Levels;
     GLuint Level;
+
+private:
+    // Game-related State data
+    std::unique_ptr<SpriteRenderer> Renderer;
+    std::unique_ptr<GameObject> Player;
+    std::unique_ptr<BallObject> Ball;
 };

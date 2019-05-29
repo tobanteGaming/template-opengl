@@ -2,22 +2,9 @@
 
 #include "game.hpp"
 
-#include "entity/game_object.hpp"
-#include "render/sprite_renderer.hpp"
 #include "resource_manager.hpp"
 
-// Game-related State data
-SpriteRenderer* Renderer;
-GameObject* Player;
-BallObject* Ball;
-
 Game::Game(GLuint width, GLuint height) : State(GAME_ACTIVE), Keys(), Width(width), Height(height) {}
-
-Game::~Game()
-{
-    delete Renderer;
-    delete Player;
-}
 
 void Game::Init()
 {
@@ -39,7 +26,7 @@ void Game::Init()
     ResourceManager::LoadTexture(R"(texture\paddle.png)", true, "paddle");
 
     // Set render-specific controls
-    Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+    Renderer = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
 
     // Load levels
     GameLevel one;
@@ -59,12 +46,13 @@ void Game::Init()
 
     // Configure game objects
     glm::vec2 playerPos = glm::vec2(Width / 2 - PLAYER_SIZE.x / 2, Height - PLAYER_SIZE.y);
-    Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
+    Player
+        = std::make_unique<GameObject>(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
 
     // Ball
     glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
-    Ball              = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
-                          ResourceManager::GetTexture("face"));
+    Ball              = std::make_unique<BallObject>(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
+                                        ResourceManager::GetTexture("face"));
 }
 
 void Game::Update(GLfloat dt) { Ball->Move(dt, this->Width); }
