@@ -11,21 +11,7 @@
 
 namespace tobanteGaming
 {
-Application::Application(std::string name) : m_name(name)
-{
-    glfwSetErrorCallback([](int error, const char* description) {
-        std::cout << "Error: " << description << std::endl;
-    });
-
-    if (!glfwInit()) { exit(EXIT_FAILURE); }
-
-    m_window.Init(m_name);
-
-    // GLEW
-    if (glewInit() != GLEW_OK) { std::cout << "Error in glew init" << std::endl; }
-    // Get OpenGL version
-    std::cout << glGetString(GL_VERSION) << std::endl;
-}
+Application::Application(std::string name) : m_name(name) { m_window.Init(m_name); }
 
 int Application::Run()
 {
