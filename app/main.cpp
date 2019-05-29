@@ -1,7 +1,7 @@
-#include "application.hpp"
+#include <cstdlib>
 
 int main(void)
 {
-    auto app = tobanteGaming::Application("Template OpenGL");
-    return app.Run();
+    // auto app = tobanteGaming::Application("Template OpenGL");
+    return EXIT_SUCCESS;
 }

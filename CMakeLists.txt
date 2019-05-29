@@ -15,7 +15,7 @@ add_subdirectory(lib/glew)
 
 # glm
 # set(GLM_TEST_ENABLE_CXX_17 ON CACHE STRING "" FORCE)
-# add_subdirectory(lib/glm)
+add_subdirectory(lib/glm)
 
 
 add_subdirectory(app)

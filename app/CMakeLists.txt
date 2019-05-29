@@ -2,8 +2,10 @@ project(template-opengl-demo)
 
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
-    src/application.cpp
-    src/window.cpp
+    src/game.cpp
+    src/resource_manager.cpp
+    src/shader.cpp
+    src/texture.cpp
 )
 
 add_library(${PROJECT_LIBRARY} STATIC ${LIB_SOURCES} )
@@ -16,6 +18,7 @@ target_link_libraries(${PROJECT_LIBRARY} PRIVATE
                     glfw 
                     ${GLFW_LIBRARIES} 
                     libglew_static
+                    glm
 )
 
 
