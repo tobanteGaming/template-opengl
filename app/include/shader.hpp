@@ -6,23 +6,31 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-// General purpsoe shader object. Compiles from file, generates
-// compile/link-time error messages and hosts several utility
-// functions for easy management.
+/**
+ * @brief General purpsoe shader object. Compiles from file, generates
+ * compile/link-time error messages and hosts several utility functions for easy
+ * management.
+ */
 class Shader
 {
 public:
-    // State
+    /**
+     * @brief State.
+     */
     GLuint ID;
-    // Constructor
-    Shader() {}
-    // Sets the current shader as active
+
+    /**
+     * @brief Sets the current shader as active.
+     */
     Shader& Use();
-    // Compiles the shader from given source code
+
+    /**
+     * @brief Compiles the shader from given source code. Geometry source code
+     * is optional
+     */
     void Compile(const GLchar* vertexSource, const GLchar* fragmentSource,
-                 const GLchar* geometrySource
-                 = nullptr);  // Note: geometry source code is optional
-    // Utility functions
+                 const GLchar* geometrySource = nullptr);
+
     void SetFloat(const GLchar* name, GLfloat value,
                   GLboolean useShader = false);
     void SetInteger(const GLchar* name, GLint value,
@@ -43,6 +51,9 @@ public:
                     GLboolean useShader = false);
 
 private:
-    // Checks if compilation or linking failed and if so, print the error logs
+    /**
+     * @brief Checks if compilation or linking failed and if so, print the error
+     * logs.
+     */
     void checkCompileErrors(GLuint object, std::string type);
 };

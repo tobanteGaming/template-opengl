@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 
-#include <SOIL/SOIL.h>
+#include "SOIL/SOIL.h"
 
 #include "resource_manager.hpp"
 

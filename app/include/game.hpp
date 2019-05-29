@@ -3,7 +3,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-// Represents the current state of the game
+/**
+ * @brief Represents the current state of the game.
+ */
 enum GameState
 {
     GAME_ACTIVE,
@@ -11,23 +13,38 @@ enum GameState
     GAME_WIN
 };
 
-// Game holds all game-related state and functionality.
-// Combines all game-related data into a single class for
-// easy access to each of the components and manageability.
+/**
+ * @brief Game holds all game-related state and functionality.
+ *
+ * Combines all game-related data into a single class for easy access to each of
+ * the components and manageability.
+ */
 class Game
 {
 public:
-    // Game state
-    GameState State;
-    GLboolean Keys[1024];
-    GLuint Width, Height;
-    // Constructor/Destructor
+    /**
+     * @brief Constructor.
+     */
     Game(GLuint width, GLuint height);
+
+    /**
+     * @brief Destructor.
+     */
     ~Game();
-    // Initialize game state (load all shaders/textures/levels)
+    /**
+     * @brief Initialize game state (load all shaders/textures/levels).
+     */
     void Init();
     // GameLoop
     void ProcessInput(GLfloat dt);
     void Update(GLfloat dt);
     void Render();
+
+public:
+    /**
+     * @brief Game state.
+     */
+    GameState State;
+    GLboolean Keys[1024];
+    GLuint Width, Height;
 };
