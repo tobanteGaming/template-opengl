@@ -55,15 +55,15 @@ void Game::Init()
                                         ResourceManager::GetTexture("face"));
 }
 
-void Game::Update(GLfloat dt) { Ball->Move(dt, this->Width); }
+void Game::Update(GLfloat dt) { Ball->Move(dt, Width); }
 
 void Game::ProcessInput(GLfloat dt)
 {
-    if (this->State == GAME_ACTIVE)
+    if (State == GAME_ACTIVE)
     {
         GLfloat velocity = PLAYER_VELOCITY * dt;
         // Move playerboard
-        if (this->Keys[GLFW_KEY_A])
+        if (Keys[GLFW_KEY_A])
         {
             if (Player->Position.x >= 0)
             {
@@ -71,15 +71,15 @@ void Game::ProcessInput(GLfloat dt)
                 if (Ball->Stuck) Ball->Position.x -= velocity;
             }
         }
-        if (this->Keys[GLFW_KEY_D])
+        if (Keys[GLFW_KEY_D])
         {
-            if (Player->Position.x <= this->Width - Player->Size.x)
+            if (Player->Position.x <= Width - Player->Size.x)
             {
                 Player->Position.x += velocity;
                 if (Ball->Stuck) Ball->Position.x += velocity;
             }
         }
-        if (this->Keys[GLFW_KEY_SPACE]) Ball->Stuck = false;
+        if (Keys[GLFW_KEY_SPACE]) Ball->Stuck = false;
     }
 }
 

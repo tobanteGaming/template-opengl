@@ -7,7 +7,7 @@
 void GameLevel::Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
 {
     // Clear old data
-    this->Bricks.clear();
+    Bricks.clear();
     // Load from file
     GLuint tileCode;
     GameLevel level;
@@ -25,19 +25,19 @@ void GameLevel::Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
                 row.push_back(tileCode);
             tileData.push_back(row);
         }
-        if (tileData.size() > 0) this->init(tileData, levelWidth, levelHeight);
+        if (tileData.size() > 0) init(tileData, levelWidth, levelHeight);
     }
 }
 
 void GameLevel::Draw(SpriteRenderer& renderer)
 {
-    for (GameObject& tile : this->Bricks)
+    for (GameObject& tile : Bricks)
         if (!tile.Destroyed) tile.Draw(renderer);
 }
 
 GLboolean GameLevel::IsCompleted()
 {
-    for (GameObject& tile : this->Bricks)
+    for (GameObject& tile : Bricks)
         if (!tile.IsSolid && !tile.Destroyed) return GL_FALSE;
     return GL_TRUE;
 }
@@ -65,7 +65,7 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidt
                 GameObject obj(pos, size, ResourceManager::GetTexture("block_solid"),
                                glm::vec3(0.8f, 0.8f, 0.7f));
                 obj.IsSolid = GL_TRUE;
-                this->Bricks.push_back(obj);
+                Bricks.push_back(obj);
             }
             else if (tileData[y][x] > 1)  // Non-solid; now determine its color
                                           // based on level data
@@ -82,8 +82,7 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidt
 
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                this->Bricks.push_back(
-                    GameObject(pos, size, ResourceManager::GetTexture("block"), color));
+                Bricks.push_back(GameObject(pos, size, ResourceManager::GetTexture("block"), color));
             }
         }
     }
