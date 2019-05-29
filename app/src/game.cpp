@@ -2,6 +2,7 @@
 
 #include "game.hpp"
 
+#include "collision.hpp"
 #include "resource_manager.hpp"
 
 Game::Game(GLuint width, GLuint height) : State(GAME_ACTIVE), Keys(), Width(width), Height(height) {}
@@ -55,7 +56,11 @@ void Game::Init()
                                         ResourceManager::GetTexture("face"));
 }
 
-void Game::Update(GLfloat dt) { Ball->Move(dt, Width); }
+void Game::Update(GLfloat dt)
+{
+    Ball->Move(dt, Width);
+    DoCollisions();
+}
 
 void Game::ProcessInput(GLfloat dt)
 {
@@ -96,5 +101,19 @@ void Game::Render()
         // Draw entities
         Player->Draw(*Renderer);
         Ball->Draw(*Renderer);
+    }
+}
+
+void Game::DoCollisions()
+{
+    for (GameObject& box : this->Levels[this->Level].Bricks)
+    {
+        if (!box.Destroyed)
+        {
+            if (CheckCollision(*Ball, box))
+            {
+                if (!box.IsSolid) box.Destroyed = GL_TRUE;
+            }
+        }
     }
 }

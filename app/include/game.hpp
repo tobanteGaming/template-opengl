@@ -61,6 +61,9 @@ public:
     GLuint Level;
 
 private:
+    void DoCollisions();
+
+private:
     // Game-related State data
     std::unique_ptr<SpriteRenderer> Renderer;
     std::unique_ptr<GameObject> Player;
