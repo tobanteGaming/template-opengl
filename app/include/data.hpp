@@ -4,10 +4,10 @@ namespace tobanteGaming
 {
 constexpr struct
 {
-  float x, y;
-  float r, g, b;
-} vertices[3] = {
-  {-0.6f, -0.4f, 1.f, 0.f, 0.f}, {0.6f, -0.4f, 0.f, 1.f, 0.f}, {0.f, 0.6f, 0.f, 0.f, 1.f}};
+    float x, y;
+    float r, g, b;
+} vertices[3]
+    = {{-0.6f, -0.4f, 1.f, 0.f, 0.f}, {0.6f, -0.4f, 0.f, 1.f, 0.f}, {0.f, 0.6f, 0.f, 0.f, 1.f}};
 
 constexpr char* vertex_shader_text = R"(
     #version 330 core
@@ -36,4 +36,4 @@ constexpr char* fragment_shader_text = R"(
     }
 )";
 
-} // namespace tobanteGaming
+}  // namespace tobanteGaming

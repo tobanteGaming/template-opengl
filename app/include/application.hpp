@@ -9,12 +9,12 @@ namespace tobanteGaming
 class Application
 {
 public:
-  Application(std::string name);
+    Application(std::string name);
 
-  int Run();
+    int Run();
 
 private:
-  std::string m_name;
-  tobanteGaming::Window m_window;
+    std::string m_name;
+    tobanteGaming::Window m_window;
 };
-} // namespace tobanteGaming
+}  // namespace tobanteGaming

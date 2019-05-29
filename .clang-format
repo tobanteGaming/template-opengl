@@ -1,15 +1,27 @@
-# Using clang-format 5.0.0
+---
+BasedOnStyle: WebKit
 AlignAfterOpenBracket: Align
-AlwaysBreakTemplateDeclarations: true
-AllowShortFunctionsOnASingleLine: All
-BinPackArguments: true
-BinPackParameters: false
-BreakBeforeBinaryOperators: NonAssignment
+AlignConsecutiveAssignments: 'true'
+AlignOperands: 'true'
+AlignTrailingComments: 'true'
+AlwaysBreakTemplateDeclarations: 'true'
+AllowShortBlocksOnASingleLine: 'true'
+AllowShortCaseLabelsOnASingleLine: 'true'
+AllowShortFunctionsOnASingleLine: 'true'
+AllowShortIfStatementsOnASingleLine: 'true'
+AllowShortLoopsOnASingleLine: 'true'
 BreakBeforeBraces: Allman
-BreakConstructorInitializersBeforeComma: true
 ColumnLimit: 102
-ConstructorInitializerIndentWidth: 2
-ContinuationIndentWidth: 2
-MaxEmptyLinesToKeep: 2
+ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
+Cpp11BracedListStyle: 'true'
+FixNamespaceComments: 'true'
+KeepEmptyLinesAtTheStartOfBlocks: 'false'
+Language: Cpp
+MaxEmptyLinesToKeep: '1'
+NamespaceIndentation: None
 PointerAlignment: Left
-
+ReflowComments: 'true'
+SortIncludes: 'true'
+SpaceBeforeAssignmentOperators: 'true'
+SpacesBeforeTrailingComments: '2'
+...
