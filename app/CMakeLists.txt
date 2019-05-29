@@ -24,6 +24,7 @@ target_link_libraries(${PROJECT_LIBRARY} PRIVATE
                     libglew_static
                     glm
                     tobanteGaming::Soil
+                    tobanteGaming::CompilerWarnings
 )
 
 
@@ -36,6 +37,7 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} 
                     tobanteGaming::Application
+                    tobanteGaming::CompilerWarnings
                     glfw 
                     ${GLFW_LIBRARIES} 
                     libglew_static

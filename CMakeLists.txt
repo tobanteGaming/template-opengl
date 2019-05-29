@@ -1,5 +1,15 @@
 cmake_minimum_required (VERSION 3.8)
-project (template-opengl)
+project (template-opengl LANGUAGES CXX)
+
+# Options
+option(TOBANTEGAMING_OPENGL_BUILD_EXAMPLES  "Build examples" ON)
+option(TOBANTEGAMING_OPENGL_BUILD_TESTS     "Build unit tests" ON)
+option(TOBANTEGAMING_OPENGL_ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
+
+# Cmake setup
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(CompilerWarnings)
+
 
 set(BUILD_SHARED_LIBS OFF CACHE STRING "" FORCE)
 
