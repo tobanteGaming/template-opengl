@@ -6,6 +6,11 @@
 #include "render/sprite_renderer.hpp"
 #include "texture.hpp"
 
+// Initial size of the player paddle
+const glm::vec2 PLAYER_SIZE(100, 20);
+// Initial velocity of the player paddle
+const GLfloat PLAYER_VELOCITY(500.0f);
+
 // Container object for holding all state relevant for a single
 // game object entity. Each object in the game likely needs the
 // minimal of state as described within GameObject.

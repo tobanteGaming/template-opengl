@@ -9,6 +9,7 @@
 // Game-related State data
 SpriteRenderer* Renderer;
 GameObject* Player;
+BallObject* Ball;
 
 Game::Game(GLuint width, GLuint height) : State(GAME_ACTIVE), Keys(), Width(width), Height(height) {}
 
@@ -55,27 +56,42 @@ void Game::Init()
     Levels.push_back(four);
 
     Level = 0;
+
     // Configure game objects
     glm::vec2 playerPos = glm::vec2(Width / 2 - PLAYER_SIZE.x / 2, Height - PLAYER_SIZE.y);
     Player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
+
+    // Ball
+    glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
+    Ball              = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
+                          ResourceManager::GetTexture("face"));
 }
 
-void Game::Update(GLfloat dt) {}
+void Game::Update(GLfloat dt) { Ball->Move(dt, this->Width); }
 
 void Game::ProcessInput(GLfloat dt)
 {
-    if (State == GAME_ACTIVE)
+    if (this->State == GAME_ACTIVE)
     {
         GLfloat velocity = PLAYER_VELOCITY * dt;
         // Move playerboard
-        if (Keys[GLFW_KEY_A])
+        if (this->Keys[GLFW_KEY_A])
         {
-            if (Player->Position.x >= 0) Player->Position.x -= velocity;
+            if (Player->Position.x >= 0)
+            {
+                Player->Position.x -= velocity;
+                if (Ball->Stuck) Ball->Position.x -= velocity;
+            }
         }
-        if (Keys[GLFW_KEY_D])
+        if (this->Keys[GLFW_KEY_D])
         {
-            if (Player->Position.x <= Width - Player->Size.x) Player->Position.x += velocity;
+            if (Player->Position.x <= this->Width - Player->Size.x)
+            {
+                Player->Position.x += velocity;
+                if (Ball->Stuck) Ball->Position.x += velocity;
+            }
         }
+        if (this->Keys[GLFW_KEY_SPACE]) Ball->Stuck = false;
     }
 }
 
@@ -88,7 +104,9 @@ void Game::Render()
                              glm::vec2(Width, Height), 0.0f);
         // Draw level
         Levels[Level].Draw(*Renderer);
-        // Draw player
+
+        // Draw entities
         Player->Draw(*Renderer);
+        Ball->Draw(*Renderer);
     }
 }
