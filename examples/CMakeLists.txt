@@ -23,3 +23,15 @@ target_link_libraries(${SHADER_CLASS}
                     ${GLFW_LIBRARIES} 
                     libglew_static
 )
+
+# TEXTURES
+set(TEXTURES ${PROJECT_NAME}_textures)
+add_executable(${TEXTURES} textures.cpp stb_image.cpp)
+target_compile_features(${TEXTURES} PUBLIC cxx_std_17)
+target_compile_definitions(${TEXTURES} PUBLIC GLEW_STATIC=1)
+target_include_directories(${TEXTURES} PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(${TEXTURES} 
+                    glfw 
+                    ${GLFW_LIBRARIES} 
+                    libglew_static
+)

@@ -89,6 +89,9 @@ int main()
 
         // render the triangle
         ourShader.use();
+        const float timeValue  = static_cast<float>(glfwGetTime());
+        const float greenValue = sin(timeValue) / 2.0f + 0.5f;
+        ourShader.setFloat4("ourColor", greenValue);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 

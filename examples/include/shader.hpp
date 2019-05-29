@@ -82,6 +82,15 @@ public:
         glUniform1f(glGetUniformLocation(m_id, name.c_str()), value);
     }
 
+    /**
+     * @brief Sets a uniform float vector4
+     */
+    void setFloat4(const std::string& name, float value) const
+    {
+        glUniform4f(glGetUniformLocation(m_id, name.c_str()), 0.0f, value, 0.0f,
+                    1.0f);
+    }
+
 private:
     void checkCompileErrors(unsigned int shader_id, std::string type)
     {
