@@ -19,8 +19,7 @@ int Window::Init(std::string name)
   glfwMakeContextCurrent(m_window);
 
 
-  glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode,
-                                  int action, int mods) {
+  glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
       glfwSetWindowShouldClose(window, GLFW_TRUE);
   });

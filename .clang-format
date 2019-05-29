@@ -7,7 +7,7 @@ BinPackParameters: false
 BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeBraces: Allman
 BreakConstructorInitializersBeforeComma: true
-ColumnLimit: 80
+ColumnLimit: 102
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
 MaxEmptyLinesToKeep: 2

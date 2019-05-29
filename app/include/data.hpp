@@ -6,12 +6,11 @@ constexpr struct
 {
   float x, y;
   float r, g, b;
-} vertices[3] = {{-0.6f, -0.4f, 1.f, 0.f, 0.f},
-                 {0.6f, -0.4f, 0.f, 1.f, 0.f},
-                 {0.f, 0.6f, 0.f, 0.f, 1.f}};
+} vertices[3] = {
+  {-0.6f, -0.4f, 1.f, 0.f, 0.f}, {0.6f, -0.4f, 0.f, 1.f, 0.f}, {0.f, 0.6f, 0.f, 0.f, 1.f}};
 
 constexpr char* vertex_shader_text = R"(
-    #version 110
+    #version 330 core
     
     attribute vec3 vCol;
     attribute vec2 vPos;
@@ -27,7 +26,7 @@ constexpr char* vertex_shader_text = R"(
 )";
 
 constexpr char* fragment_shader_text = R"(
-    #version 110
+    #version 330 core
 
     varying vec3 color;
     
