@@ -52,15 +52,8 @@ public:
     void Render();
 
 public:
-    /**
-     * @brief Game state.
-     */
-    GameState State;
     GLboolean Keys[1024];
-    GLuint Width, Height;
 
-    std::vector<GameLevel> Levels;
-    GLuint Level;
 
 private:
     void DoCollisions();
@@ -69,9 +62,18 @@ private:
     void ResetPlayer();
 
 private:
+    /**
+     * @brief Game state.
+     */
+    GameState State;
+    GLuint Width, Height;
+
+    std::vector<GameLevel> Levels;
+    GLuint Level;
+
     // Game-related State data
-    std::unique_ptr<SpriteRenderer> Renderer;
-    std::unique_ptr<GameObject> Player;
-    std::unique_ptr<BallObject> Ball;
-    std::unique_ptr<ParticleGenerator> Particles;
+    std::unique_ptr<SpriteRenderer> m_renderer;
+    std::unique_ptr<GameObject> m_player;
+    std::unique_ptr<BallObject> m_ball;
+    std::unique_ptr<ParticleGenerator> m_particles;
 };
