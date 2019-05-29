@@ -2,6 +2,7 @@
 #include <sstream>
 
 #include "game_level.hpp"
+#include "settings.hpp"
 
 void GameLevel::Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
 {
@@ -11,7 +12,8 @@ void GameLevel::Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
     GLuint tileCode;
     GameLevel level;
     std::string line;
-    std::ifstream fstream(file);
+    std::string fullPath = std::string(rr::RESOURCE_PATH + file);
+    std::ifstream fstream(fullPath.c_str());
     std::vector<std::vector<GLuint>> tileData;
     if (fstream)
     {
