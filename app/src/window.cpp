@@ -9,8 +9,9 @@ namespace tobanteGaming
 {
 int Window::Init(std::string name)
 {
-    auto error_callback
-        = [](int error, const char* description) { std::cout << "Error: " << description << '\n'; };
+    auto error_callback = [](int error, const char* description) {
+        std::cout << "Error: " << description << '\n';
+    };
     glfwSetErrorCallback(error_callback);
 
     if (!glfwInit()) { exit(EXIT_FAILURE); }
@@ -31,7 +32,8 @@ int Window::Init(std::string name)
     }
     glfwMakeContextCurrent(m_window);
 
-    glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+    glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode,
+                                    int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
             glfwSetWindowShouldClose(window, GLFW_TRUE);
     });

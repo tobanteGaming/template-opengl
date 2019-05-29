@@ -23,7 +23,8 @@ int main()
     // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // WINDOW
-    auto* window = glfwCreateWindow(WIDTH, HEIGHT, "Example: Getting Started", nullptr, nullptr);
+    auto* window = glfwCreateWindow(WIDTH, HEIGHT, "Example: Getting Started",
+                                    nullptr, nullptr);
     if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -38,13 +39,16 @@ int main()
 
     // CALLBACKS
     // KEYS
-    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode,
+                                  int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
             glfwSetWindowShouldClose(window, GLFW_TRUE);
     });
     // RESIZE
     glfwSetFramebufferSizeCallback(
-        window, [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); });
+        window, [](GLFWwindow* window, int width, int height) {
+            glViewport(0, 0, width, height);
+        });
 
     // SHADER DEBUG
     int success;
@@ -59,7 +63,8 @@ int main()
     if (!success)
     {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+                  << infoLog << std::endl;
     }
 
     // FRAGMENT SHADER
@@ -71,7 +76,8 @@ int main()
     if (!success)
     {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
+                  << infoLog << std::endl;
     }
 
     // PROGRAM
@@ -93,23 +99,26 @@ int main()
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure
-    // vertex attributes(s).
+    // bind the Vertex Array Object first, then bind and set vertex buffer(s),
+    // and then configure vertex attributes(s).
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
+                          (void*)0);
     glEnableVertexAttribArray(0);
 
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex
-    // attribute's bound vertex buffer object so afterwards we can safely unbind
+    // note that this is allowed, the call to glVertexAttribPointer registered
+    // VBO as the vertex attribute's bound vertex buffer object so afterwards we
+    // can safely unbind
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but
-    // this rarely happens. Modifying other VAOs requires a call to glBindVertexArray anyways so we
-    // generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+    // You can unbind the VAO afterwards so other VAO calls won't accidentally
+    // modify this VAO, but this rarely happens. Modifying other VAOs requires a
+    // call to glBindVertexArray anyways so we generally don't unbind VAOs (nor
+    // VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
     // uncomment this call to draw in wireframe polygons.

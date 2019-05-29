@@ -1,18 +1,19 @@
 .PHONY: win64 clean stats format
 default: win64
 
+SOURCE_DIR = app
+EXAMPLES_DIR = examples
 
 win64:
-	cmake -Bbuild -G "Visual Studio 15 Win64" .
-	cmake --build build --config Release
+	@cmake -Bbuild -G "Visual Studio 15 Win64" .
+	@cmake --build build --config Release
 
 clean:
-	rm -rf build
+	@rm -rf build
 
-
-# MISC
 stats:
-	cloc app desktop
+	@cloc $(SOURCE_DIR) $(EXAMPLES_DIR)
 
 format:
-	find app -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
+	@find $(SOURCE_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
+	@find $(EXAMPLES_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i

@@ -11,7 +11,10 @@
 
 namespace tobanteGaming
 {
-Application::Application(std::string name) : m_name(name) { m_window.Init(m_name); }
+Application::Application(std::string name) : m_name(name)
+{
+    m_window.Init(m_name);
+}
 
 int Application::Run()
 {
@@ -45,10 +48,11 @@ int Application::Run()
     vcol_location = glGetAttribLocation(program, "vCol");
 
     glEnableVertexAttribArray(vpos_location);
-    glVertexAttribPointer(vpos_location, 2, GL_FLOAT, GL_FALSE, sizeof(vertices[0]), (void*)0);
+    glVertexAttribPointer(vpos_location, 2, GL_FLOAT, GL_FALSE,
+                          sizeof(vertices[0]), (void*)0);
     glEnableVertexAttribArray(vcol_location);
-    glVertexAttribPointer(vcol_location, 3, GL_FLOAT, GL_FALSE, sizeof(vertices[0]),
-                          (void*)(sizeof(float) * 2));
+    glVertexAttribPointer(vcol_location, 3, GL_FLOAT, GL_FALSE,
+                          sizeof(vertices[0]), (void*)(sizeof(float) * 2));
     while (!glfwWindowShouldClose(m_window.getRawWindow()))
     {
         float ratio;
