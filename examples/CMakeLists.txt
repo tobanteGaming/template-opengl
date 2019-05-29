@@ -11,3 +11,15 @@ target_link_libraries(${GETTING_STARTED}
                     ${GLFW_LIBRARIES} 
                     libglew_static
 )
+
+# SHADER_CLASS
+set(SHADER_CLASS ${PROJECT_NAME}_shader-class)
+add_executable(${SHADER_CLASS} shader_class.cpp)
+target_compile_features(${SHADER_CLASS} PUBLIC cxx_std_17)
+target_compile_definitions(${SHADER_CLASS} PUBLIC GLEW_STATIC=1)
+target_include_directories(${SHADER_CLASS} PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_libraries(${SHADER_CLASS} 
+                    glfw 
+                    ${GLFW_LIBRARIES} 
+                    libglew_static
+)

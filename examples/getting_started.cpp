@@ -9,7 +9,8 @@
 #include <GLFW/glfw3.h>
 
 #include "settings.hpp"
-#include "shaders.hpp"
+#include "shader.hpp"
+#include "shader_source.hpp"
 
 int main()
 {
