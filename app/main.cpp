@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <memory>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -11,7 +12,7 @@
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-Game Breakout(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
+std::unique_ptr<Game> Breakout;
 
 int main(int argc, char* argv[])
 {
@@ -19,8 +20,16 @@ int main(int argc, char* argv[])
     ignoreUnused(argv);
     glfwInit();
 
-    GLFWwindow* window = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT,
-                                          rr::GAME_NAME, nullptr, nullptr);
+    GLFWmonitor* monitor    = glfwGetPrimaryMonitor();
+    const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+    glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+    glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+    glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+    glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, rr::GAME_NAME, monitor, NULL);
+    // GLFWwindow* window = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT,
+    //                                       rr::GAME_NAME, nullptr, nullptr);
+
     glfwMakeContextCurrent(window);
 
     glewExperimental = GL_TRUE;
@@ -35,18 +44,20 @@ int main(int argc, char* argv[])
     });
 
     // OpenGL configuration
-    glViewport(0, 0, rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
+    glViewport(0, 0, mode->width, mode->height);
+    // glViewport(0, 0, rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Initialize game
-    Breakout.Init();
+    Breakout = std::make_unique<Game>(mode->width, mode->height);
+    // Breakout = std::make_unique<Game>(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
+    Breakout->Init();
 
     // DeltaTime variables
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
-
 
     while (!glfwWindowShouldClose(window))
     {
@@ -58,15 +69,15 @@ int main(int argc, char* argv[])
 
         // deltaTime = 0.001f;
         // Manage user input
-        Breakout.ProcessInput(deltaTime);
+        Breakout->ProcessInput(deltaTime);
 
         // Update Game state
-        Breakout.Update(deltaTime);
+        Breakout->Update(deltaTime);
 
         // Render
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        Breakout.Render();
+        Breakout->Render();
 
         glfwSwapBuffers(window);
     }
@@ -89,8 +100,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     if (key >= 0 && key < 1024)
     {
         if (action == GLFW_PRESS)
-            Breakout.Keys[key] = GL_TRUE;
+            Breakout->Keys[key] = GL_TRUE;
         else if (action == GLFW_RELEASE)
-            Breakout.Keys[key] = GL_FALSE;
+            Breakout->Keys[key] = GL_FALSE;
     }
 }

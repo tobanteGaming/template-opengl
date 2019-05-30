@@ -10,7 +10,8 @@
 // Initial velocity of the Ball
 const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
 // Radius of the ball object
-const GLfloat BALL_RADIUS = 12.5f;
+// const GLfloat BALL_RADIUS = 12.5f;
+const GLfloat BALL_RADIUS = 25.0f;
 
 // BallObject holds the state of the Ball object inheriting
 // relevant state data from GameObject. Contains some extra

@@ -28,6 +28,8 @@ void Game::Init()
     // Load textures
     ResourceManager::LoadTexture(R"(texture\background.jpg)", GL_FALSE, "background");
     ResourceManager::LoadTexture(R"(texture\awesomeface.png)", GL_TRUE, "face");
+    ResourceManager::LoadTexture(R"(texture\smiley.png)", GL_TRUE, "smiley");
+    ResourceManager::LoadTexture(R"(texture\smiley2.png)", GL_TRUE, "smiley2");
     ResourceManager::LoadTexture(R"(texture\block.png)", GL_TRUE, "block");
     ResourceManager::LoadTexture(R"(texture\block_solid.png)", GL_TRUE, "block_solid");
     ResourceManager::LoadTexture(R"(texture\paddle.png)", GL_TRUE, "paddle");
@@ -61,7 +63,7 @@ void Game::Init()
     // m_ball
     glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
     m_ball            = std::make_unique<BallObject>(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
-                                          ResourceManager::GetTexture("face"));
+                                          ResourceManager::GetTexture("smiley2"));
 }
 
 void Game::Update(GLfloat dt)

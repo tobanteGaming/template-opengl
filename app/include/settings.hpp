@@ -7,12 +7,12 @@ namespace rr
 /**
  * @brief Default screen width.
  */
-constexpr unsigned int DEFAULT_SCREEN_WIDTH = 1280;
+constexpr unsigned int DEFAULT_SCREEN_WIDTH = 1920;
 
 /**
  * @brief Default screen height.
  */
-constexpr unsigned int DEFAULT_SCREEN_HEIGHT = 720;
+constexpr unsigned int DEFAULT_SCREEN_HEIGHT = 1080;
 
 /**
  * @brief Game name.
