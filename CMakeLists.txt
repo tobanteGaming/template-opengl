@@ -24,7 +24,7 @@ set(glew-cmake_BUILD_SHARED OFF CACHE STRING "" FORCE)
 add_subdirectory(lib/glew)
 
 # glm
-# set(GLM_TEST_ENABLE_CXX_17 ON CACHE STRING "" FORCE)
+set(GLM_TEST_ENABLE OFF CACHE STRING "" FORCE)
 add_subdirectory(lib/glm)
 
 # soil
