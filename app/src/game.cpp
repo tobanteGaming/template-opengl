@@ -145,8 +145,10 @@ void Game::ResetPlayer()
     // Reset player/ball stats
     m_player->Size     = PLAYER_SIZE;
     m_player->Position = glm::vec2(m_width / 2 - PLAYER_SIZE.x / 2, m_height - PLAYER_SIZE.y);
-    m_ball->Reset(m_player->Position + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -(BALL_RADIUS * 2)),
-                  INITIAL_BALL_VELOCITY);
+
+    const auto ball_offset   = glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -(BALL_RADIUS * 2));
+    const auto ball_position = m_player->Position + ball_offset;
+    m_ball->Reset(ball_position, INITIAL_BALL_VELOCITY);
 }
 
 void Game::DoCollisions()
