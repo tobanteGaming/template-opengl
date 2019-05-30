@@ -34,13 +34,6 @@ public:
     void Draw();
 
 private:
-    // State
-    std::vector<Particle> particles;
-    GLuint amount;
-    // Render state
-    Shader shader;
-    Texture2D texture;
-    GLuint VAO;
     // Initializes buffer and vertex attributes
     void init();
     // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0 if no particle
@@ -49,4 +42,14 @@ private:
     // Respawns particle
     void respawnParticle(Particle& particle, GameObject& object,
                          glm::vec2 offset = glm::vec2(0.0f, 0.0f));
+
+private:
+    // State
+    std::vector<Particle> m_particles;
+    GLuint m_amount;
+    // Render state
+    Shader m_shader;
+    Texture2D m_texture;
+    GLuint m_vao;
+
 };

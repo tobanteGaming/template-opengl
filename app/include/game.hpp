@@ -46,10 +46,12 @@ public:
      * @brief Initialize game state (load all shaders/textures/levels).
      */
     void Init();
-    // GameLoop
-    void ProcessInput(GLfloat dt);
-    void Update(GLfloat dt);
-    void Render();
+
+	void ProcessInput(GLfloat dt);
+    
+	void Update(GLfloat dt);
+    
+	void Render();
 
 public:
     GLboolean Keys[1024];
@@ -65,11 +67,12 @@ private:
     /**
      * @brief Game state.
      */
-    GameState State;
-    GLuint Width, Height;
+    GameState m_state;
+    GLuint m_width, m_height;
 
-    std::vector<GameLevel> Levels;
-    GLuint Level;
+	// Level
+    std::vector<GameLevel> m_levels;
+    GLuint m_current_level;
 
     // Game-related State data
     std::unique_ptr<SpriteRenderer> m_renderer;

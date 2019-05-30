@@ -1,7 +1,7 @@
 #include "render/particle_generator.hpp"
 
 ParticleGenerator::ParticleGenerator(Shader shader, Texture2D texture, GLuint amount)
-    : shader(shader), texture(texture), amount(amount)
+    : m_shader(shader), m_texture(texture), m_amount(amount)
 {
     init();
 }
@@ -12,12 +12,12 @@ void ParticleGenerator::Update(GLfloat dt, GameObject& object, GLuint newParticl
     for (GLuint i = 0; i < newParticles; ++i)
     {
         int unusedParticle = firstUnusedParticle();
-        respawnParticle(particles[unusedParticle], object, offset);
+        respawnParticle(m_particles[unusedParticle], object, offset);
     }
     // Update all particles
-    for (GLuint i = 0; i < amount; ++i)
+    for (GLuint i = 0; i < m_amount; ++i)
     {
-        Particle& p = particles[i];
+        Particle& p = m_particles[i];
         p.Life -= dt;  // reduce life
         if (p.Life > 0.0f)
         {  // particle is alive, thus update
@@ -32,15 +32,15 @@ void ParticleGenerator::Draw()
 {
     // Use additive blending to give it a 'glow' effect
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-    shader.Use();
-    for (Particle particle : particles)
+    m_shader.Use();
+    for (Particle particle : m_particles)
     {
         if (particle.Life > 0.0f)
         {
-            shader.SetVector2f("offset", particle.Position);
-            shader.SetVector4f("color", particle.Color);
-            texture.Bind();
-            glBindVertexArray(VAO);
+            m_shader.SetVector2f("offset", particle.Position);
+            m_shader.SetVector4f("color", particle.Color);
+            m_texture.Bind();
+            glBindVertexArray(m_vao);
             glDrawArrays(GL_TRIANGLES, 0, 6);
             glBindVertexArray(0);
         }
@@ -57,9 +57,9 @@ void ParticleGenerator::init()
         = {0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 
            0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f};
-    glGenVertexArrays(1, &VAO);
+    glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &VBO);
-    glBindVertexArray(VAO);
+    glBindVertexArray(m_vao);
     // Fill mesh buffer
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(particle_quad), particle_quad, GL_STATIC_DRAW);
@@ -69,7 +69,7 @@ void ParticleGenerator::init()
     glBindVertexArray(0);
 
     // Create amount default particle instances
-    for (GLuint i = 0; i < amount; ++i) particles.push_back(Particle());
+    for (GLuint i = 0; i < m_amount; ++i) m_particles.push_back(Particle());
 }
 
 // Stores the index of the last particle used (for quick access to next dead particle)
@@ -77,9 +77,9 @@ GLuint lastUsedParticle = 0;
 GLuint ParticleGenerator::firstUnusedParticle()
 {
     // First search from last used particle, this will usually return almost instantly
-    for (GLuint i = lastUsedParticle; i < amount; ++i)
+    for (GLuint i = lastUsedParticle; i < m_amount; ++i)
     {
-        if (particles[i].Life <= 0.0f)
+        if (m_particles[i].Life <= 0.0f)
         {
             lastUsedParticle = i;
             return i;
@@ -88,7 +88,7 @@ GLuint ParticleGenerator::firstUnusedParticle()
     // Otherwise, do a linear search
     for (GLuint i = 0; i < lastUsedParticle; ++i)
     {
-        if (particles[i].Life <= 0.0f)
+        if (m_particles[i].Life <= 0.0f)
         {
             lastUsedParticle = i;
             return i;

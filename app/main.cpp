@@ -15,10 +15,6 @@ Game Breakout(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
 int main(int argc, char* argv[])
 {
     glfwInit();
-    // glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    // glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    // glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     GLFWwindow* window = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT,
                                           rr::GAME_NAME, nullptr, nullptr);
@@ -30,6 +26,8 @@ int main(int argc, char* argv[])
                    // now from our application.
 
     glfwSetKeyCallback(window, key_callback);
+    glfwSetFramebufferSizeCallback(
+        window, [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); });
 
     // OpenGL configuration
     glViewport(0, 0, rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);

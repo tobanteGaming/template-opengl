@@ -19,9 +19,12 @@ public:
                     GLfloat rotate = 0.0f, glm::vec3 color = glm::vec3(1.0f));
 
 private:
-    // Render state
-    Shader shader;
-    GLuint quadVAO;
     // Initializes and configures the quad's buffer and vertex attributes
     void initRenderData();
+
+private:
+    // Render state
+    Shader m_shader;
+    GLuint m_quadVAO;
+
 };
