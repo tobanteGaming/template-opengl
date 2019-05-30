@@ -55,7 +55,7 @@ public:
     void Render();
 
 public:
-    std::array<GLboolean, 1024> Keys;
+    std::array<bool, 1024> Keys;
 
 private:
     void DoCollisions();

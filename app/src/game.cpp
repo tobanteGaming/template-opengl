@@ -44,10 +44,10 @@ void Game::Init()
     GameLevel two;
     GameLevel three;
     GameLevel four;
-    one.Load(R"(levels\001.lvl)", m_width, m_height * 0.5);
-    two.Load(R"(levels\002.lvl)", m_width, m_height * 0.5);
-    three.Load(R"(levels\003.lvl)", m_width, m_height * 0.5);
-    four.Load(R"(levels\004.lvl)", m_width, m_height * 0.5);
+    one.Load(R"(levels\001.lvl)", m_width, static_cast<GLuint>(m_height * 0.5f));
+    two.Load(R"(levels\002.lvl)", m_width, static_cast<GLuint>(m_height * 0.5f));
+    three.Load(R"(levels\003.lvl)", m_width, static_cast<GLuint>(m_height * 0.5f));
+    four.Load(R"(levels\004.lvl)", m_width, static_cast<GLuint>(m_height * 0.5f));
     m_levels.push_back(one);
     m_levels.push_back(two);
     m_levels.push_back(three);
@@ -133,10 +133,11 @@ void Game::Render()
 
 void Game::ResetLevel()
 {
-    if (m_current_level == 0) { m_levels[0].Load("levels/001.lvl", m_width, m_height * 0.5f); }
-    if (m_current_level == 1) { m_levels[1].Load("levels/002.lvl", m_width, m_height * 0.5f); }
-    if (m_current_level == 2) { m_levels[2].Load("levels/003.lvl", m_width, m_height * 0.5f); }
-    if (m_current_level == 3) { m_levels[3].Load("levels/004.lvl", m_width, m_height * 0.5f); }
+    const auto height = static_cast<GLuint>(m_height * 0.5f);
+    if (m_current_level == 0) { m_levels[0].Load("levels/001.lvl", m_width, height); }
+    if (m_current_level == 1) { m_levels[1].Load("levels/002.lvl", m_width, height); }
+    if (m_current_level == 2) { m_levels[2].Load("levels/003.lvl", m_width, height); }
+    if (m_current_level == 3) { m_levels[3].Load("levels/004.lvl", m_width, height); }
 }
 
 void Game::ResetPlayer()

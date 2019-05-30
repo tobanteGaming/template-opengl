@@ -1,6 +1,6 @@
 #include "collision.hpp"
 
-GLboolean CheckCollision(GameObject& one, GameObject& two)  // AABB - AABB collision
+bool CheckCollision(GameObject& one, GameObject& two)  // AABB - AABB collision
 {
     // Collision x-axis?
     bool collisionX = one.Position.x + one.Size.x >= two.Position.x

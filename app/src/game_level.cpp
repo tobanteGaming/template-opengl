@@ -35,7 +35,7 @@ void GameLevel::Draw(SpriteRenderer& renderer)
         if (!tile.Destroyed) tile.Draw(renderer);
 }
 
-GLboolean GameLevel::IsCompleted()
+bool GameLevel::IsCompleted()
 {
     for (GameObject& tile : Bricks)
         if (!tile.IsSolid && !tile.Destroyed) return GL_FALSE;
@@ -45,10 +45,10 @@ GLboolean GameLevel::IsCompleted()
 void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight)
 {
     // Calculate dimensions
-    GLuint height = tileData.size();
+    GLuint height = static_cast<GLuint>(tileData.size());
     // Note we can index vector at [0] since this
     // function is only called if height > 0
-    GLuint width        = tileData[0].size();
+    GLuint width        = static_cast<GLuint>(tileData[0].size());
     GLfloat unit_width  = levelWidth / static_cast<GLfloat>(width),
             unit_height = static_cast<GLfloat>(levelHeight / height);
 

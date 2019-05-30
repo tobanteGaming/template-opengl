@@ -19,9 +19,9 @@ enum Direction
 
 // Defines a Collision typedef that represents collision data
 // <collision?, what direction?, difference vector center - closest point>
-using Collision = std::tuple<GLboolean, Direction, glm::vec2>;
+using Collision = std::tuple<bool, Direction, glm::vec2>;
 
-GLboolean CheckCollision(GameObject& one, GameObject& two);
+bool CheckCollision(GameObject& one, GameObject& two);
 Collision CheckCollision(BallObject& one, GameObject& two);
 
 // Calculates which direction a vector is facing (N,E,S or W)

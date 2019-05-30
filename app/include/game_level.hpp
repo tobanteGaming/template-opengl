@@ -23,7 +23,7 @@ public:
     // Render level
     void Draw(SpriteRenderer& renderer);
     // Check if the level is completed (all non-solid tiles are destroyed)
-    GLboolean IsCompleted();
+    bool IsCompleted();
 
 private:
     // Initialize level from tile data
