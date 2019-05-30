@@ -17,7 +17,7 @@ public:
     // Level state
     std::vector<GameObject> Bricks;
     // Constructor
-    GameLevel() {}
+    GameLevel() = default;
     // Loads level from file
     void Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight);
     // Render level

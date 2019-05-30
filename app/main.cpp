@@ -6,6 +6,7 @@
 #include "game.hpp"
 #include "resource_manager.hpp"
 #include "settings.hpp"
+#include "util.hpp"
 
 // GLFW function declerations
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -14,6 +15,8 @@ Game Breakout(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
 
 int main(int argc, char* argv[])
 {
+    ignoreUnused(argc);
+    ignoreUnused(argv);
     glfwInit();
 
     GLFWwindow* window = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT,
@@ -26,8 +29,10 @@ int main(int argc, char* argv[])
                    // now from our application.
 
     glfwSetKeyCallback(window, key_callback);
-    glfwSetFramebufferSizeCallback(
-        window, [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); });
+    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+        ignoreUnused(window);
+        glViewport(0, 0, width, height);
+    });
 
     // OpenGL configuration
     glViewport(0, 0, rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
@@ -75,6 +80,9 @@ int main(int argc, char* argv[])
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
+    ignoreUnused(mode);
+    ignoreUnused(scancode);
+
     // When a user presses the escape key, we set the WindowShouldClose property
     // to true, closing the application
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE);

@@ -28,10 +28,10 @@ void Game::Init()
     // Load textures
     ResourceManager::LoadTexture(R"(texture\background.jpg)", GL_FALSE, "background");
     ResourceManager::LoadTexture(R"(texture\awesomeface.png)", GL_TRUE, "face");
-    ResourceManager::LoadTexture(R"(texture\block.png)", GL_FALSE, "block");
-    ResourceManager::LoadTexture(R"(texture\block_solid.png)", GL_FALSE, "block_solid");
-    ResourceManager::LoadTexture(R"(texture\paddle.png)", true, "paddle");
-    ResourceManager::LoadTexture(R"(texture\particle.png)", true, "particle");
+    ResourceManager::LoadTexture(R"(texture\block.png)", GL_TRUE, "block");
+    ResourceManager::LoadTexture(R"(texture\block_solid.png)", GL_TRUE, "block_solid");
+    ResourceManager::LoadTexture(R"(texture\paddle.png)", GL_TRUE, "paddle");
+    ResourceManager::LoadTexture(R"(texture\particle.png)", GL_TRUE, "particle");
 
     // Set render-specific controls
     m_renderer  = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
@@ -91,7 +91,7 @@ void Game::ProcessInput(GLfloat dt)
             if (m_player->Position.x >= 0)
             {
                 m_player->Position.x -= velocity;
-                if (m_ball->Stuck) m_ball->Position.x -= velocity;
+                if (m_ball->Stuck) { m_ball->Position.x -= velocity; }
             }
         }
         if (Keys[GLFW_KEY_D] || Keys[GLFW_KEY_RIGHT])
@@ -99,7 +99,7 @@ void Game::ProcessInput(GLfloat dt)
             if (m_player->Position.x <= m_width - m_player->Size.x)
             {
                 m_player->Position.x += velocity;
-                if (m_ball->Stuck) m_ball->Position.x += velocity;
+                if (m_ball->Stuck) { m_ball->Position.x += velocity; }
             }
         }
         if (Keys[GLFW_KEY_SPACE]) { m_ball->Stuck = false; }
@@ -116,8 +116,8 @@ void Game::Render()
     if (m_state == GAME_ACTIVE)
     {
         // Draw background
-        m_renderer->DrawSprite(ResourceManager::GetTexture("background"), glm::vec2(0, 0),
-                               glm::vec2(m_width, m_height), 0.0f);
+        auto bg_texture = ResourceManager::GetTexture("background");
+        m_renderer->DrawSprite(bg_texture, glm::vec2(0, 0), glm::vec2(m_width, m_height), 0.0f);
         // Draw level
         m_levels[m_current_level].Draw(*m_renderer);
         // Draw player
@@ -131,14 +131,10 @@ void Game::Render()
 
 void Game::ResetLevel()
 {
-    if (m_current_level == 0)
-        m_levels[0].Load("levels/001.lvl", m_width, m_height * 0.5f);
-    else if (m_current_level == 1)
-        m_levels[1].Load("levels/002.lvl", m_width, m_height * 0.5f);
-    else if (m_current_level == 2)
-        m_levels[2].Load("levels/003.lvl", m_width, m_height * 0.5f);
-    else if (m_current_level == 3)
-        m_levels[3].Load("levels/004.lvl", m_width, m_height * 0.5f);
+    if (m_current_level == 0) { m_levels[0].Load("levels/001.lvl", m_width, m_height * 0.5f); }
+    if (m_current_level == 1) { m_levels[1].Load("levels/002.lvl", m_width, m_height * 0.5f); }
+    if (m_current_level == 2) { m_levels[2].Load("levels/003.lvl", m_width, m_height * 0.5f); }
+    if (m_current_level == 3) { m_levels[3].Load("levels/004.lvl", m_width, m_height * 0.5f); }
 }
 
 void Game::ResetPlayer()
@@ -160,7 +156,7 @@ void Game::DoCollisions()
             if (std::get<0>(collision))  // If collision is true
             {
                 // Destroy block if not solid
-                if (!box.IsSolid) box.Destroyed = GL_TRUE;
+                if (!box.IsSolid) { box.Destroyed = GL_TRUE; }
                 // Collision resolution
                 Direction dir         = std::get<1>(collision);
                 glm::vec2 diff_vector = std::get<2>(collision);
@@ -170,9 +166,13 @@ void Game::DoCollisions()
                     // Relocate
                     GLfloat penetration = m_ball->Radius - std::abs(diff_vector.x);
                     if (dir == LEFT)
+                    {
                         m_ball->Position.x += penetration;  // Move ball to right
+                    }
                     else
+                    {
                         m_ball->Position.x -= penetration;  // Move ball to left;
+                    }
                 }
                 else  // Vertical collision
                 {
@@ -180,9 +180,13 @@ void Game::DoCollisions()
                     // Relocate
                     GLfloat penetration = m_ball->Radius - std::abs(diff_vector.y);
                     if (dir == UP)
+                    {
                         m_ball->Position.y -= penetration;  // Move ball bback up
+                    }
                     else
+                    {
                         m_ball->Position.y += penetration;  // Move ball back down
+                    }
                 }
             }
         }

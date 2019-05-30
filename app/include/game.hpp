@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <memory>
 #include <vector>
 
@@ -47,15 +48,14 @@ public:
      */
     void Init();
 
-	void ProcessInput(GLfloat dt);
-    
-	void Update(GLfloat dt);
-    
-	void Render();
+    void ProcessInput(GLfloat dt);
+
+    void Update(GLfloat dt);
+
+    void Render();
 
 public:
-    GLboolean Keys[1024];
-
+    std::array<GLboolean, 1024> Keys;
 
 private:
     void DoCollisions();
@@ -70,7 +70,7 @@ private:
     GameState m_state;
     GLuint m_width, m_height;
 
-	// Level
+    // Level
     std::vector<GameLevel> m_levels;
     GLuint m_current_level;
 
