@@ -5,7 +5,7 @@
 
 #include "entity/game_object.hpp"
 #include "render/sprite_renderer.hpp"
-#include "texture.hpp"
+#include "render/texture.hpp"
 
 // Initial velocity of the Ball
 const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);

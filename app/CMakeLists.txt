@@ -9,9 +9,9 @@ set(LIB_SOURCES
     src/game_level.cpp
     src/render/particle_generator.cpp
     src/render/sprite_renderer.cpp
+    src/render/shader.cpp
+    src/render/texture.cpp
     src/resource_manager.cpp
-    src/shader.cpp
-    src/texture.cpp
 )
 
 add_library(${PROJECT_LIBRARY} STATIC ${LIB_SOURCES} )

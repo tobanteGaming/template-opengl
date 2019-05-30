@@ -6,8 +6,8 @@
 #include <glm/glm.hpp>
 
 #include "entity/game_object.hpp"
-#include "shader.hpp"
-#include "texture.hpp"
+#include "render/shader.hpp"
+#include "render/texture.hpp"
 
 // Represents a single particle and its state
 struct Particle
@@ -51,5 +51,4 @@ private:
     Shader m_shader;
     Texture2D m_texture;
     GLuint m_vao;
-
 };

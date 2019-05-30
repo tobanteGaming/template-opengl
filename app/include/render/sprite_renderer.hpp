@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "shader.hpp"
-#include "texture.hpp"
+#include "render/shader.hpp"
+#include "render/texture.hpp"
 
 class SpriteRenderer
 {
@@ -26,5 +26,4 @@ private:
     // Render state
     Shader m_shader;
     GLuint m_quadVAO;
-
 };

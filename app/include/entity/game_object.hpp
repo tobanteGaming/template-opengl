@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "render/sprite_renderer.hpp"
-#include "texture.hpp"
+#include "render/texture.hpp"
 
 // Initial size of the player paddle
 const glm::vec2 PLAYER_SIZE(150, 30);
