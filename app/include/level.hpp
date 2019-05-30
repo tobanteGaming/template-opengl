@@ -9,15 +9,15 @@
 #include "render/sprite_renderer.hpp"
 #include "resource_manager.hpp"
 
-/// GameLevel holds all Tiles as part of a Breakout level and
+/// Level holds all Tiles as part of a Breakout level and
 /// hosts functionality to Load/render levels from the harddisk.
-class GameLevel
+class Level
 {
 public:
     // Level state
     std::vector<Entity> Bricks;
     // Constructor
-    GameLevel() = default;
+    Level() = default;
     // Loads level from file
     void Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight);
     // Render level

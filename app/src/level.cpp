@@ -1,16 +1,16 @@
 #include <fstream>
 #include <sstream>
 
-#include "game_level.hpp"
+#include "level.hpp"
 #include "settings.hpp"
 
-void GameLevel::Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
+void Level::Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
 {
     // Clear old data
     Bricks.clear();
     // Load from file
     GLuint tileCode;
-    GameLevel level;
+    Level level;
     std::string line;
     std::string fullPath = std::string(rr::RESOURCE_PATH + file);
     std::ifstream fstream(fullPath.c_str());
@@ -29,20 +29,20 @@ void GameLevel::Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
     }
 }
 
-void GameLevel::Draw(SpriteRenderer& renderer)
+void Level::Draw(SpriteRenderer& renderer)
 {
     for (Entity& tile : Bricks)
         if (!tile.Destroyed) tile.Draw(renderer);
 }
 
-bool GameLevel::IsCompleted()
+bool Level::IsCompleted()
 {
     for (Entity& tile : Bricks)
         if (!tile.IsSolid && !tile.Destroyed) return GL_FALSE;
     return GL_TRUE;
 }
 
-void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight)
+void Level::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight)
 {
     // Calculate dimensions
     GLuint height = static_cast<GLuint>(tileData.size());
@@ -63,7 +63,7 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidt
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
                 Entity obj(pos, size, ResourceManager::GetTexture("block_solid"),
-                               glm::vec3(0.8f, 0.8f, 0.7f));
+                           glm::vec3(0.8f, 0.8f, 0.7f));
                 obj.IsSolid = GL_TRUE;
                 Bricks.push_back(obj);
             }

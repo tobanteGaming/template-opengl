@@ -40,10 +40,10 @@ void Game::Init()
     m_particles = std::make_unique<ParticleGenerator>(ResourceManager::GetShader("particle"),
                                                       ResourceManager::GetTexture("particle"), 500);
     // Load levels
-    GameLevel one;
-    GameLevel two;
-    GameLevel three;
-    GameLevel four;
+    Level one;
+    Level two;
+    Level three;
+    Level four;
     one.Load(R"(levels\001.lvl)", m_width, static_cast<GLuint>(m_height * 0.5f));
     two.Load(R"(levels\002.lvl)", m_width, static_cast<GLuint>(m_height * 0.5f));
     three.Load(R"(levels\003.lvl)", m_width, static_cast<GLuint>(m_height * 0.5f));
