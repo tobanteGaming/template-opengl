@@ -1,6 +1,6 @@
 #include "entity/game_object.hpp"
 
-GameObject::GameObject()
+Entity::Entity()
     : Position(0, 0)
     , Size(1, 1)
     , Velocity(0.0f)
@@ -12,7 +12,7 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color,
+Entity::Entity(glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec3 color,
                        glm::vec2 velocity)
     : Position(pos)
     , Size(size)
@@ -25,7 +25,7 @@ GameObject::GameObject(glm::vec2 pos, glm::vec2 size, Texture2D sprite, glm::vec
 {
 }
 
-void GameObject::Draw(SpriteRenderer& renderer)
+void Entity::Draw(SpriteRenderer& renderer)
 {
     renderer.DrawSprite(Sprite, Position, Size, Rotation, Color);
 }

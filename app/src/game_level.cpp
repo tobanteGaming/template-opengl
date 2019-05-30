@@ -31,13 +31,13 @@ void GameLevel::Load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
 
 void GameLevel::Draw(SpriteRenderer& renderer)
 {
-    for (GameObject& tile : Bricks)
+    for (Entity& tile : Bricks)
         if (!tile.Destroyed) tile.Draw(renderer);
 }
 
 bool GameLevel::IsCompleted()
 {
-    for (GameObject& tile : Bricks)
+    for (Entity& tile : Bricks)
         if (!tile.IsSolid && !tile.Destroyed) return GL_FALSE;
     return GL_TRUE;
 }
@@ -62,7 +62,7 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidt
             {
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                GameObject obj(pos, size, ResourceManager::GetTexture("block_solid"),
+                Entity obj(pos, size, ResourceManager::GetTexture("block_solid"),
                                glm::vec3(0.8f, 0.8f, 0.7f));
                 obj.IsSolid = GL_TRUE;
                 Bricks.push_back(obj);
@@ -82,7 +82,7 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidt
 
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                Bricks.push_back(GameObject(pos, size, ResourceManager::GetTexture("block"), color));
+                Bricks.push_back(Entity(pos, size, ResourceManager::GetTexture("block"), color));
             }
         }
     }

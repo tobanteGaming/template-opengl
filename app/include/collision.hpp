@@ -21,8 +21,8 @@ enum Direction
 // <collision?, what direction?, difference vector center - closest point>
 using Collision = std::tuple<bool, Direction, glm::vec2>;
 
-bool CheckCollision(GameObject& one, GameObject& two);
-Collision CheckCollision(BallObject& one, GameObject& two);
+bool CheckCollision(Entity& one, Entity& two);
+Collision CheckCollision(Ball& one, Entity& two);
 
 // Calculates which direction a vector is facing (N,E,S or W)
 Direction VectorDirection(glm::vec2 target);

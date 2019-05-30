@@ -1,6 +1,6 @@
 #include "collision.hpp"
 
-bool CheckCollision(GameObject& one, GameObject& two)  // AABB - AABB collision
+bool CheckCollision(Entity& one, Entity& two)  // AABB - AABB collision
 {
     // Collision x-axis?
     bool collisionX = one.Position.x + one.Size.x >= two.Position.x
@@ -12,7 +12,7 @@ bool CheckCollision(GameObject& one, GameObject& two)  // AABB - AABB collision
     return collisionX && collisionY;
 }
 
-Collision CheckCollision(BallObject& one, GameObject& two)  // AABB - Circle collision
+Collision CheckCollision(Ball& one, Entity& two)  // AABB - Circle collision
 {
     // Get center point circle first
     glm::vec2 center(one.Position + one.Radius);

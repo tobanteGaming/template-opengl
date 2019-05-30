@@ -58,11 +58,11 @@ void Game::Init()
     // Configure game objects
     glm::vec2 playerPos = glm::vec2(m_width / 2 - PLAYER_SIZE.x / 2, m_height - PLAYER_SIZE.y);
     m_player
-        = std::make_unique<GameObject>(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
+        = std::make_unique<Entity>(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"));
 
     // m_ball
     glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
-    m_ball            = std::make_unique<BallObject>(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
+    m_ball            = std::make_unique<Ball>(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY,
                                           ResourceManager::GetTexture("smiley2"));
 }
 
@@ -153,7 +153,7 @@ void Game::ResetPlayer()
 
 void Game::DoCollisions()
 {
-    for (GameObject& box : m_levels[m_current_level].Bricks)
+    for (Entity& box : m_levels[m_current_level].Bricks)
     {
         if (!box.Destroyed)
         {

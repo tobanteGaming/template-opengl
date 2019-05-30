@@ -76,7 +76,7 @@ private:
 
     // Game-related State data
     std::unique_ptr<SpriteRenderer> m_renderer;
-    std::unique_ptr<GameObject> m_player;
-    std::unique_ptr<BallObject> m_ball;
+    std::unique_ptr<Entity> m_player;
+    std::unique_ptr<Ball> m_ball;
     std::unique_ptr<ParticleGenerator> m_particles;
 };

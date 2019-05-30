@@ -13,19 +13,19 @@ const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
 // const GLfloat BALL_RADIUS = 12.5f;
 const GLfloat BALL_RADIUS = 25.0f;
 
-// BallObject holds the state of the Ball object inheriting
-// relevant state data from GameObject. Contains some extra
+// Ball holds the state of the Ball object inheriting
+// relevant state data from Entity. Contains some extra
 // functionality specific to Breakout's ball object that
-// were too specific for within GameObject alone.
-class BallObject : public GameObject
+// were too specific for within Entity alone.
+class Ball : public Entity
 {
 public:
     // Ball state
     GLfloat Radius;
     bool Stuck;
     // Constructor(s)
-    BallObject();
-    BallObject(glm::vec2 pos, GLfloat radius, glm::vec2 velocity, Texture2D sprite);
+    Ball();
+    Ball(glm::vec2 pos, GLfloat radius, glm::vec2 velocity, Texture2D sprite);
     // Moves the ball, keeping it constrained within the window bounds (except bottom edge); returns
     // new position
     glm::vec2 Move(GLfloat dt, GLuint window_width);
