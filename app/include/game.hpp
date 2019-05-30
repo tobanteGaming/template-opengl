@@ -8,8 +8,8 @@
 #include <GLFW/glfw3.h>
 
 #include "collision.hpp"
-#include "entity/ball_object.hpp"
-#include "entity/game_object.hpp"
+#include "entity/ball.hpp"
+#include "entity/entity.hpp"
 #include "game_level.hpp"
 #include "render/particle_generator.hpp"
 #include "render/sprite_renderer.hpp"

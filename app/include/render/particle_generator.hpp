@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "entity/game_object.hpp"
+#include "entity/entity.hpp"
 #include "render/shader.hpp"
 #include "render/texture.hpp"
 

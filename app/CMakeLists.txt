@@ -3,8 +3,8 @@ project(template-opengl-demo)
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/collision.cpp
-    src/entity/ball_object.cpp
-    src/entity/game_object.cpp
+    src/entity/ball.cpp
+    src/entity/entity.cpp
     src/game.cpp
     src/game_level.cpp
     src/render/particle_generator.cpp

@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "entity/game_object.hpp"
+#include "entity/entity.hpp"
 #include "render/sprite_renderer.hpp"
 #include "render/texture.hpp"
 

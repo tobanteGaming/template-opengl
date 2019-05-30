@@ -1,4 +1,4 @@
-#include "entity/ball_object.hpp"
+#include "entity/ball.hpp"
 
 Ball::Ball() : Entity(), Radius(12.5f), Stuck(true) {}
 

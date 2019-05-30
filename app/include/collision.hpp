@@ -5,8 +5,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "entity/ball_object.hpp"
-#include "entity/game_object.hpp"
+#include "entity/ball.hpp"
+#include "entity/entity.hpp"
 
 // Represents the four possible (collision) directions
 enum Direction
