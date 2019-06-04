@@ -10,7 +10,6 @@
 #include "collision.hpp"
 #include "entity/ball.hpp"
 #include "entity/entity.hpp"
-#include "level.hpp"
 #include "render/particle_generator.hpp"
 #include "render/sprite_renderer.hpp"
 
@@ -69,10 +68,6 @@ private:
      */
     GameState m_state;
     GLuint m_width, m_height;
-
-    // Level
-    std::vector<Level> m_levels;
-    GLuint m_current_level;
 
     // Game-related State data
     std::unique_ptr<SpriteRenderer> m_renderer;

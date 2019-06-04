@@ -6,7 +6,6 @@ set(LIB_SOURCES
     src/entity/ball.cpp
     src/entity/entity.cpp
     src/game.cpp
-    src/level.cpp
     src/render/particle_generator.cpp
     src/render/sprite_renderer.cpp
     src/render/shader.cpp

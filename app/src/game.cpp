@@ -11,45 +11,39 @@ Game::Game(GLuint width, GLuint height)
 
 void Game::Init()
 {
+    using RM = ResourceManager;
+
     // Load shaders
-    ResourceManager::LoadShader(R"(shaders\sprite_vs.glsl)", R"(shaders\sprite_fs.glsl)", nullptr,
-                                "sprite");
-    ResourceManager::LoadShader(R"(shaders\particle_vs.glsl)", R"(shaders\particle_fs.glsl)", nullptr,
-                                "particle");
+    RM::LoadShader(R"(shaders\sprite_vs.glsl)", R"(shaders\sprite_fs.glsl)", nullptr, "sprite");
+    RM::LoadShader(R"(shaders\particle_vs.glsl)", R"(shaders\particle_fs.glsl)", nullptr, "particle");
+
     // Configure shaders
     const auto f_width  = static_cast<float>(m_width);
     const auto f_height = static_cast<float>(m_height);
     auto projection     = glm::ortho(0.0f, f_width, f_height, 0.0f, -1.0f, 1.0f);
-    ResourceManager::GetShader("sprite").Use().SetInteger("sprite", 0);
-    ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
-    ResourceManager::GetShader("particle").Use().SetInteger("sprite", 0);
-    ResourceManager::GetShader("particle").SetMatrix4("projection", projection);
+    RM::GetShader("sprite").Use().SetInteger("sprite", 0);
+    RM::GetShader("sprite").SetMatrix4("projection", projection);
+    RM::GetShader("particle").Use().SetInteger("sprite", 0);
+    RM::GetShader("particle").SetMatrix4("projection", projection);
 
     // Load textures
-    ResourceManager::LoadTexture(R"(texture\background.jpg)", GL_FALSE, "background");
-    ResourceManager::LoadTexture(R"(texture\awesomeface.png)", GL_TRUE, "face");
-    ResourceManager::LoadTexture(R"(texture\smiley.png)", GL_TRUE, "smiley");
-    ResourceManager::LoadTexture(R"(texture\smiley2.png)", GL_TRUE, "smiley2");
-    ResourceManager::LoadTexture(R"(texture\block.png)", GL_TRUE, "block");
-    ResourceManager::LoadTexture(R"(texture\block_solid.png)", GL_TRUE, "block_solid");
-    ResourceManager::LoadTexture(R"(texture\paddle.png)", GL_TRUE, "paddle");
-    ResourceManager::LoadTexture(R"(texture\particle.png)", GL_TRUE, "particle");
+    RM::LoadTexture(R"(texture\background.jpg)", GL_FALSE, "background");
+    RM::LoadTexture(R"(texture\awesomeface.png)", GL_TRUE, "face");
+    RM::LoadTexture(R"(texture\smiley.png)", GL_TRUE, "smiley");
+    RM::LoadTexture(R"(texture\smiley2.png)", GL_TRUE, "smiley2");
+    RM::LoadTexture(R"(texture\block.png)", GL_TRUE, "block");
+    RM::LoadTexture(R"(texture\block_solid.png)", GL_TRUE, "block_solid");
+    RM::LoadTexture(R"(texture\paddle.png)", GL_TRUE, "paddle");
+    RM::LoadTexture(R"(texture\particle.png)", GL_TRUE, "particle");
 
     // Set render-specific controls
-    m_renderer  = std::make_unique<SpriteRenderer>(ResourceManager::GetShader("sprite"));
-    m_particles = std::make_unique<ParticleGenerator>(ResourceManager::GetShader("particle"),
-                                                      ResourceManager::GetTexture("particle"), 500);
-    // Load levels
-    Level one;
-    one.Load(R"(levels\001.lvl)", m_width, static_cast<GLuint>(m_height * 0.5f));
-    m_levels.push_back(one);
-    m_current_level = 0;
+    m_renderer  = std::make_unique<SpriteRenderer>(RM::GetShader("sprite"));
+    m_particles = std::make_unique<ParticleGenerator>(RM::GetShader("particle"),
+                                                      RM::GetTexture("particle"), 500);
 
     // Configure game objects
-    glm::vec2 playerPos = glm::vec2(m_width / 2 - PLAYER_SIZE.x / 2, m_height - PLAYER_SIZE.y);
-    glm::vec2 ballPos   = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
-    m_player
-        = std::make_unique<Entity>(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("smiley2"));
+    const auto playerPos = glm::vec2(m_width / 2 - PLAYER_SIZE.x / 2, m_height - PLAYER_SIZE.y);
+    m_player = std::make_unique<Entity>(playerPos, PLAYER_SIZE, RM::GetTexture("smiley2"));
 }
 
 void Game::Update(GLfloat dt)
@@ -101,11 +95,7 @@ void Game::Render()
     }
 }
 
-void Game::ResetLevel()
-{
-    const auto height = static_cast<GLuint>(m_height * 0.5f);
-    if (m_current_level == 0) { m_levels[0].Load("levels/001.lvl", m_width, height); }
-}
+void Game::ResetLevel() {}
 
 void Game::ResetPlayer()
 {
