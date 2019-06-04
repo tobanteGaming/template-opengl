@@ -11,13 +11,20 @@ void key_callback_func(GLFWwindow* window, int key, int scancode, int action,
     // When a user presses the escape key, we set the WindowShouldClose property
     // to true, closing the application
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
         glfwSetWindowShouldClose(window, GL_TRUE);
+    }
     if (key >= 0 && key < 1024)
     {
         if (action == GLFW_PRESS)
+        {
             Game::Keys[key] = GL_TRUE;
-        else if (action == GLFW_RELEASE)
+        }
+
+        if (action == GLFW_RELEASE)
+        {
             Game::Keys[key] = GL_FALSE;
+        }
     }
 }
 
