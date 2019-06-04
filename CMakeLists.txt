@@ -30,6 +30,6 @@ add_subdirectory(lib/glm)
 # soil
 add_subdirectory(lib/soil)
 
-add_subdirectory(app)
+add_subdirectory(tunnel)
 add_subdirectory(breakout)
 add_subdirectory(examples)

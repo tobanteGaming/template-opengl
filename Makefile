@@ -2,7 +2,7 @@
 default: all
 
 # Source
-SOURCE_DIR = app
+TUNNEL_DIR = tunnel
 BREAKOUT_DIR = breakout
 EXAMPLES_DIR = examples
 RESOURCE_DIR = resources
@@ -32,9 +32,9 @@ clean:
 	@rm -rf $(BUILD_DOC_DIR)
 
 stats:
-	@cloc $(SOURCE_DIR) $(BREAKOUT_DIR) cmake CMakeLists.txt $(RESOURCE_DIR)/shaders
+	@cloc $(TUNNEL_DIR) $(BREAKOUT_DIR) cmake CMakeLists.txt $(RESOURCE_DIR)/shaders
 
 format:
-	@find $(SOURCE_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
+	@find $(TUNNEL_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
 	@find $(BREAKOUT_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
 	@find $(EXAMPLES_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
