@@ -1,4 +1,4 @@
-project(app)
+project(breakout)
 
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
