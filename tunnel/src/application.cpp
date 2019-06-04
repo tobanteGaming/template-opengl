@@ -14,10 +14,10 @@ void key_callback_func(GLFWwindow* window, int key, int scancode, int action,
         glfwSetWindowShouldClose(window, GL_TRUE);
     if (key >= 0 && key < 1024)
     {
-        // if (action == GLFW_PRESS)
-        //     Breakout->Keys[key] = GL_TRUE;
-        // else if (action == GLFW_RELEASE)
-        //     Breakout->Keys[key] = GL_FALSE;
+        if (action == GLFW_PRESS)
+            Game::Keys[key] = GL_TRUE;
+        else if (action == GLFW_RELEASE)
+            Game::Keys[key] = GL_FALSE;
     }
 }
 
