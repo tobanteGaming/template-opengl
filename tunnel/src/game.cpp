@@ -4,7 +4,7 @@
 
 #include "resource_manager.hpp"
 
-std::array<bool, 1024> Game::Keys {};
+std::array<bool, 1024> Game::Keys{};
 
 Game::Game(GLuint width, GLuint height)
     : m_state(GAME_ACTIVE), m_width(width), m_height(height)
@@ -102,6 +102,24 @@ void Game::Render()
         auto bg_texture = ResourceManager::GetTexture("background");
         m_renderer->DrawSprite(bg_texture, glm::vec2(0, 0),
                                glm::vec2(m_width, m_height), 0.0f);
+        // glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        // glClear(GL_COLOR_BUFFER_BIT);
+
+        // Draw triangle
+        glUseProgram(NULL);
+        glLoadIdentity();  // load identity matrix
+
+        // glTranslatef(0.0f, 0.0f, -4.0f);  // move forward 4 units
+        glColor3f(0.0f, 1.0f, 1.0f);  // blue color
+
+        glLineWidth(10.0f);
+        glBegin(GL_LINES);  // starts drawing of points
+        glVertex3f(-0.6f, 1.0f, 0.0f);
+        glVertex3f(-0.5f, -1.0f, 0.0f);
+
+        glVertex3f(0.6f, 1.0f, 0.0f);
+        glVertex3f(0.5f, -1.0f, 0.0f);
+        glEnd();  // end drawing of points
 
         // Draw player
         m_player->Draw(*m_renderer);

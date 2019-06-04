@@ -71,6 +71,8 @@ void Application::Init()
     glViewport(0, 0, mode->width, mode->height);
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
+    glEnable(GL_LINE_SMOOTH);
+    glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Initialize game
