@@ -27,5 +27,6 @@ public:
 
 private:
     // Initialize level from tile data
-    void init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight);
+    void init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth,
+              GLuint levelHeight);
 };

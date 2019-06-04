@@ -14,7 +14,7 @@ struct Particle
 {
     glm::vec2 Position, Velocity;
     glm::vec4 Color;
-    GLfloat Life{0.0f};
+    GLfloat Life {0.0f};
 
     Particle() : Position(0.0f), Velocity(0.0f), Color(1.0f) {}
 };
@@ -36,8 +36,8 @@ public:
 private:
     // Initializes buffer and vertex attributes
     void init();
-    // Returns the first Particle index that's currently unused e.g. Life <= 0.0f or 0 if no particle
-    // is currently inactive
+    // Returns the first Particle index that's currently unused e.g. Life <=
+    // 0.0f or 0 if no particle is currently inactive
     GLuint firstUnusedParticle();
     // Respawns particle
     void respawnParticle(Particle& particle, Entity& object,

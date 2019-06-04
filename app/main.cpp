@@ -10,7 +10,8 @@
 #include "util.hpp"
 
 // GLFW function declerations
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void key_callback(GLFWwindow* window, int key, int scancode, int action,
+                  int mode);
 
 std::unique_ptr<Game> Breakout;
 
@@ -26,8 +27,10 @@ int main(int argc, char* argv[])
     glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height, rr::GAME_NAME, monitor, NULL);
-    // GLFWwindow* window = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT,
+    GLFWwindow* window = glfwCreateWindow(mode->width, mode->height,
+                                          rr::GAME_NAME, monitor, NULL);
+    // GLFWwindow* window = glfwCreateWindow(rr::DEFAULT_SCREEN_WIDTH,
+    // rr::DEFAULT_SCREEN_HEIGHT,
     //                                       rr::GAME_NAME, nullptr, nullptr);
 
     glfwMakeContextCurrent(window);
@@ -38,10 +41,11 @@ int main(int argc, char* argv[])
                    // now from our application.
 
     glfwSetKeyCallback(window, key_callback);
-    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
-        ignoreUnused(window);
-        glViewport(0, 0, width, height);
-    });
+    glfwSetFramebufferSizeCallback(
+        window, [](GLFWwindow* window, int width, int height) {
+            ignoreUnused(window);
+            glViewport(0, 0, width, height);
+        });
 
     // OpenGL configuration
     glViewport(0, 0, mode->width, mode->height);
@@ -52,7 +56,8 @@ int main(int argc, char* argv[])
 
     // Initialize game
     Breakout = std::make_unique<Game>(mode->width, mode->height);
-    // Breakout = std::make_unique<Game>(rr::DEFAULT_SCREEN_WIDTH, rr::DEFAULT_SCREEN_HEIGHT);
+    // Breakout = std::make_unique<Game>(rr::DEFAULT_SCREEN_WIDTH,
+    // rr::DEFAULT_SCREEN_HEIGHT);
     Breakout->Init();
 
     // DeltaTime variables
@@ -89,14 +94,16 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+void key_callback(GLFWwindow* window, int key, int scancode, int action,
+                  int mode)
 {
     ignoreUnused(mode);
     ignoreUnused(scancode);
 
     // When a user presses the escape key, we set the WindowShouldClose property
     // to true, closing the application
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE);
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
     if (key >= 0 && key < 1024)
     {
         if (action == GLFW_PRESS)

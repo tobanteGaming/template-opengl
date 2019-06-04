@@ -30,7 +30,8 @@ public:
      * fragment (and geometry) shader's source code. If gShaderFile is not
      * nullptr, it also loads a geometry shader.
      */
-    static Shader LoadShader(const GLchar* vShaderFile, const GLchar* fShaderFile,
+    static Shader LoadShader(const GLchar* vShaderFile,
+                             const GLchar* fShaderFile,
                              const GLchar* gShaderFile, std::string name);
 
     /**
@@ -41,7 +42,8 @@ public:
     /**
      * @brief Loads (and generates) a texture from file.
      */
-    static Texture2D LoadTexture(const GLchar* file, GLboolean alpha, std::string name);
+    static Texture2D LoadTexture(const GLchar* file, GLboolean alpha,
+                                 std::string name);
 
     /**
      * @brief Retrieves a stored texture.
@@ -57,7 +59,8 @@ private:
     /**
      * @brief  Loads and generates a shader from file.
      */
-    static Shader loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile,
+    static Shader loadShaderFromFile(const GLchar* vShaderFile,
+                                     const GLchar* fShaderFile,
                                      const GLchar* gShaderFile = nullptr);
 
     /**

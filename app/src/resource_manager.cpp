@@ -11,26 +11,32 @@
 std::map<std::string, Texture2D> ResourceManager::Textures;
 std::map<std::string, Shader> ResourceManager::Shaders;
 
-Shader ResourceManager::LoadShader(const GLchar* vShaderFile, const GLchar* fShaderFile,
+Shader ResourceManager::LoadShader(const GLchar* vShaderFile,
+                                   const GLchar* fShaderFile,
                                    const GLchar* gShaderFile, std::string name)
 {
     std::string v_fullPath = std::string(rr::RESOURCE_PATH + vShaderFile);
     std::string f_fullPath = std::string(rr::RESOURCE_PATH + fShaderFile);
 
-    Shaders[name] = loadShaderFromFile(v_fullPath.c_str(), f_fullPath.c_str(), gShaderFile);
+    Shaders[name] = loadShaderFromFile(v_fullPath.c_str(), f_fullPath.c_str(),
+                                       gShaderFile);
     return Shaders[name];
 }
 
 Shader ResourceManager::GetShader(std::string name) { return Shaders[name]; }
 
-Texture2D ResourceManager::LoadTexture(const GLchar* file, GLboolean alpha, std::string name)
+Texture2D ResourceManager::LoadTexture(const GLchar* file, GLboolean alpha,
+                                       std::string name)
 {
     std::string fullPath = std::string(rr::RESOURCE_PATH + file);
     Textures[name]       = loadTextureFromFile(fullPath.c_str(), alpha);
     return Textures[name];
 }
 
-Texture2D ResourceManager::GetTexture(std::string name) { return Textures[name]; }
+Texture2D ResourceManager::GetTexture(std::string name)
+{
+    return Textures[name];
+}
 
 void ResourceManager::Clear()
 {
@@ -40,7 +46,8 @@ void ResourceManager::Clear()
     for (auto iter : Textures) glDeleteTextures(1, &iter.second.ID);
 }
 
-Shader ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile,
+Shader ResourceManager::loadShaderFromFile(const GLchar* vShaderFile,
+                                           const GLchar* fShaderFile,
                                            const GLchar* gShaderFile)
 {
     // 1. Retrieve the vertex/fragment source code from filePath
@@ -81,11 +88,13 @@ Shader ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLch
     const GLchar* gShaderCode = geometryCode.c_str();
     // 2. Now create shader object from source code
     Shader shader;
-    shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
+    shader.Compile(vShaderCode, fShaderCode,
+                   gShaderFile != nullptr ? gShaderCode : nullptr);
     return shader;
 }
 
-Texture2D ResourceManager::loadTextureFromFile(const GLchar* file, GLboolean alpha)
+Texture2D ResourceManager::loadTextureFromFile(const GLchar* file,
+                                               GLboolean alpha)
 {
     // Create Texture object
     Texture2D texture;
@@ -97,7 +106,8 @@ Texture2D ResourceManager::loadTextureFromFile(const GLchar* file, GLboolean alp
     // Load image
     int width, height;
     unsigned char* image = SOIL_load_image(
-        file, &width, &height, 0, texture.Image_Format == GL_RGBA ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+        file, &width, &height, 0,
+        texture.Image_Format == GL_RGBA ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
     // Now generate texture
     texture.Generate(width, height, image);
     // And finally free image data

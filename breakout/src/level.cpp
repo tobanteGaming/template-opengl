@@ -42,7 +42,8 @@ bool Level::IsCompleted()
     return GL_TRUE;
 }
 
-void Level::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, GLuint levelHeight)
+void Level::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth,
+                 GLuint levelHeight)
 {
     // Calculate dimensions
     GLuint height = static_cast<GLuint>(tileData.size());
@@ -62,7 +63,8 @@ void Level::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, G
             {
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                Entity obj(pos, size, ResourceManager::GetTexture("block_solid"),
+                Entity obj(pos, size,
+                           ResourceManager::GetTexture("block_solid"),
                            glm::vec3(0.8f, 0.8f, 0.7f));
                 obj.IsSolid = GL_TRUE;
                 Bricks.push_back(obj);
@@ -82,7 +84,8 @@ void Level::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidth, G
 
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                Bricks.push_back(Entity(pos, size, ResourceManager::GetTexture("block"), color));
+                Bricks.push_back(Entity(
+                    pos, size, ResourceManager::GetTexture("block"), color));
             }
         }
     }

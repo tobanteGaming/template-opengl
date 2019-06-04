@@ -22,7 +22,8 @@ int main()
     // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     // WINDOW
-    auto* window = glfwCreateWindow(WIDTH, HEIGHT, "Example: Getting Started", nullptr, nullptr);
+    auto* window = glfwCreateWindow(WIDTH, HEIGHT, "Example: Getting Started",
+                                    nullptr, nullptr);
     if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -37,13 +38,16 @@ int main()
 
     // CALLBACKS
     // KEYS
-    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode,
+                                  int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
             glfwSetWindowShouldClose(window, GLFW_TRUE);
     });
     // RESIZE
     glfwSetFramebufferSizeCallback(
-        window, [](GLFWwindow* window, int width, int height) { glViewport(0, 0, width, height); });
+        window, [](GLFWwindow* window, int width, int height) {
+            glViewport(0, 0, width, height);
+        });
 
     // SHADER DEBUG
     int success;
@@ -58,7 +62,8 @@ int main()
     if (!success)
     {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+                  << infoLog << std::endl;
     }
 
     // FRAGMENT SHADER
@@ -70,7 +75,8 @@ int main()
     if (!success)
     {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
+                  << infoLog << std::endl;
     }
 
     // PROGRAM
@@ -113,9 +119,11 @@ int main()
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices,
+                 GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
+                          (void*)0);
     glEnableVertexAttribArray(0);
 
     // note that this is allowed, the call to glVertexAttribPointer registered
@@ -151,7 +159,7 @@ int main()
         // Animate color
         const float timeValue  = static_cast<float>(glfwGetTime());
         const float greenValue = sin(timeValue) / 2.0f + 0.5f;
-        const int vColorLoc    = glGetUniformLocation(shaderProgram, "ourColor");
+        const int vColorLoc = glGetUniformLocation(shaderProgram, "ourColor");
         glUniform4f(vColorLoc, 0.0f, greenValue, 0.0f, 1.0f);
 
         glBindVertexArray(VAO);
