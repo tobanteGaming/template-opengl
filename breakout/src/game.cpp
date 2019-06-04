@@ -106,7 +106,10 @@ void Game::ProcessInput(GLfloat dt)
             if (m_player->Position.x >= 0)
             {
                 m_player->Position.x -= velocity;
-                if (m_ball->Stuck) { m_ball->Position.x -= velocity; }
+                if (m_ball->Stuck)
+                {
+                    m_ball->Position.x -= velocity;
+                }
             }
         }
         if (Keys[GLFW_KEY_D] || Keys[GLFW_KEY_RIGHT])
@@ -114,10 +117,16 @@ void Game::ProcessInput(GLfloat dt)
             if (m_player->Position.x <= m_width - m_player->Size.x)
             {
                 m_player->Position.x += velocity;
-                if (m_ball->Stuck) { m_ball->Position.x += velocity; }
+                if (m_ball->Stuck)
+                {
+                    m_ball->Position.x += velocity;
+                }
             }
         }
-        if (Keys[GLFW_KEY_SPACE]) { m_ball->Stuck = false; }
+        if (Keys[GLFW_KEY_SPACE])
+        {
+            m_ball->Stuck = false;
+        }
         if (Keys[GLFW_KEY_ENTER])
         {
             ResetLevel();
@@ -149,13 +158,21 @@ void Game::ResetLevel()
 {
     const auto height = static_cast<GLuint>(m_height * 0.5f);
     if (m_current_level == 0)
-    { m_levels[0].Load("levels/001.lvl", m_width, height); }
+    {
+        m_levels[0].Load("levels/001.lvl", m_width, height);
+    }
     if (m_current_level == 1)
-    { m_levels[1].Load("levels/002.lvl", m_width, height); }
+    {
+        m_levels[1].Load("levels/002.lvl", m_width, height);
+    }
     if (m_current_level == 2)
-    { m_levels[2].Load("levels/003.lvl", m_width, height); }
+    {
+        m_levels[2].Load("levels/003.lvl", m_width, height);
+    }
     if (m_current_level == 3)
-    { m_levels[3].Load("levels/004.lvl", m_width, height); }
+    {
+        m_levels[3].Load("levels/004.lvl", m_width, height);
+    }
 }
 
 void Game::ResetPlayer()
@@ -181,7 +198,10 @@ void Game::DoCollisions()
             if (std::get<0>(collision))  // If collision is true
             {
                 // Destroy block if not solid
-                if (!box.IsSolid) { box.Destroyed = GL_TRUE; }
+                if (!box.IsSolid)
+                {
+                    box.Destroyed = GL_TRUE;
+                }
                 // Collision resolution
                 Direction dir         = std::get<1>(collision);
                 glm::vec2 diff_vector = std::get<2>(collision);

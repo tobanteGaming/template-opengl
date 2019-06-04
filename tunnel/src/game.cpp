@@ -4,7 +4,7 @@
 
 #include "resource_manager.hpp"
 
-std::array<bool, 1024> Game::Keys{};
+std::array<bool, 1024> Game::Keys {};
 
 Game::Game(GLuint width, GLuint height)
     : m_state(GAME_ACTIVE), m_width(width), m_height(height)
@@ -74,13 +74,22 @@ void Game::ProcessInput(GLfloat dt)
         // Move playerboard
         if (Keys[GLFW_KEY_A] || Keys[GLFW_KEY_LEFT])
         {
-            if (m_player->Position.x >= 0) { m_player->Position.x -= velocity; }
+            if (m_player->Position.x >= 0)
+            {
+                m_player->Position.x -= velocity;
+            }
         }
         if (Keys[GLFW_KEY_D] || Keys[GLFW_KEY_RIGHT])
         {
             if (m_player->Position.x <= m_width - m_player->Size.x)
-            { m_player->Position.x += velocity; } }
-        if (Keys[GLFW_KEY_ENTER]) { ResetPlayer(); }
+            {
+                m_player->Position.x += velocity;
+            }
+        }
+        if (Keys[GLFW_KEY_ENTER])
+        {
+            ResetPlayer();
+        }
         // if (Keys[GLFW_KEY_SPACE]) { m_ball->Stuck = false; }
     }
 }

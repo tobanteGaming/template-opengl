@@ -33,7 +33,10 @@ int main()
     glfwMakeContextCurrent(window);
 
     // GLEW
-    if (glewInit() != GLEW_OK) { std::cout << "Error in glew init" << '\n'; }
+    if (glewInit() != GLEW_OK)
+    {
+        std::cout << "Error in glew init" << '\n';
+    }
     std::cout << glGetString(GL_VERSION) << '\n';
 
     // CALLBACKS

@@ -34,7 +34,10 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // GLEW
-    if (glewInit() != GLEW_OK) { std::cout << "Error in glew init" << '\n'; }
+    if (glewInit() != GLEW_OK)
+    {
+        std::cout << "Error in glew init" << '\n';
+    }
     std::cout << glGetString(GL_VERSION) << '\n';
 
     // build and compile our shader zprogram
