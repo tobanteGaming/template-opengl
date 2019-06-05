@@ -17,10 +17,8 @@ Shader ResourceManager::LoadShader(const GLchar* vShaderFile,
                                    const GLchar* fShaderFile,
                                    const GLchar* gShaderFile, std::string name)
 {
-    std::string v_fullPath
-        = std::string(tobanteGaming::RESOURCE_PATH + vShaderFile);
-    std::string f_fullPath
-        = std::string(tobanteGaming::RESOURCE_PATH + fShaderFile);
+    std::string v_fullPath = std::string(RESOURCE_PATH + vShaderFile);
+    std::string f_fullPath = std::string(RESOURCE_PATH + fShaderFile);
 
     Shaders[name] = loadShaderFromFile(v_fullPath.c_str(), f_fullPath.c_str(),
                                        gShaderFile);
@@ -32,7 +30,7 @@ Shader ResourceManager::GetShader(std::string name) { return Shaders[name]; }
 Texture2D ResourceManager::LoadTexture(const GLchar* file, GLboolean alpha,
                                        std::string name)
 {
-    std::string fullPath = std::string(tobanteGaming::RESOURCE_PATH + file);
+    std::string fullPath = std::string(RESOURCE_PATH + file);
     Textures[name]       = loadTextureFromFile(fullPath.c_str(), alpha);
     return Textures[name];
 }

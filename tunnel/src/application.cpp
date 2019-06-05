@@ -2,11 +2,12 @@
 #include "resource_manager.hpp"
 #include "warning.hpp"
 
-void key_callback_func(GLFWwindow* window, int key, int scancode, int action,
-                       int mode)
+void key_callback(GLFWwindow* window, int key, int scancode, int action,
+                  int mode)
 {
-    tobanteGaming::ignoreUnused(mode);
-    tobanteGaming::ignoreUnused(scancode);
+    namespace tg = tobanteGaming;
+    tg::ignoreUnused(mode);
+    tg::ignoreUnused(scancode);
 
     // When a user presses the escape key, we set the WindowShouldClose property
     // to true, closing the application
@@ -18,12 +19,12 @@ void key_callback_func(GLFWwindow* window, int key, int scancode, int action,
     {
         if (action == GLFW_PRESS)
         {
-            tobanteGaming::Game::Keys[key] = GL_TRUE;
+            tg::Game::Keys[key] = GL_TRUE;
         }
 
         if (action == GLFW_RELEASE)
         {
-            tobanteGaming::Game::Keys[key] = GL_FALSE;
+            tg::Game::Keys[key] = GL_FALSE;
         }
     }
 }
@@ -35,7 +36,7 @@ Application::Application(std::string name) : m_name(name) {}
 Application::~Application()
 {
     // Delete all resources as loaded using the resource manager
-    tobanteGaming::ResourceManager::Clear();
+    ResourceManager::Clear();
 
     glfwTerminate();
 }
@@ -60,10 +61,10 @@ void Application::Init()
     glGetError();  // Call it once to catch glewInit() bug, all other errors are
                    // now from our application.
 
-    glfwSetKeyCallback(m_window, key_callback_func);
+    glfwSetKeyCallback(m_window, key_callback);
     glfwSetFramebufferSizeCallback(
         m_window, [](GLFWwindow* window, int width, int height) {
-            tobanteGaming::ignoreUnused(window);
+            ignoreUnused(window);
             glViewport(0, 0, width, height);
         });
 

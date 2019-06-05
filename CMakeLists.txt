@@ -31,5 +31,5 @@ add_subdirectory(lib/glm)
 add_subdirectory(lib/soil)
 
 add_subdirectory(tunnel)
-add_subdirectory(breakout)
+# add_subdirectory(breakout)
 add_subdirectory(examples)

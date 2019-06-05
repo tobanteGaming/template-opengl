@@ -24,6 +24,6 @@ private:
     std::string m_name;
     GLFWwindow* m_window;
 
-    std::unique_ptr<tobanteGaming::Game> Breakout;
+    std::unique_ptr<Game> Breakout;
 };
 }  // namespace tobanteGaming

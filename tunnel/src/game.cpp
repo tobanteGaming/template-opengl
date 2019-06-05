@@ -5,10 +5,10 @@
 
 #include "resource_manager.hpp"
 
-std::array<bool, 1024> tobanteGaming::Game::Keys{};
-
 namespace tobanteGaming
 {
+std::array<bool, 1024> Game::Keys{};
+
 Game::Game(GLuint width, GLuint height)
     : m_state(GAME_ACTIVE), m_width(width), m_height(height)
 {
@@ -16,7 +16,7 @@ Game::Game(GLuint width, GLuint height)
 
 void Game::Init()
 {
-    using RM = tobanteGaming::ResourceManager;
+    using RM = ResourceManager;
 
     // Load shaders
     RM::LoadShader(R"(shaders\sprite_vs.glsl)", R"(shaders\sprite_fs.glsl)",
@@ -51,8 +51,8 @@ void Game::Init()
     // Configure game objects
     const auto playerPos
         = glm::vec2(m_width / 2 - PLAYER_SIZE.x / 2, m_height - PLAYER_SIZE.y);
-    m_player.reset(new tobanteGaming::Entity(playerPos, PLAYER_SIZE,
-                                             RM::GetTexture("smiley2")));
+    m_player.reset(
+        new Entity(playerPos, PLAYER_SIZE, RM::GetTexture("smiley2")));
 
     // WALL
     std::random_device rd;
@@ -70,13 +70,13 @@ void Game::Init()
         rightWallX += dist(e2);
 
         // LEFT
-        auto l_wall = std::make_unique<tobanteGaming::Entity>(
+        auto l_wall = std::make_unique<Entity>(
             glm::vec2(leftWallX, i * wallHeight),
             glm::vec2(wallWidth, wallHeight), RM::GetTexture("block"));
         m_wall_left.push_back(std::move(l_wall));
 
         // RIGHT
-        auto r_wall = std::make_unique<tobanteGaming::Entity>(
+        auto r_wall = std::make_unique<Entity>(
             glm::vec2(rightWallX, i * wallHeight),
             glm::vec2(wallWidth, wallHeight), RM::GetTexture("block"));
         m_wall_left.push_back(std::move(r_wall));
@@ -130,8 +130,7 @@ void Game::Render()
     if (m_state == GAME_ACTIVE)
     {
         // Draw background
-        auto bg_texture
-            = tobanteGaming::ResourceManager::GetTexture("background");
+        auto bg_texture = ResourceManager::GetTexture("background");
         m_renderer->DrawSprite(bg_texture, glm::vec2(0, 0),
                                glm::vec2(m_width, m_height), 0.0f);
 
