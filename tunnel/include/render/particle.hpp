@@ -14,7 +14,7 @@ struct Particle
 {
     glm::vec2 Position, Velocity;
     glm::vec4 Color;
-    GLfloat Life{0.0f};
+    GLfloat Life {0.0f};
 
     Particle() : Position(0.0f), Velocity(0.0f), Color(1.0f) {}
 };

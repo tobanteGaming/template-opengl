@@ -7,7 +7,7 @@
 
 namespace tobanteGaming
 {
-std::array<bool, 1024> Game::Keys{};
+std::array<bool, 1024> Game::Keys {};
 
 Game::Game(GLuint width, GLuint height)
     : m_state(GAME_ACTIVE), m_width(width), m_height(height)
