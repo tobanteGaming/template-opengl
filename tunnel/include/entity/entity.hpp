@@ -6,6 +6,8 @@
 #include "render/sprite.hpp"
 #include "render/texture.hpp"
 
+namespace tobanteGaming
+{
 // Initial size of the player paddle
 const glm::vec2 PLAYER_SIZE(75, 75);
 // Initial velocity of the player paddle
@@ -35,3 +37,5 @@ public:
     // Render state
     Texture2D Sprite;
 };
+
+}  // namespace tobanteGaming

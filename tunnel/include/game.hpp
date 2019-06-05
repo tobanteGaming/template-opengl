@@ -71,9 +71,9 @@ private:
 
     // Game-related State data
     std::unique_ptr<SpriteRenderer> m_renderer;
-    std::unique_ptr<Entity> m_player;
+    std::unique_ptr<tobanteGaming::Entity> m_player;
     std::unique_ptr<ParticleGenerator> m_particles;
-    using Wall = std::vector<std::unique_ptr<Entity>>;
+    using Wall = std::vector<std::unique_ptr<tobanteGaming::Entity>>;
     Wall m_wall_left;
     Wall m_wall_right;
 };

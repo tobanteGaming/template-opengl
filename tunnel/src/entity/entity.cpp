@@ -1,5 +1,7 @@
 #include "entity/entity.hpp"
 
+namespace tobanteGaming
+{
 Entity::Entity()
     : Position(0, 0)
     , Size(1, 1)
@@ -29,3 +31,5 @@ void Entity::Draw(SpriteRenderer& renderer)
 {
     renderer.DrawSprite(Sprite, Position, Size, Rotation, Color);
 }
+
+}  // namespace tobanteGaming

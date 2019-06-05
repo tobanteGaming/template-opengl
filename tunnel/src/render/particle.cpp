@@ -7,8 +7,8 @@ ParticleGenerator::ParticleGenerator(Shader shader, Texture2D texture,
     init();
 }
 
-void ParticleGenerator::Update(GLfloat dt, Entity& object, GLuint newParticles,
-                               glm::vec2 offset)
+void ParticleGenerator::Update(GLfloat dt, tobanteGaming::Entity& object,
+                               GLuint newParticles, glm::vec2 offset)
 {
     // Add new particles
     for (GLuint i = 0; i < newParticles; ++i)
@@ -106,7 +106,8 @@ GLuint ParticleGenerator::firstUnusedParticle()
     return 0;
 }
 
-void ParticleGenerator::respawnParticle(Particle& particle, Entity& object,
+void ParticleGenerator::respawnParticle(Particle& particle,
+                                        tobanteGaming::Entity& object,
                                         glm::vec2 offset)
 {
     GLfloat random    = ((rand() % 100) - 50) / 10.0f;

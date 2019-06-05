@@ -51,8 +51,8 @@ void Game::Init()
     // Configure game objects
     const auto playerPos
         = glm::vec2(m_width / 2 - PLAYER_SIZE.x / 2, m_height - PLAYER_SIZE.y);
-    m_player.reset(
-        new Entity(playerPos, PLAYER_SIZE, RM::GetTexture("smiley2")));
+    m_player.reset(new tobanteGaming::Entity(playerPos, PLAYER_SIZE,
+                                             RM::GetTexture("smiley2")));
 
     // WALL
     std::random_device rd;
@@ -70,13 +70,13 @@ void Game::Init()
         rightWallX += dist(e2);
 
         // LEFT
-        auto l_wall = std::make_unique<Entity>(
+        auto l_wall = std::make_unique<tobanteGaming::Entity>(
             glm::vec2(leftWallX, i * wallHeight),
             glm::vec2(wallWidth, wallHeight), RM::GetTexture("block"));
         m_wall_left.push_back(std::move(l_wall));
 
         // RIGHT
-        auto r_wall = std::make_unique<Entity>(
+        auto r_wall = std::make_unique<tobanteGaming::Entity>(
             glm::vec2(rightWallX, i * wallHeight),
             glm::vec2(wallWidth, wallHeight), RM::GetTexture("block"));
         m_wall_left.push_back(std::move(r_wall));
