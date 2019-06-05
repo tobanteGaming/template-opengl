@@ -7,7 +7,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "model_loader.hpp"
 #include "raw_model.hpp"
+#include "renderer.hpp"
 
 namespace tobanteGaming
 {
