@@ -1,6 +1,5 @@
 #include "application.hpp"
 #include "resource_manager.hpp"
-#include "shader_source.hpp"
 #include "warning.hpp"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action,
@@ -34,7 +33,11 @@ namespace tobanteGaming
 {
 Application::Application(std::string name) : m_name(name) {}
 
-Application::~Application() { glfwTerminate(); }
+Application::~Application()
+{
+    ResourceManager::Clear();
+    glfwTerminate();
+}
 
 void Application::Init()
 {
@@ -76,6 +79,7 @@ void Application::Run()
     // Load shaders
     ResourceManager::LoadShader(R"(3d\shader\vertex.glsl)",
                                 R"(3d\shader\fragment.glsl)", nullptr, "main");
+    ResourceManager::LoadTexture(R"(texture\awesomeface.png)", GL_TRUE, "face");
 
     // m_shaderProgram.reset(new Shader(VERTEX_SHADER_SRC,
     // FRAGMENT_SHADER_SRC));
@@ -117,13 +121,12 @@ void Application::Run()
         glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        ResourceManager::GetShader("main").Use();
-        // m_shaderProgram->Activate();
-        const float timeValue  = static_cast<float>(glfwGetTime());
-        const float greenValue = sin(timeValue) / 2.0f + 0.5f;
-
+        ResourceManager::GetShader("main").Activate();
+        
+		glActiveTexture(GL_TEXTURE0);
+        ResourceManager::GetTexture("face").Bind();
         Renderer::Draw(model);
-        //m_shaderProgram->Deactivate();
+        ResourceManager::GetShader("main").Deactivate();
 
         glfwSwapBuffers(m_window);
     }

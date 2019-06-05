@@ -6,7 +6,6 @@
 
 #include "resource_manager.hpp"
 #include "settings.hpp"
-#include "shader_source.hpp"
 
 namespace tobanteGaming
 {
@@ -121,13 +120,16 @@ Texture2D ResourceManager::loadTextureFromFile(const GLchar* file,
     // Load image
     int width, height, nrChannels;
     unsigned char* data  = stbi_load(file, &width, &height, &nrChannels, 0);
-    //unsigned char* image = SOIL_load_image(
-    //    file, &width, &height, 0,
-    //    texture.Image_Format == GL_RGBA ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+    if (data == nullptr)
+    {
+        std::cout << "ERROR::TEXTURE: Failed to read texture file" << std::endl;
+    }
     // Now generate texture
     texture.Generate(width, height, data);
-    // And finally free image data
-    //SOIL_free_image_data(image);
+
+	// And finally free image data
+    stbi_image_free(data);
+
     return texture;
 }
 

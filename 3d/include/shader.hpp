@@ -22,7 +22,12 @@ public:
     /**
      * @brief Sets the current shader as active.
      */
-    Shader& Use();
+    Shader& Activate();
+
+	/**
+     * @brief Deactivates the current shader.
+     */
+    void Deactivate();
 
     /**
      * @brief Compiles the shader from given source code. Geometry source code
