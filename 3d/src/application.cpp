@@ -1,4 +1,5 @@
 #include "application.hpp"
+#include "resource_manager.hpp"
 #include "shader_source.hpp"
 #include "warning.hpp"
 
@@ -68,11 +69,18 @@ void Application::Init()
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    m_shaderProgram.reset(new Shader(VERTEX_SHADER_SRC, FRAGMENT_SHADER_SRC));
-    m_loader.reset(new ModelLoader());
+
 }
 void Application::Run()
 {
+    // Load shaders
+    ResourceManager::LoadShader(R"(3d\shader\vertex.glsl)",
+                                R"(3d\shader\fragment.glsl)", nullptr, "main");
+
+    // m_shaderProgram.reset(new Shader(VERTEX_SHADER_SRC,
+    // FRAGMENT_SHADER_SRC));
+    m_loader.reset(new ModelLoader());
+
     // DeltaTime variables
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
@@ -93,11 +101,13 @@ void Application::Run()
 
     while (!glfwWindowShouldClose(m_window))
     {
+        // Events
+        glfwPollEvents();
+
         // Calculate delta time
         GLfloat currentFrame = static_cast<GLfloat>(glfwGetTime());
         deltaTime            = currentFrame - lastFrame;
         lastFrame            = currentFrame;
-        glfwPollEvents();
 
         // Manage user input
 
@@ -107,12 +117,13 @@ void Application::Run()
         glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        m_shaderProgram->use();
+        ResourceManager::GetShader("main").Use();
+        // m_shaderProgram->Activate();
         const float timeValue  = static_cast<float>(glfwGetTime());
         const float greenValue = sin(timeValue) / 2.0f + 0.5f;
-        m_shaderProgram->setFloat4("ourColor", greenValue);
 
         Renderer::Draw(model);
+        //m_shaderProgram->Deactivate();
 
         glfwSwapBuffers(m_window);
     }
