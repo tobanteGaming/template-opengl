@@ -24,12 +24,14 @@ public:
         }
     }
 
-    RawModel loadToVertexArray(std::vector<GLfloat> positions)
+    RawModel loadToVertexArray(const std::vector<GLfloat>& positions,
+                               const std::vector<GLuint>& indices)
     {
         auto vao = createVertexArray();
+        bindIndicesBuffer(indices);
         storeDataInAttributeList(0, positions);
         unbindVertexArray();
-        return RawModel(vao, positions.size());
+        return RawModel(vao, indices.size());
     }
 
 private:
@@ -43,7 +45,7 @@ private:
     }
 
     void storeDataInAttributeList(int attributeNumber,
-                                  std::vector<GLfloat> data)
+                                  const std::vector<GLfloat>& data)
     {
         /* Allocate and assign two Vertex Buffer Objects to our handle */
         GLuint vboID;
@@ -58,6 +60,17 @@ private:
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         // glEnableVertexAttribArray(attributeNumber);
     }
+
+    void bindIndicesBuffer(const std::vector<GLuint>& indices)
+    {
+        GLuint vboID;
+        glGenBuffers(1, &vboID);
+        m_vbos.push_back(vboID);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
+                     &indices[0], GL_STATIC_DRAW);
+    }
+
     void unbindVertexArray() { glBindVertexArray(0); }
 
 private:

@@ -79,18 +79,18 @@ void Application::Run()
     GLfloat lastFrame = 0.0f;
 
     std::vector<GLfloat> vertices = {
-        // Left bottom triangle
-        -0.5f, 0.5f, 0.0f,   //
-        -0.5f, -0.5f, 0.0f,  //
-        0.5f, -0.5f, 0.0f,   //
-
-        // Right top triangle
-        0.5f, -0.5f, 0.0f,  //
-        0.5f, 0.5f, 0.0f,   //
-        -0.5f, 0.5f, 0.0f   //
+        -0.5f, 0.5f,  0.0f,  // v0
+        -0.5f, -0.5f, 0.0f,  // v1
+        0.5f,  -0.5f, 0.0f,  // v2
+        0.5f,  0.5f,  0.0f,  // v3
     };
 
-    auto model = m_loader.loadToVertexArray(vertices);
+    std::vector<GLuint> indices = {
+        0, 1, 3,  // top left triangle (v0, v1, v3)
+        3, 1, 2   // bottom right triangle (v3, v1, v2)
+    };
+
+    auto model = m_loader.loadToVertexArray(vertices, indices);
 
     while (!glfwWindowShouldClose(m_window))
     {
