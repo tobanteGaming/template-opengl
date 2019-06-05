@@ -62,6 +62,7 @@ int main()
 
     Shader ourShader(VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
     tobanteGaming::Shape shape{};
+    tobanteGaming::Cube cube{};
 
     // Initialize Loader
     objl::Loader Loader;
@@ -211,7 +212,8 @@ int main()
         ourShader.setMatrix4("MVP", mvp);
 
         // Draw triangle
-        shape.render();
+        // shape.render();
+        cube.render();
 
         // Check and call events and swap the buffers
         glfwSwapBuffers(window);

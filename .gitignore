@@ -7,6 +7,7 @@
 # Build
 build
 build-*
+e1Out.txt
 
 # MacOS
 .DS_Store
