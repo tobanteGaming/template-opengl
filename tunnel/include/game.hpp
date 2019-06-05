@@ -7,8 +7,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "collision.hpp"
-#include "entity/ball.hpp"
 #include "entity/entity.hpp"
 #include "render/particle_generator.hpp"
 #include "render/sprite_renderer.hpp"

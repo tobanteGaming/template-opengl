@@ -3,8 +3,6 @@ project(tunnel)
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/application.cpp
-    src/collision.cpp
-    src/entity/ball.cpp
     src/entity/entity.cpp
     src/game.cpp
     src/render/particle_generator.cpp
