@@ -8,7 +8,6 @@
 #include <GLFW/glfw3.h>
 
 #include "entity/entity.hpp"
-#include "render/particle.hpp"
 #include "render/sprite.hpp"
 
 /**
@@ -72,7 +71,6 @@ private:
     // Game-related State data
     std::unique_ptr<SpriteRenderer> m_renderer;
     std::unique_ptr<Entity> m_player;
-    std::unique_ptr<ParticleGenerator> m_particles;
     using Wall = std::vector<std::unique_ptr<Entity>>;
     Wall m_wall_left;
     Wall m_wall_right;

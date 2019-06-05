@@ -5,7 +5,6 @@ set(LIB_SOURCES
     src/application.cpp
     src/entity/entity.cpp
     src/game.cpp
-    src/render/particle.cpp
     src/render/sprite.cpp
     src/render/shader.cpp
     src/render/texture.cpp

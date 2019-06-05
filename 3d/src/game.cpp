@@ -7,7 +7,7 @@
 
 namespace tobanteGaming
 {
-std::array<bool, 1024> Game::Keys {};
+std::array<bool, 1024> Game::Keys{};
 
 Game::Game(GLuint width, GLuint height)
     : m_state(GAME_ACTIVE), m_width(width), m_height(height)
@@ -19,10 +19,8 @@ void Game::Init()
     using RM = ResourceManager;
 
     // Load shaders
-    RM::LoadShader(R"(shaders\sprite_vs.glsl)", R"(shaders\sprite_fs.glsl)",
+    RM::LoadShader(R"(3d\shader\main_vs.glsl)", R"(3d\shader\main_fs.glsl)",
                    nullptr, "sprite");
-    RM::LoadShader(R"(shaders\particle_vs.glsl)", R"(shaders\particle_fs.glsl)",
-                   nullptr, "particle");
 
     // Configure shaders
     const auto f_width  = static_cast<float>(m_width);
@@ -30,8 +28,6 @@ void Game::Init()
     auto projection = glm::ortho(0.0f, f_width, f_height, 0.0f, -1.0f, 1.0f);
     RM::GetShader("sprite").Use().SetInteger("sprite", 0);
     RM::GetShader("sprite").SetMatrix4("projection", projection);
-    RM::GetShader("particle").Use().SetInteger("sprite", 0);
-    RM::GetShader("particle").SetMatrix4("projection", projection);
 
     // Load textures
     RM::LoadTexture(R"(texture\background.jpg)", GL_FALSE, "background");
@@ -41,12 +37,9 @@ void Game::Init()
     RM::LoadTexture(R"(texture\block.png)", GL_TRUE, "block");
     RM::LoadTexture(R"(texture\block_solid.png)", GL_TRUE, "block_solid");
     RM::LoadTexture(R"(texture\paddle.png)", GL_TRUE, "paddle");
-    RM::LoadTexture(R"(texture\particle.png)", GL_TRUE, "particle");
 
     // Set render-specific controls
     m_renderer.reset(new SpriteRenderer(RM::GetShader("sprite")));
-    m_particles.reset(new ParticleGenerator(RM::GetShader("particle"),
-                                            RM::GetTexture("particle"), 500));
 
     // Configure game objects
     const auto playerPos
@@ -87,9 +80,6 @@ void Game::Update(GLfloat dt)
 {
     // Update objects
     // m_ball->Move(dt, m_width);
-
-    // Update particles
-    m_particles->Update(dt, *m_player, 2, glm::vec2(100 / 2));
 
     // Check loss condition
     // Check for collisions
@@ -142,9 +132,6 @@ void Game::Render()
 
         // Draw player
         m_player->Draw(*m_renderer);
-
-        // Draw particles
-        m_particles->Draw();
     }
 }
 
