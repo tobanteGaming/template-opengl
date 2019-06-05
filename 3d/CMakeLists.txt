@@ -2,13 +2,7 @@ project(3d)
 
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
-    src/application.cpp
-    src/entity/entity.cpp
-    src/game.cpp
-    src/render/sprite.cpp
-    src/render/shader.cpp
-    src/render/texture.cpp
-    src/resource_manager.cpp
+    src/shader.cpp
 )
 
 add_library(${PROJECT_LIBRARY} STATIC ${LIB_SOURCES} )
@@ -17,7 +11,7 @@ add_library(tobanteGaming::3D ALIAS ${PROJECT_LIBRARY})
 target_include_directories( ${PROJECT_LIBRARY} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_compile_definitions(${PROJECT_LIBRARY} PUBLIC GLEW_STATIC=1)
 target_compile_features(${PROJECT_LIBRARY} PUBLIC cxx_std_17)
-target_link_libraries(${PROJECT_LIBRARY} PRIVATE
+target_link_libraries(${PROJECT_LIBRARY} PUBLIC
                     glfw
                     ${GLFW_LIBRARIES}
                     libglew_static
@@ -37,8 +31,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include
 target_link_libraries(${PROJECT_NAME}
                     tobanteGaming::3D
                     tobanteGaming::CompilerWarnings
-                    glfw
-                    ${GLFW_LIBRARIES}
-                    libglew_static
-                    glm
 )
