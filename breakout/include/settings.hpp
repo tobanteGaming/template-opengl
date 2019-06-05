@@ -24,6 +24,6 @@ constexpr char* GAME_NAME = "RemisenRun v0.1.0";
  * @brief Path to resource folder (texture, shader & level).
  */
 const std::string RESOURCE_PATH
-    = R"(C:\Dev\tobanteGaming\tests\template-opengl\resources\)";
+    = R"(C:\Dev\tobanteGaming\projects\template-opengl\resources\)";
 
 }  // namespace rr

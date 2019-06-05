@@ -107,7 +107,7 @@ int main()
     // The FileSystem::getPath(...) is part of the GitHub repository so we can
     // find files on any IDE/platform; replace it with your own image path.
     unsigned char* data = stbi_load(
-        R"(C:\Dev\tobanteGaming\tests\template-opengl\resources\texture\container.jpg)",
+        R"(C:\Dev\tobanteGaming\projects\template-opengl\resources\texture\container.jpg)",
         &width, &height, &nrChannels, 0);
     if (data)
     {
