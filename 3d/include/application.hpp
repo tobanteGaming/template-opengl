@@ -7,6 +7,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "raw_model.hpp"
+
 namespace tobanteGaming
 {
 class Application
@@ -21,5 +23,7 @@ public:
 private:
     std::string m_name;
     GLFWwindow* m_window;
+
+    tobanteGaming::ModelLoader m_loader;
 };
 }  // namespace tobanteGaming

@@ -30,7 +30,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action,
 
 namespace tobanteGaming
 {
-Application::Application(std::string name) : m_name(name) {}
+Application::Application(std::string name) : m_name(name)
+{
+    // m_loader.reset(new tobanteGaming::ModelLoader());
+}
 
 Application::~Application() { glfwTerminate(); }
 
@@ -75,6 +78,20 @@ void Application::Run()
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
 
+    std::vector<GLfloat> vertices = {
+        // Left bottom triangle
+        -0.5f, 0.5f, 0.0f,   //
+        -0.5f, -0.5f, 0.0f,  //
+        0.5f, -0.5f, 0.0f,   //
+
+        // Right top triangle
+        0.5f, -0.5f, 0.0f,  //
+        0.5f, 0.5f, 0.0f,   //
+        -0.5f, 0.5f, 0.0f   //
+    };
+
+    auto model = m_loader.loadToVertexArray(vertices);
+
     while (!glfwWindowShouldClose(m_window))
     {
         // Calculate delta time
@@ -88,8 +105,10 @@ void Application::Run()
         // Update Game state
 
         // Render
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        Renderer::Draw(model);
 
         glfwSwapBuffers(m_window);
     }
