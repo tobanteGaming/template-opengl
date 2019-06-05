@@ -1,12 +1,12 @@
 #include "application.hpp"
 #include "resource_manager.hpp"
-#include "util.hpp"
+#include "warning.hpp"
 
 void key_callback_func(GLFWwindow* window, int key, int scancode, int action,
                        int mode)
 {
-    ignoreUnused(mode);
-    ignoreUnused(scancode);
+    tobanteGaming::ignoreUnused(mode);
+    tobanteGaming::ignoreUnused(scancode);
 
     // When a user presses the escape key, we set the WindowShouldClose property
     // to true, closing the application
@@ -63,7 +63,7 @@ void Application::Init()
     glfwSetKeyCallback(m_window, key_callback_func);
     glfwSetFramebufferSizeCallback(
         m_window, [](GLFWwindow* window, int width, int height) {
-            ignoreUnused(window);
+            tobanteGaming::ignoreUnused(window);
             glViewport(0, 0, width, height);
         });
 

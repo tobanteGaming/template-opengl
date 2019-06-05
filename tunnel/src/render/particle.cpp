@@ -1,4 +1,4 @@
-#include "render/particle_generator.hpp"
+#include "render/particle.hpp"
 
 ParticleGenerator::ParticleGenerator(Shader shader, Texture2D texture,
                                      GLuint amount)

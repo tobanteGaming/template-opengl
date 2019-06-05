@@ -2,14 +2,16 @@
 #include <memory>
 
 #include "application.hpp"
-#include "util.hpp"
+#include "warning.hpp"
 
 int main(int argc, char* argv[])
 {
-    ignoreUnused(argc);
-    ignoreUnused(argv);
+    namespace tg = tobanteGaming;
 
-    auto app = std::make_unique<tobanteGaming::Application>("Test");
+    tg::ignoreUnused(argc);
+    tg::ignoreUnused(argv);
+
+    auto app = std::make_unique<tg::Application>("Test");
     app->Init();
     app->Run();
     return EXIT_SUCCESS;

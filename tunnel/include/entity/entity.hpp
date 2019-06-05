@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
-#include "render/sprite_renderer.hpp"
+#include "render/sprite.hpp"
 #include "render/texture.hpp"
 
 // Initial size of the player paddle

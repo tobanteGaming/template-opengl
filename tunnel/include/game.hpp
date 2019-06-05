@@ -8,8 +8,8 @@
 #include <GLFW/glfw3.h>
 
 #include "entity/entity.hpp"
-#include "render/particle_generator.hpp"
-#include "render/sprite_renderer.hpp"
+#include "render/particle.hpp"
+#include "render/sprite.hpp"
 
 /**
  * @brief Represents the current state of the game.

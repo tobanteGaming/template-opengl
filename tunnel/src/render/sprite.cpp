@@ -1,4 +1,4 @@
-#include "render/sprite_renderer.hpp"
+#include "render/sprite.hpp"
 
 SpriteRenderer::SpriteRenderer(Shader& s) : m_shader(s) { initRenderData(); }
 
