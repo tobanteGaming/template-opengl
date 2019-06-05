@@ -4,6 +4,7 @@
 #include <string>
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 /**
  * @brief Represents an OpenGL program (vertex & fragment shader)
@@ -47,6 +48,11 @@ public:
      * @brief Sets a uniform float vector4
      */
     void setFloat4(const std::string& name, float value) const;
+
+    /**
+     * @brief Sets a uniform float glm::mat4
+     */
+    void setMatrix4(const std::string& name, glm::mat4 value) const;
 
 private:
     void checkCompileErrors(unsigned int shader_id, std::string type);

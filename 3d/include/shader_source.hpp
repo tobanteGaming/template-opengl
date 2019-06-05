@@ -2,32 +2,35 @@
 
 // BASIC
 constexpr char* VERTEX_SHADER_SOURCE = R"(
-    #version 330 core
-    
-    layout (location = 0) in vec3 aPos;
+    #version 430 core
 
-    void main()
-    {
-        gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+    layout (location = 0) in vec3 vertexPosition_modelspace;
+
+    // Values that stay constant for the whole mesh.
+    uniform mat4 MVP;
+
+    void main(){
+        // Output position of the vertex, in clip space : MVP * position
+        gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
     }
 )";
 
 constexpr char* FRAGMENT_SHADER_SOURCE = R"(
-    #version 330 core
+    #version 430 core
 
     out vec4 FragColor;
 
-    uniform vec4 ourColor; 
+    uniform vec4 ourColor;
 
     void main()
     {
         FragColor = ourColor;
-    } 
+    }
 )";
 
 // TEXTURE
 constexpr char* TEXTURE_VERTEX_SHADER_SOURCE = R"(
-    #version 330 core
+    #version 430 core
 
     layout (location = 0) in vec3 aPos;
     layout (location = 1) in vec3 aColor;
@@ -45,8 +48,8 @@ constexpr char* TEXTURE_VERTEX_SHADER_SOURCE = R"(
 )";
 
 constexpr char* TEXTURE_FRAGMENT_SHADER_SOURCE = R"(
-    #version 330 core
-    
+    #version 430 core
+
     out vec4 FragColor;
 
     in vec3 ourColor;
@@ -60,5 +63,5 @@ constexpr char* TEXTURE_FRAGMENT_SHADER_SOURCE = R"(
     {
         // linearly interpolate between both textures (80% container, 20% awesomeface)
         FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
-    } 
+    }
 )";
