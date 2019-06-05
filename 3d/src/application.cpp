@@ -1,4 +1,5 @@
 #include "application.hpp"
+#include "shader_source.hpp"
 #include "warning.hpp"
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action,
@@ -30,10 +31,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action,
 
 namespace tobanteGaming
 {
-Application::Application(std::string name) : m_name(name)
-{
-    // m_loader.reset(new tobanteGaming::ModelLoader());
-}
+Application::Application(std::string name) : m_name(name) {}
 
 Application::~Application() { glfwTerminate(); }
 
@@ -47,9 +45,7 @@ void Application::Init()
     glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-    m_window = glfwCreateWindow(mode->width, mode->height, m_name.c_str(),
-                                monitor, NULL);
-
+    m_window = glfwCreateWindow(1280, 720, m_name.c_str(), nullptr, nullptr);
     glfwMakeContextCurrent(m_window);
 
     glewExperimental = GL_TRUE;
@@ -65,12 +61,15 @@ void Application::Init()
         });
 
     // OpenGL configuration
-    glViewport(0, 0, mode->width, mode->height);
+    glViewport(0, 0, 1280, 720);
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glEnable(GL_LINE_SMOOTH);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    m_shaderProgram.reset(new Shader(VERTEX_SHADER_SRC, FRAGMENT_SHADER_SRC));
+    m_loader.reset(new ModelLoader());
 }
 void Application::Run()
 {
@@ -90,7 +89,7 @@ void Application::Run()
         3, 1, 2   // bottom right triangle (v3, v1, v2)
     };
 
-    auto model = m_loader.loadToVertexArray(vertices, indices);
+    auto model = m_loader->loadToVertexArray(vertices, indices);
 
     while (!glfwWindowShouldClose(m_window))
     {
@@ -107,6 +106,11 @@ void Application::Run()
         // Render
         glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        m_shaderProgram->use();
+        const float timeValue  = static_cast<float>(glfwGetTime());
+        const float greenValue = sin(timeValue) / 2.0f + 0.5f;
+        m_shaderProgram->setFloat4("ourColor", greenValue);
 
         Renderer::Draw(model);
 
