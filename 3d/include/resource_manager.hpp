@@ -5,8 +5,8 @@
 
 #include <GL/glew.h>
 
-#include "shader.hpp"
-#include "texture.hpp"
+#include "render/shader.hpp"
+#include "render/texture.hpp"
 
 namespace tobanteGaming
 {

@@ -3,11 +3,13 @@ project(3d)
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/application.cpp
+    src/entity/entity.cpp
+    src/game.cpp
+    src/render/particle.cpp
+    src/render/sprite.cpp
+    src/render/shader.cpp
+    src/render/texture.cpp
     src/resource_manager.cpp
-    src/shader.cpp
-    src/texture.cpp
-
-    src/3rd_party/stb_image.cpp
 )
 
 add_library(${PROJECT_LIBRARY} STATIC ${LIB_SOURCES} )
@@ -21,6 +23,7 @@ target_link_libraries(${PROJECT_LIBRARY} PRIVATE
                     ${GLFW_LIBRARIES}
                     libglew_static
                     glm
+                    tobanteGaming::Soil
                     tobanteGaming::CompilerWarnings
 )
 

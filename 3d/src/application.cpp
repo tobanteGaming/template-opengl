@@ -19,12 +19,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action,
     {
         if (action == GLFW_PRESS)
         {
-            // tg::Game::Keys[key] = GL_TRUE;
+            tg::Game::Keys[key] = GL_TRUE;
         }
 
         if (action == GLFW_RELEASE)
         {
-            // tg::Game::Keys[key] = GL_FALSE;
+            tg::Game::Keys[key] = GL_FALSE;
         }
     }
 }
@@ -35,7 +35,9 @@ Application::Application(std::string name) : m_name(name) {}
 
 Application::~Application()
 {
+    // Delete all resources as loaded using the resource manager
     ResourceManager::Clear();
+
     glfwTerminate();
 }
 
@@ -49,7 +51,9 @@ void Application::Init()
     glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
-    m_window = glfwCreateWindow(1280, 720, m_name.c_str(), nullptr, nullptr);
+    m_window = glfwCreateWindow(mode->width, mode->height, m_name.c_str(),
+                                monitor, NULL);
+
     glfwMakeContextCurrent(m_window);
 
     glewExperimental = GL_TRUE;
@@ -65,68 +69,42 @@ void Application::Init()
         });
 
     // OpenGL configuration
-    glViewport(0, 0, 1280, 720);
+    glViewport(0, 0, mode->width, mode->height);
     glEnable(GL_CULL_FACE);
     glEnable(GL_BLEND);
     glEnable(GL_LINE_SMOOTH);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
+    // Initialize game
+    Breakout = std::make_unique<Game>(mode->width, mode->height);
+    Breakout->Init();
 }
 void Application::Run()
 {
-    // Load shaders
-    ResourceManager::LoadShader(R"(3d\shader\vertex.glsl)",
-                                R"(3d\shader\fragment.glsl)", nullptr, "main");
-    ResourceManager::LoadTexture(R"(texture\awesomeface.png)", GL_TRUE, "face");
-
-    // m_shaderProgram.reset(new Shader(VERTEX_SHADER_SRC,
-    // FRAGMENT_SHADER_SRC));
-    m_loader.reset(new ModelLoader());
-
     // DeltaTime variables
     GLfloat deltaTime = 0.0f;
     GLfloat lastFrame = 0.0f;
 
-    std::vector<GLfloat> vertices = {
-        -0.5f, 0.5f,  0.0f,  // v0
-        -0.5f, -0.5f, 0.0f,  // v1
-        0.5f,  -0.5f, 0.0f,  // v2
-        0.5f,  0.5f,  0.0f,  // v3
-    };
-
-    std::vector<GLuint> indices = {
-        0, 1, 3,  // top left triangle (v0, v1, v3)
-        3, 1, 2   // bottom right triangle (v3, v1, v2)
-    };
-
-    auto model = m_loader->loadToVertexArray(vertices, indices);
-
     while (!glfwWindowShouldClose(m_window))
     {
-        // Events
-        glfwPollEvents();
-
         // Calculate delta time
         GLfloat currentFrame = static_cast<GLfloat>(glfwGetTime());
         deltaTime            = currentFrame - lastFrame;
         lastFrame            = currentFrame;
+        glfwPollEvents();
 
+        // deltaTime = 0.001f;
         // Manage user input
+        Breakout->ProcessInput(deltaTime);
 
         // Update Game state
+        Breakout->Update(deltaTime);
 
         // Render
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        ResourceManager::GetShader("main").Activate();
-        
-		glActiveTexture(GL_TEXTURE0);
-        ResourceManager::GetTexture("face").Bind();
-        Renderer::Draw(model);
-        ResourceManager::GetShader("main").Deactivate();
+        Breakout->Render();
 
         glfwSwapBuffers(m_window);
     }

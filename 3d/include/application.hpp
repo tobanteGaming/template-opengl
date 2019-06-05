@@ -7,10 +7,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "model_loader.hpp"
-#include "raw_model.hpp"
-#include "renderer.hpp"
-#include "shader.hpp"
+#include "game.hpp"
 
 namespace tobanteGaming
 {
@@ -27,7 +24,6 @@ private:
     std::string m_name;
     GLFWwindow* m_window;
 
-    std::unique_ptr<Shader> m_shaderProgram;
-    std::unique_ptr<ModelLoader> m_loader;
+    std::unique_ptr<Game> Breakout;
 };
 }  // namespace tobanteGaming

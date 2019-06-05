@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
     tg::ignoreUnused(argc);
     tg::ignoreUnused(argv);
 
-    auto app = std::make_unique<tg::Application>("3D Demo");
+    auto app = std::make_unique<tg::Application>("Test");
     app->Init();
     app->Run();
     return EXIT_SUCCESS;
