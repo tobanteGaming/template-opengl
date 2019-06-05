@@ -18,12 +18,12 @@ void key_callback_func(GLFWwindow* window, int key, int scancode, int action,
     {
         if (action == GLFW_PRESS)
         {
-            Game::Keys[key] = GL_TRUE;
+            tobanteGaming::Game::Keys[key] = GL_TRUE;
         }
 
         if (action == GLFW_RELEASE)
         {
-            Game::Keys[key] = GL_FALSE;
+            tobanteGaming::Game::Keys[key] = GL_FALSE;
         }
     }
 }

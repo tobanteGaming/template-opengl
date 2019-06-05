@@ -7,7 +7,7 @@
 #include "render/texture.hpp"
 
 // Initial size of the player paddle
-const glm::vec2 PLAYER_SIZE(100, 100);
+const glm::vec2 PLAYER_SIZE(75, 75);
 // Initial velocity of the player paddle
 const GLfloat PLAYER_VELOCITY(650.0f);
 

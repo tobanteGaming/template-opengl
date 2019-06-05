@@ -23,6 +23,8 @@ enum GameState
     GAME_WIN
 };
 
+namespace tobanteGaming
+{
 /**
  * @brief Game holds all game-related state and functionality.
  *
@@ -77,3 +79,5 @@ private:
     Wall m_wall_left;
     Wall m_wall_right;
 };
+
+}  // namespace tobanteGaming
