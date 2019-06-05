@@ -5,8 +5,8 @@ PROJECT_NUMBER         = 0.1.0
 # Main page and input dirs
 USE_MDFILE_AS_MAINPAGE = README.md
 INPUT                  = README.md \
-                        app \
-                        examples 
+                        docs \
+                        tunnel \
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.hpp *.h *.md
 RECURSIVE              = YES

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 #include "game.hpp"
 
@@ -50,6 +51,34 @@ void Game::Init()
         = glm::vec2(m_width / 2 - PLAYER_SIZE.x / 2, m_height - PLAYER_SIZE.y);
     m_player.reset(
         new Entity(playerPos, PLAYER_SIZE, RM::GetTexture("smiley2")));
+
+    // WALL
+    std::random_device rd;
+    std::mt19937 e2(rd());
+    std::uniform_real_distribution<> dist(-30, 30);
+    const int wallCount    = 15;
+    const float wallWidth  = 25.0;
+    const float wallHeight = m_height / wallCount;
+
+    float leftWallX  = 400.0f - wallWidth / 2;
+    float rightWallX = m_width - 400.0f - wallWidth / 2;
+    for (int i = 0; i < wallCount; i++)
+    {
+        leftWallX += dist(e2);
+        rightWallX += dist(e2);
+
+        // LEFT
+        auto l_wall = std::make_unique<Entity>(
+            glm::vec2(leftWallX, i * wallHeight),
+            glm::vec2(wallWidth, wallHeight), RM::GetTexture("block"));
+        m_wall_left.push_back(std::move(l_wall));
+
+        // RIGHT
+        auto r_wall = std::make_unique<Entity>(
+            glm::vec2(rightWallX, i * wallHeight),
+            glm::vec2(wallWidth, wallHeight), RM::GetTexture("block"));
+        m_wall_left.push_back(std::move(r_wall));
+    }
 }
 
 void Game::Update(GLfloat dt)
@@ -102,24 +131,12 @@ void Game::Render()
         auto bg_texture = ResourceManager::GetTexture("background");
         m_renderer->DrawSprite(bg_texture, glm::vec2(0, 0),
                                glm::vec2(m_width, m_height), 0.0f);
-        // glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        // glClear(GL_COLOR_BUFFER_BIT);
 
-        // Draw triangle
-        glUseProgram(NULL);
-        glLoadIdentity();  // load identity matrix
-
-        // glTranslatef(0.0f, 0.0f, -4.0f);  // move forward 4 units
-        glColor3f(0.0f, 1.0f, 1.0f);  // blue color
-
-        glLineWidth(10.0f);
-        glBegin(GL_LINES);  // starts drawing of points
-        glVertex3f(-0.6f, 1.0f, 0.0f);
-        glVertex3f(-0.5f, -1.0f, 0.0f);
-
-        glVertex3f(0.6f, 1.0f, 0.0f);
-        glVertex3f(0.5f, -1.0f, 0.0f);
-        glEnd();  // end drawing of points
+        // Wall
+        for (auto& section : m_wall_left)
+        {
+            section->Draw(*m_renderer);
+        }
 
         // Draw player
         m_player->Draw(*m_renderer);
