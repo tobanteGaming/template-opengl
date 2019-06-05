@@ -8,6 +8,8 @@
 #include "render/shader.hpp"
 #include "render/texture.hpp"
 
+namespace tobanteGaming
+{
 /**
  * @brief A static singleton ResourceManager class that hosts several functions
  * to load Textures and Shaders.
@@ -68,3 +70,4 @@ private:
      */
     static Texture2D loadTextureFromFile(const GLchar* file, GLboolean alpha);
 };
+}  // namespace tobanteGaming

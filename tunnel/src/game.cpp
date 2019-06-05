@@ -16,7 +16,7 @@ Game::Game(GLuint width, GLuint height)
 
 void Game::Init()
 {
-    using RM = ResourceManager;
+    using RM = tobanteGaming::ResourceManager;
 
     // Load shaders
     RM::LoadShader(R"(shaders\sprite_vs.glsl)", R"(shaders\sprite_fs.glsl)",
@@ -130,7 +130,8 @@ void Game::Render()
     if (m_state == GAME_ACTIVE)
     {
         // Draw background
-        auto bg_texture = ResourceManager::GetTexture("background");
+        auto bg_texture
+            = tobanteGaming::ResourceManager::GetTexture("background");
         m_renderer->DrawSprite(bg_texture, glm::vec2(0, 0),
                                glm::vec2(m_width, m_height), 0.0f);
 

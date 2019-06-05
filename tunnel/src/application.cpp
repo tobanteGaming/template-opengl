@@ -35,7 +35,7 @@ Application::Application(std::string name) : m_name(name) {}
 Application::~Application()
 {
     // Delete all resources as loaded using the resource manager
-    ResourceManager::Clear();
+    tobanteGaming::ResourceManager::Clear();
 
     glfwTerminate();
 }

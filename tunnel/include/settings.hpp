@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <string>
 
-namespace rr
+namespace tobanteGaming
 {
 /**
  * @brief Default screen width.
@@ -26,4 +26,4 @@ constexpr char* GAME_NAME = "RemisenRun v0.1.0";
 const std::string RESOURCE_PATH
     = R"(C:\Dev\tobanteGaming\tests\template-opengl\resources\)";
 
-}  // namespace rr
+}  // namespace tobanteGaming
