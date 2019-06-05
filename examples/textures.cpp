@@ -134,7 +134,7 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
     data = stbi_load(
-        R"(C:\Dev\tobanteGaming\tests\template-opengl\resources\texture\awesomeface.png)",
+        R"(C:\Dev\tobanteGaming\projects\template-opengl\resources\texture\awesomeface.png)",
         &width, &height, &nrChannels, 0);
     if (data)
     {

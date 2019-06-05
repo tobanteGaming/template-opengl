@@ -6,6 +6,8 @@ set(LIB_SOURCES
     src/resource_manager.cpp
     src/shader.cpp
     src/texture.cpp
+
+    src/3rd_party/stb_image.cpp
 )
 
 add_library(${PROJECT_LIBRARY} STATIC ${LIB_SOURCES} )
@@ -19,7 +21,6 @@ target_link_libraries(${PROJECT_LIBRARY} PRIVATE
                     ${GLFW_LIBRARIES}
                     libglew_static
                     glm
-                    tobanteGaming::Soil
                     tobanteGaming::CompilerWarnings
 )
 
