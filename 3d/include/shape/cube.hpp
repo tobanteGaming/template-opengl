@@ -103,7 +103,7 @@ public:
                      g_vertex_buffer_data, GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
-                              (void*)0);
+                              (void*)nullptr);
         glEnableVertexAttribArray(0);
 
         // note that this is allowed, the call to glVertexAttribPointer

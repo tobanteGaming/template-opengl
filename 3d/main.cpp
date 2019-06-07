@@ -50,8 +50,9 @@ int main()
                                   int action, int mods) {
         tobanteGaming::ignoreUnused(scancode);
         tobanteGaming::ignoreUnused(mods);
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, GLFW_TRUE);
+}
     });
     // RESIZE
     glfwSetFramebufferSizeCallback(
@@ -78,7 +79,7 @@ int main()
         std::ofstream file("e1Out.txt");
 
         // Go through each loaded mesh and out its contents
-        for (int i = 0; i < Loader.LoadedMeshes.size(); i++)
+        for (std::size_t i = 0; i < Loader.LoadedMeshes.size(); i++)
         {
             // Copy one of the loaded meshes to be our current mesh
             objl::Mesh curMesh = Loader.LoadedMeshes[i];
@@ -91,7 +92,7 @@ int main()
 
             // Go through each vertex and print its number,
             //  position, normal, and texture coordinate
-            for (int j = 0; j < curMesh.Vertices.size(); j++)
+            for (std::size_t j = 0; j < curMesh.Vertices.size(); j++)
             {
                 file << "V" << j << ": "
                      << "P(" << curMesh.Vertices[j].Position.X << ", "
@@ -109,7 +110,7 @@ int main()
 
             // Go through every 3rd index and print the
             //	triangle that these indices represent
-            for (int j = 0; j < curMesh.Indices.size(); j += 3)
+            for (std::size_t j = 0; j < curMesh.Indices.size(); j += 3)
             {
                 file << "T" << j / 3 << ": " << curMesh.Indices[j] << ", "
                      << curMesh.Indices[j + 1] << ", " << curMesh.Indices[j + 2]
@@ -164,7 +165,7 @@ int main()
     // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1
     // unit <-> 100 units
     glm::mat4 Projection = glm::perspective(
-        glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
+        glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 
     // Or, for an ortho camera :
     // glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f);
@@ -186,7 +187,7 @@ int main()
     double lastTime = glfwGetTime();
     int nbFrames    = 0;
     // MAIN LOOP
-    while (!glfwWindowShouldClose(window))
+    while (glfwWindowShouldClose(window) == 0)
     {
         // FPS
         // Measure speed
@@ -206,7 +207,7 @@ int main()
 
         // Triangle Color
         ourShader.use();
-        const float timeValue  = static_cast<float>(glfwGetTime());
+        const auto timeValue  = static_cast<float>(glfwGetTime());
         const float greenValue = sin(timeValue) / 2.0f + 0.5f;
         ourShader.setFloat4("ourColor", greenValue);
         ourShader.setMatrix4("MVP", mvp);

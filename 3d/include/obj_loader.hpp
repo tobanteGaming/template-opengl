@@ -349,7 +349,7 @@ inline std::string tail(const std::string& in)
     {
         return in.substr(tail_start, tail_end - tail_start + 1);
     }
-    else if (tail_start != std::string::npos)
+    if (tail_start != std::string::npos)
     {
         return in.substr(tail_start);
     }
@@ -582,16 +582,13 @@ public:
                 VertexTriangluation(iIndices, vVerts);
 
                 // Add Indices
-                for (int i = 0; i < int(iIndices.size()); i++)
+                for (unsigned int iIndice : iIndices)
                 {
-                    auto indnum
-                        = (unsigned int)((Vertices.size()) - vVerts.size())
-                          + iIndices[i];
+                    auto indnum = ((Vertices.size()) - vVerts.size()) + iIndice;
                     Indices.push_back(indnum);
 
-                    indnum = (unsigned int)((LoadedVertices.size())
-                                            - vVerts.size())
-                             + iIndices[i];
+                    indnum
+                        = ((LoadedVertices.size()) - vVerts.size()) + iIndice;
                     LoadedIndices.push_back(indnum);
                 }
             }
@@ -612,7 +609,12 @@ public:
                         tempMesh.MeshName = meshname + "_" + std::to_string(i);
 
                         for (auto& m : LoadedMeshes)
-                            if (m.MeshName == tempMesh.MeshName) continue;
+                        {
+                            if (m.MeshName == tempMesh.MeshName)
+                            {
+                                continue;
+                            }
+                        }
                         break;
                     }
 
@@ -684,11 +686,11 @@ public:
 
             // Find corresponding material name in loaded materials
             // when found copy material variables into mesh material
-            for (int j = 0; j < LoadedMaterials.size(); j++)
+            for (auto& LoadedMaterial : LoadedMaterials)
             {
-                if (LoadedMaterials[j].name == matname)
+                if (LoadedMaterial.name == matname)
                 {
-                    LoadedMeshes[i].MeshMaterial = LoadedMaterials[j];
+                    LoadedMeshes[i].MeshMaterial = LoadedMaterial;
                     break;
                 }
             }
@@ -699,10 +701,8 @@ public:
         {
             return false;
         }
-        else
-        {
-            return true;
-        }
+
+        return true;
     }
 
     // Loaded Mesh Objects
@@ -723,19 +723,20 @@ private:
                                const std::vector<Vector3>& iNormals,
                                std::string icurline)
     {
-        std::vector<std::string> sface, svert;
+        std::vector<std::string> sface;
+        std::vector<std::string> svert;
         Vertex vVert;
         algorithm::split(algorithm::tail(icurline), sface, " ");
 
         bool noNormal = false;
 
         // For every given vertex do this
-        for (int i = 0; i < int(sface.size()); i++)
+        for (const auto& i : sface)
         {
             // See What type the vertex is.
             int vtype;
 
-            algorithm::split(sface[i], svert, "/");
+            algorithm::split(i, svert, "/");
 
             // Check for just position - v1
             if (svert.size() == 1)
@@ -755,7 +756,7 @@ private:
             // or if Position and Normal - v1//vn1
             if (svert.size() == 3)
             {
-                if (svert[1] != "")
+                if (!svert[1].empty())
                 {
                     // Position, Texture, and Normal
                     vtype = 4;
@@ -819,9 +820,9 @@ private:
 
             Vector3 normal = math::CrossV3(A, B);
 
-            for (int i = 0; i < int(oVerts.size()); i++)
+            for (auto& oVert : oVerts)
             {
-                oVerts[i].Normal = normal;
+                oVert.Normal = normal;
             }
         }
     }
@@ -888,11 +889,17 @@ private:
                     for (int j = 0; j < int(tVerts.size()); j++)
                     {
                         if (iVerts[j].Position == pCur.Position)
+                        {
                             oIndices.push_back(j);
+                        }
                         if (iVerts[j].Position == pPrev.Position)
+                        {
                             oIndices.push_back(j);
+                        }
                         if (iVerts[j].Position == pNext.Position)
+                        {
                             oIndices.push_back(j);
+                        }
                     }
 
                     tVerts.clear();
@@ -904,21 +911,27 @@ private:
                     for (int j = 0; j < int(iVerts.size()); j++)
                     {
                         if (iVerts[j].Position == pCur.Position)
+                        {
                             oIndices.push_back(j);
+                        }
                         if (iVerts[j].Position == pPrev.Position)
+                        {
                             oIndices.push_back(j);
+                        }
                         if (iVerts[j].Position == pNext.Position)
+                        {
                             oIndices.push_back(j);
+                        }
                     }
 
                     Vector3 tempVec;
-                    for (int j = 0; j < int(tVerts.size()); j++)
+                    for (auto& tVert : tVerts)
                     {
-                        if (tVerts[j].Position != pCur.Position
-                            && tVerts[j].Position != pPrev.Position
-                            && tVerts[j].Position != pNext.Position)
+                        if (tVert.Position != pCur.Position
+                            && tVert.Position != pPrev.Position
+                            && tVert.Position != pNext.Position)
                         {
-                            tempVec = tVerts[j].Position;
+                            tempVec = tVert.Position;
                             break;
                         }
                     }
@@ -927,7 +940,9 @@ private:
                     for (int j = 0; j < int(iVerts.size()); j++)
                     {
                         if (iVerts[j].Position == pPrev.Position)
+                        {
                             oIndices.push_back(j);
+                        }
                         if (iVerts[j].Position == pNext.Position)
                         {
                             oIndices.push_back(j);
@@ -954,14 +969,13 @@ private:
 
                 // If any vertices are within this triangle
                 bool inTri = false;
-                for (int j = 0; j < int(iVerts.size()); j++)
+                for (const auto& iVert : iVerts)
                 {
-                    if (algorithm::inTriangle(iVerts[j].Position,
-                                              pPrev.Position, pCur.Position,
-                                              pNext.Position)
-                        && iVerts[j].Position != pPrev.Position
-                        && iVerts[j].Position != pCur.Position
-                        && iVerts[j].Position != pNext.Position)
+                    if (algorithm::inTriangle(iVert.Position, pPrev.Position,
+                                              pCur.Position, pNext.Position)
+                        && iVert.Position != pPrev.Position
+                        && iVert.Position != pCur.Position
+                        && iVert.Position != pNext.Position)
                     {
                         inTri = true;
                         break;

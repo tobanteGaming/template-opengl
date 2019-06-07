@@ -22,7 +22,8 @@ public:
             0, 1, 3,  // first Triangle
             1, 2, 3   // second Triangle
         };
-        GLuint VBO, EBO;
+        GLuint VBO;
+        GLuint EBO;
         glGenVertexArrays(1, &m_vao);
         glGenBuffers(1, &VBO);
         glGenBuffers(1, &EBO);
@@ -39,7 +40,7 @@ public:
                      GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),
-                              (void*)0);
+                              (void*)nullptr);
         glEnableVertexAttribArray(0);
 
         // note that this is allowed, the call to glVertexAttribPointer
@@ -63,7 +64,7 @@ public:
     void render()
     {
         glBindVertexArray(m_vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
     }
 
 private:
