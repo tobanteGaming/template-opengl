@@ -9,6 +9,7 @@ add_library(${PROJECT_LIBRARY} STATIC ${LIB_SOURCES} )
 add_library(tobanteGaming::3D ALIAS ${PROJECT_LIBRARY})
 
 target_include_directories( ${PROJECT_LIBRARY} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories( ${PROJECT_LIBRARY} PUBLIC ${PROJECT_SOURCE_DIR}/3rd_party/imgui)
 target_compile_definitions(${PROJECT_LIBRARY} PUBLIC GLEW_STATIC=1)
 target_compile_features(${PROJECT_LIBRARY} PUBLIC cxx_std_17)
 target_link_libraries(${PROJECT_LIBRARY} PUBLIC
