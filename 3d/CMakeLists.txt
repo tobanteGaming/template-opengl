@@ -18,6 +18,7 @@ target_link_libraries(${PROJECT_LIBRARY} PUBLIC
                     libglew_static
                     glm
                     tobanteGaming::CompilerWarnings
+                    tobanteGaming::CompilerOptions
                     tobanteGaming::imgui
 )
 

@@ -33,4 +33,6 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         glfw
         ${GLFW_LIBRARIES}
         libglew_static
+        tobanteGaming::CompilerWarnings
+        tobanteGaming::CompilerOptions
 )
