@@ -1,8 +1,3 @@
-# [submodule "lib/glm"]
-# 	path = lib/glm
-# 	url = https://github.com/g-truc/glm
-
-
 [submodule "lib/glew"]
 	path = lib/glew
 	url = https://github.com/omniavinco/glew-cmake
@@ -12,6 +7,3 @@
 [submodule "lib/glm"]
 	path = lib/glm
 	url = https://github.com/g-truc/glm
-[submodule "lib/spdlog"]
-	path = lib/spdlog
-	url = https://github.com/gabime/spdlog
