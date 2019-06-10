@@ -23,7 +23,7 @@ debug:
 
 win64:
 	@cmake -B$(BUILD_DIR) -G "Visual Studio 15 Win64" .
-	@cmake --build $(BUILD_DIR) --config $(BUILD_TYPE)
+	@cmake --build $(BUILD_DIR) --config $(BUILD_TYPE) -- /m
 
 doc:
 	@doxygen Doxyfile.in
