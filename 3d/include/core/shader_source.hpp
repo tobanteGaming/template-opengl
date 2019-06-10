@@ -9,7 +9,8 @@ constexpr const char* VERTEX_SHADER_SOURCE = R"(
     // Values that stay constant for the whole mesh.
     uniform mat4 MVP;
 
-    void main(){
+    void main()
+    {
         // Output position of the vertex, in clip space : MVP * position
         gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
     }
