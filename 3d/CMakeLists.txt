@@ -2,6 +2,7 @@ project(3d)
 
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
+    src/application.cpp
     src/shader.cpp
 )
 
