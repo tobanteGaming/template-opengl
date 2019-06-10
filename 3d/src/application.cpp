@@ -1,5 +1,4 @@
 #include "application.hpp"
-#include "shader_source.hpp"
 
 namespace tobanteGaming
 {

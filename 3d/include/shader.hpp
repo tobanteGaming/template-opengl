@@ -1,10 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-
-#include <GL/glew.h>
-#include <glm/glm.hpp>
+#include "core/common.hpp"
 
 /**
  * @brief Represents an OpenGL program (vertex & fragment shader)

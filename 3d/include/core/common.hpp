@@ -17,6 +17,10 @@
 #include "imgui.h"
 #include "imgui_impl_glfw_gl3.h"
 
+#include "core/settings.hpp"
+#include "core/shader_source.hpp"
+#include "core/warning.hpp"
+
 namespace tobanteGaming
 {
 // Array
