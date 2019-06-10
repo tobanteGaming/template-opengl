@@ -153,8 +153,8 @@ int main()
     // tell opengl for each sampler to which texture unit it belongs to (only
     // has to be done once)
     // -------------------------------------------------------------------------------------------
-    ourShader.use();  // don't forget to activate/activate the shader before setting
-                      // uniforms!
+    ourShader.use();  // don't forget to activate/activate the shader before
+                      // setting uniforms!
     ourShader.setInt("texture1", 0);
     ourShader.setInt("texture2", 1);
 

@@ -50,9 +50,10 @@ int main()
                                   int action, int mods) {
         tobanteGaming::ignoreUnused(scancode);
         tobanteGaming::ignoreUnused(mods);
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        {
             glfwSetWindowShouldClose(window, GLFW_TRUE);
-}
+        }
     });
     // RESIZE
     glfwSetFramebufferSizeCallback(
@@ -62,8 +63,8 @@ int main()
         });
 
     Shader ourShader(VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
-    tobanteGaming::Shape shape{};
-    tobanteGaming::Cube cube{};
+    tobanteGaming::Shape shape {};
+    tobanteGaming::Cube cube {};
 
     // Initialize Loader
     objl::Loader Loader;
@@ -165,7 +166,8 @@ int main()
     // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1
     // unit <-> 100 units
     glm::mat4 Projection = glm::perspective(
-        glm::radians(45.0f), static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
+        glm::radians(45.0f),
+        static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
 
     // Or, for an ortho camera :
     // glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f);
@@ -207,7 +209,7 @@ int main()
 
         // Triangle Color
         ourShader.use();
-        const auto timeValue  = static_cast<float>(glfwGetTime());
+        const auto timeValue   = static_cast<float>(glfwGetTime());
         const float greenValue = sin(timeValue) / 2.0f + 0.5f;
         ourShader.setFloat4("ourColor", greenValue);
         ourShader.setMatrix4("MVP", mvp);
