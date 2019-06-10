@@ -17,7 +17,6 @@ target_link_libraries(${PROJECT_LIBRARY} PUBLIC
                     ${GLFW_LIBRARIES}
                     libglew_static
                     glm
-                    tobanteGaming::Soil
                     tobanteGaming::CompilerWarnings
                     tobanteGaming::imgui
 )

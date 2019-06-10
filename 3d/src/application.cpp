@@ -40,7 +40,7 @@ void Application::Init()
 
     // IMGUI
     // Setup ImGui binding
-    ImGui_ImplGlfwGL3_Init(m_window, true);
+    ImGui_ImplGlfwGL3_Init(m_window, false);
 
     // CALLBACKS
     // KEYS

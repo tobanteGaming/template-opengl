@@ -18,8 +18,15 @@ add_library(${PROJECT_NAME} STATIC
 # Add alias
 add_library(tobanteGaming::imgui ALIAS ${PROJECT_NAME})
 
-# Include paths
+# Settings
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
+target_compile_definitions(${PROJECT_NAME} PUBLIC GLEW_STATIC=1)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+
+# Ignoring msvc warning. imgui is really hard to work with warning wise
+if (MSVC)
+  target_compile_options(${PROJECT_NAME} PRIVATE /wd4312)
+endif()
 
 # Link
 target_link_libraries(${PROJECT_NAME} PRIVATE
