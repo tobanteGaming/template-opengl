@@ -3,6 +3,7 @@ project(3d)
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/application.cpp
+    src/log.cpp
     src/shader.cpp
 )
 
@@ -17,6 +18,7 @@ target_link_libraries(${PROJECT_LIBRARY} PUBLIC
                     ${GLFW_LIBRARIES}
                     libglew_static
                     glm
+                    spdlog::spdlog
                     tobanteGaming::CompilerWarnings
                     tobanteGaming::CompilerOptions
                     tobanteGaming::imgui

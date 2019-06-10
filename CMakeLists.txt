@@ -33,6 +33,9 @@ add_subdirectory(lib/glm)
 # imgui
 add_subdirectory(lib/imgui)
 
+# imgui
+add_subdirectory(lib/spdlog)
+
 add_subdirectory(3d)
 # add_subdirectory(3d-tutorial)
 # add_subdirectory(tunnel)

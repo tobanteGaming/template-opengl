@@ -24,7 +24,7 @@ void Application::Init()
     m_window = glfwCreateWindow(WIDTH, HEIGHT, "3D", nullptr, nullptr);
     if (m_window == nullptr)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        LOG_ERROR("Failed to create GLFW window");
         glfwTerminate();
         return;
     }
@@ -33,9 +33,9 @@ void Application::Init()
     // GLEW
     if (glewInit() != GLEW_OK)
     {
-        std::cout << "Error in glew init" << '\n';
+        LOG_ERROR("Error in glew init");
     }
-    std::cout << glGetString(GL_VERSION) << '\n';
+    LOG_INFO("OpenGL: {}", glGetString(GL_VERSION));
 
     // IMGUI
     // Setup ImGui binding
@@ -123,9 +123,9 @@ void Application::Run()
         double currentTime = glfwGetTime();
         nbFrames++;
         if (currentTime - lastTime >= 1.0)
-        {  // If last prinf() was more than 1 sec ago
-            // printf and reset timer
-            printf("%f ms/frame\n", 1000.0 / double(nbFrames));
+        {
+            // If last prinf() was more than 1 sec ago
+            LOG_INFO("{} ms/frame", 1000.0 / double(nbFrames));
             nbFrames = 0;
             lastTime += 1.0;
         }
