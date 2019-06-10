@@ -1,7 +1,7 @@
 #pragma once
 
-constexpr int WIDTH  = 1280;
-constexpr int HEIGHT = 720;
+constexpr int WIDTH  = 1600;
+constexpr int HEIGHT = 900;
 
 constexpr char* RESOURCE_PATH
     = R"(C:\Dev\tobanteGaming\projects\template-opengl\resources\3d\)";

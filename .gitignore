@@ -37,7 +37,7 @@ e1Out.txt
 *.lai
 *.la
 *.a
-*.lib
+#*.lib
 
 # Executables
 *.exe

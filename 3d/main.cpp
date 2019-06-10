@@ -2,13 +2,7 @@
  * https://learnopengl.com/Introduction
  */
 
-#include <cstdlib>
-#include <iostream>
-#include <string>
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/gtc/matrix_transform.hpp>
+#include "core/common.hpp"
 
 #include "obj_loader.hpp"
 #include "settings.hpp"
@@ -62,9 +56,17 @@ int main()
             glViewport(0, 0, width, height);
         });
 
+    //  IMGUI
+    // Setup ImGui binding
+    ImGui_ImplGlfwGL3_Init(window, true);
+
+    bool show_test_window    = true;
+    bool show_another_window = false;
+    ImVec4 clear_color       = ImColor(114, 144, 154);
+
     Shader ourShader(VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
-    tobanteGaming::Shape shape {};
-    tobanteGaming::Cube cube {};
+    tobanteGaming::Shape shape{};
+    tobanteGaming::Cube cube{};
 
     // Initialize Loader
     objl::Loader Loader;
@@ -173,24 +175,48 @@ int main()
     // glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f);
     // // In world coordinates
 
-    // Camera matrix
-    glm::mat4 View = glm::lookAt(
-        glm::vec3(4, 3, 3),  // Camera is at (4,3,3), in World Space
-        glm::vec3(0, 0, 0),  // and looks at the origin
-        glm::vec3(0, 1, 0)   // Head is up (set to 0,-1,0 to look upside-down)
-    );
-
-    // Model matrix : an identity matrix (model will be at the origin)
-    glm::mat4 Model = glm::mat4(1.0f);
-    // Our ModelViewProjection : multiplication of our 3 matrices
-    // Remember, matrix multiplication is the other way around
-    glm::mat4 mvp = Projection * View * Model;
-
     double lastTime = glfwGetTime();
     int nbFrames    = 0;
     // MAIN LOOP
     while (glfwWindowShouldClose(window) == 0)
     {
+        // IMGUI
+        ImGui_ImplGlfwGL3_NewFrame();
+
+        // 1. Show a simple window
+        // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears
+        // in a window automatically called "Debug"
+        {
+            static float f = 0.0f;
+            ImGui::Text("Hello, world!");
+            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
+            ImGui::ColorEdit3("clear color", (float*)&clear_color);
+            if (ImGui::Button("Test Window")) show_test_window ^= 1;
+            if (ImGui::Button("Another Window")) show_another_window ^= 1;
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
+                        1000.0f / ImGui::GetIO().Framerate,
+                        ImGui::GetIO().Framerate);
+        }
+
+        // 2. Show another simple window, this time using an explicit Begin/End
+        // pair
+        if (show_another_window)
+        {
+            ImGui::SetNextWindowSize(ImVec2(200, 100),
+                                     ImGuiSetCond_FirstUseEver);
+            ImGui::Begin("Another Window", &show_another_window);
+            ImGui::Text("Hello");
+            ImGui::End();
+        }
+
+        // 3. Show the ImGui test window. Most of the sample code is in
+        // ImGui::ShowTestWindow()
+        if (show_test_window)
+        {
+            ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
+            ImGui::ShowTestWindow(&show_test_window);
+        }
+
         // FPS
         // Measure speed
         double currentTime = glfwGetTime();
@@ -212,17 +238,35 @@ int main()
         const auto timeValue   = static_cast<float>(glfwGetTime());
         const float greenValue = sin(timeValue) / 2.0f + 0.5f;
         ourShader.setFloat4("ourColor", greenValue);
+
+        // Camera matrix
+        glm::mat4 View = glm::lookAt(
+            glm::vec3(nbFrames / timeValue, 2 * nbFrames / timeValue,
+                      3),        // Camera is at (4,3,3), in World Space
+            glm::vec3(0, 0, 0),  // and looks at the origin
+            glm::vec3(0, 1,
+                      0)  // Head is up (set to 0,-1,0 to look upside-down)
+        );
+
+        // Model matrix : an identity matrix (model will be at the origin)
+        glm::mat4 Model = glm::mat4(1.0f);
+        // Our ModelViewProjection : multiplication of our 3 matrices
+        // Remember, matrix multiplication is the other way around
+        glm::mat4 mvp = Projection * View * Model;
         ourShader.setMatrix4("MVP", mvp);
 
         // Draw triangle
         // shape.render();
         cube.render();
 
+        ImGui::Render();
         // Check and call events and swap the buffers
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
+    // Cleanup
+    ImGui_ImplGlfwGL3_Shutdown();
     glfwTerminate();
     return EXIT_SUCCESS;
 }

@@ -30,6 +30,9 @@ add_subdirectory(lib/glm)
 # soil
 add_subdirectory(lib/soil)
 
+# imgui
+add_subdirectory(lib/imgui)
+
 add_subdirectory(3d)
 add_subdirectory(3d-tutorial)
 # add_subdirectory(tunnel)
