@@ -7,6 +7,9 @@
 # Build
 build
 build-*
+
+# Output
+imgui.ini
 e1Out.txt
 
 # MacOS
@@ -37,7 +40,7 @@ e1Out.txt
 *.lai
 *.la
 *.a
-#*.lib
+*.lib
 
 # Executables
 *.exe
