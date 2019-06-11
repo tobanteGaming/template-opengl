@@ -10,3 +10,6 @@
 [submodule "lib/spdlog"]
 	path = lib/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "3rd_party/imgui-cmake/imgui"]
+	path = 3rd_party/imgui-cmake/imgui
+	url = https://github.com/ocornut/imgui

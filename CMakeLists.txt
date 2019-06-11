@@ -31,7 +31,7 @@ add_subdirectory(lib/glm)
 # add_subdirectory(lib/soil)
 
 # imgui
-add_subdirectory(lib/imgui)
+add_subdirectory(3rd_party/imgui-cmake)
 
 # imgui
 add_subdirectory(lib/spdlog)

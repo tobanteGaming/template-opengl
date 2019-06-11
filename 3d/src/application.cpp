@@ -7,7 +7,12 @@ Application::Application(String name) : m_name(name) {}
 Application::~Application()
 {
     // Cleanup
-    ImGui_ImplGlfwGL3_Shutdown();
+    // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+
+    glfwDestroyWindow(m_window);
     glfwTerminate();
 }
 
@@ -39,7 +44,23 @@ void Application::Init()
 
     // IMGUI
     // Setup ImGui binding
-    ImGui_ImplGlfwGL3_Init(m_window, false);
+    // Setup Dear ImGui context
+    const char* glsl_version = "#version 330";
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    (void)io;
+    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable
+    // Keyboard Controls io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //
+    // Enable Gamepad Controls
+
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+    // ImGui::StyleColorsClassic();
+
+    // Setup Platform/Renderer bindings
+    ImGui_ImplGlfw_InitForOpenGL(m_window, true);
+    ImGui_ImplOpenGL3_Init(glsl_version);
 
     // CALLBACKS
     // KEYS
@@ -82,7 +103,10 @@ void Application::Run()
     while (glfwWindowShouldClose(m_window) == 0)
     {
         // IMGUI
-        ImGui_ImplGlfwGL3_NewFrame();
+        // Start the Dear ImGui frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
 
         // 1. Show a simple window
         // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears
@@ -112,11 +136,12 @@ void Application::Run()
 
         // 3. Show the ImGui test window. Most of the sample code is in
         // ImGui::ShowTestWindow()
-        if (show_test_window)
-        {
-            ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
-            ImGui::ShowTestWindow(&show_test_window);
-        }
+        // if (show_test_window)
+        // {
+        //     ImGui::SetNextWindowPos(ImVec2(650, 20),
+        //     ImGuiSetCond_FirstUseEver);
+        //     ImGui::ShowTestWindow(&show_test_window);
+        // }
 
         // FPS
         // Measure speed
@@ -160,6 +185,7 @@ void Application::Run()
         // shape.render();
         cube->render();
         ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         // Check and call events and swap the buffers
         glfwSwapBuffers(m_window);

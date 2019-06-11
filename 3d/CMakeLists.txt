@@ -21,7 +21,7 @@ target_link_libraries(${PROJECT_LIBRARY} PUBLIC
                     spdlog::spdlog
                     tobanteGaming::CompilerWarnings
                     tobanteGaming::CompilerOptions
-                    tobanteGaming::imgui
+                    tobanteGaming::imgui2
 )
 
 
