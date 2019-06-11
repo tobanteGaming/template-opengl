@@ -28,7 +28,7 @@ set(GLM_TEST_ENABLE OFF CACHE STRING "" FORCE)
 add_subdirectory(lib/glm)
 
 # soil
-# add_subdirectory(lib/soil)
+# add_subdirectory(3rd_party/soil)
 
 # imgui
 add_subdirectory(3rd_party/imgui-cmake)

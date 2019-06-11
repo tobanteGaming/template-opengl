@@ -1,14 +1,14 @@
-[submodule "lib/glew"]
-	path = lib/glew
+[submodule "3rd_party/glew"]
+	path = 3rd_party/glew
 	url = https://github.com/omniavinco/glew-cmake
-[submodule "lib/glfw"]
-	path = lib/glfw
+[submodule "3rd_party/glfw"]
+	path = 3rd_party/glfw
 	url = https://github.com/glfw/glfw
-[submodule "lib/glm"]
-	path = lib/glm
+[submodule "3rd_party/glm"]
+	path = 3rd_party/glm
 	url = https://github.com/g-truc/glm
-[submodule "lib/spdlog"]
-	path = lib/spdlog
+[submodule "3rd_party/spdlog"]
+	path = 3rd_party/spdlog
 	url = https://github.com/gabime/spdlog
 [submodule "3rd_party/imgui-cmake/imgui"]
 	path = 3rd_party/imgui-cmake/imgui
