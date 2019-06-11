@@ -17,15 +17,15 @@ set(BUILD_SHARED_LIBS OFF CACHE STRING "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE STRING "" FORCE)
 set(GLFW_BUILD_TESTS    OFF CACHE STRING "" FORCE)
 set(GLFW_INSTALL        OFF CACHE STRING "" FORCE)
-add_subdirectory(lib/glfw)
+add_subdirectory(3rd_party/glfw)
 
 # glew
 set(glew-cmake_BUILD_SHARED OFF CACHE STRING "" FORCE)
-add_subdirectory(lib/glew)
+add_subdirectory(3rd_party/glew)
 
 # glm
 set(GLM_TEST_ENABLE OFF CACHE STRING "" FORCE)
-add_subdirectory(lib/glm)
+add_subdirectory(3rd_party/glm)
 
 # soil
 # add_subdirectory(3rd_party/soil)
@@ -34,7 +34,7 @@ add_subdirectory(lib/glm)
 add_subdirectory(3rd_party/imgui-cmake)
 
 # imgui
-add_subdirectory(lib/spdlog)
+add_subdirectory(3rd_party/spdlog)
 
 add_subdirectory(3d)
 # add_subdirectory(3d-tutorial)

@@ -3,7 +3,9 @@
 ## Install
 
 ### Ubuntu
+
 Development Dependencies:
+
 ```
 libxi-dev
 libxinerama-dev
@@ -14,6 +16,7 @@ xorg-dev
 ```
 
 ## Start Projects
+
 ```
 cd template-opengl
 rm -rf .git             # Remove template git repo
@@ -27,12 +30,14 @@ cat .gitmodules         # Check if modules are installed
 ## Build
 
 ### Load Dependencies
+
 ```
 git submodule init
 git submodule update
 ```
 
 ### CMake
+
 ```
 mkdir build
 cd build
