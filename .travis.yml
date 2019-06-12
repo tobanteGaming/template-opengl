@@ -23,11 +23,11 @@ script-anchors:
 
   - &script-macOS
     - cd $TRAVIS_BUILD_DIR
+    - mkdir build
+    - cd build
     # RELEASE BUILD
-    - make all
-    # # DEBUG BUILD
-    # - make clean
-    # - make debug
+    - cmake .. -DCMAKE_BUILD_TYPE:STRING=Release
+    - cmake --build . -- -j2
 
 
 matrix:
