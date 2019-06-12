@@ -1,5 +1,11 @@
 # Template - OpenGL - C++
 
+## Status
+
+|                                                                   LICENSE                                                                    |                                                                     Linux                                                                     |                                                                             Windows                                                                             |
+| :------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/tobanteGaming/template-opengl/blob/master/LICENSE) | [![Build Status](https://travis-ci.org/tobanteGaming/template-opengl.svg?branch=master)](https://travis-ci.org/tobanteGaming/template-opengl) | [![AppVeyor Build status](https://img.shields.io/appveyor/ci/tobanteGaming/template-opengl.svg)](https://ci.appveyor.com/project/tobanteGaming/template-opengl) |
+
 ## Install
 
 ### Ubuntu
