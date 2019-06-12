@@ -36,6 +36,5 @@ add_subdirectory(3rd_party/imgui-cmake)
 # imgui
 add_subdirectory(3rd_party/spdlog)
 
-add_subdirectory(3d)
-# add_subdirectory(mini_games)
+add_subdirectory(remisen_run)
 add_subdirectory(examples)
