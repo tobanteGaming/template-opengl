@@ -2,39 +2,28 @@ cmake_minimum_required (VERSION 3.8)
 project (template-opengl LANGUAGES CXX)
 
 # Options
-option(TOBANTEGAMING_OPENGL_BUILD_EXAMPLES  "Build examples" ON)
-option(TOBANTEGAMING_OPENGL_BUILD_TESTS     "Build unit tests" ON)
-option(TOBANTEGAMING_OPENGL_ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
+option(TOBANTEGAMING_TEMPLATE_OPENGL_EXAMPLES  "Build examples" ON)
+option(TOBANTEGAMING_TEMPLATE_OPENGL_TESTS     "Build unit tests" ON)
 
-# Cmake setup
+# CMake setup
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(CompilerWarnings)
+include(ConfigureOpenGL)
 
-
+# Build static
 set(BUILD_SHARED_LIBS OFF CACHE STRING "" FORCE)
 
-# glfw
-set(GLFW_BUILD_EXAMPLES OFF CACHE STRING "" FORCE)
-set(GLFW_BUILD_TESTS    OFF CACHE STRING "" FORCE)
-set(GLFW_INSTALL        OFF CACHE STRING "" FORCE)
+# Include submodules
 add_subdirectory(3rd_party/glfw)
-
-# glew
-set(glew-cmake_BUILD_SHARED OFF CACHE STRING "" FORCE)
 add_subdirectory(3rd_party/glew)
-
-# glm
-set(GLM_TEST_ENABLE OFF CACHE STRING "" FORCE)
 add_subdirectory(3rd_party/glm)
-
-# soil
-add_subdirectory(3rd_party/soil)
-
-# imgui
 add_subdirectory(3rd_party/imgui-cmake)
-
-# imgui
 add_subdirectory(3rd_party/spdlog)
 
+# Project
 add_subdirectory(remisen_run)
-add_subdirectory(examples)
+
+# Examples
+if(TOBANTEGAMING_TEMPLATE_OPENGL_EXAMPLES)
+  add_subdirectory(examples)
+endif()
