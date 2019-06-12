@@ -28,7 +28,7 @@ set(GLM_TEST_ENABLE OFF CACHE STRING "" FORCE)
 add_subdirectory(3rd_party/glm)
 
 # soil
-# add_subdirectory(3rd_party/soil)
+add_subdirectory(3rd_party/soil)
 
 # imgui
 add_subdirectory(3rd_party/imgui-cmake)
@@ -37,7 +37,5 @@ add_subdirectory(3rd_party/imgui-cmake)
 add_subdirectory(3rd_party/spdlog)
 
 add_subdirectory(3d)
-# add_subdirectory(3d-tutorial)
-# add_subdirectory(tunnel)
-# add_subdirectory(breakout)
-# add_subdirectory(examples)
+# add_subdirectory(mini_games)
+add_subdirectory(examples)

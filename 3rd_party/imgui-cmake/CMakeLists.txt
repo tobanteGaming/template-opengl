@@ -21,7 +21,7 @@ add_library(${PROJECT_NAME} STATIC
 )
 
 # Add alias
-add_library(tobanteGaming::imgui2 ALIAS ${PROJECT_NAME})
+add_library(tobanteGaming::imgui ALIAS ${PROJECT_NAME})
 
 # Settings
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
