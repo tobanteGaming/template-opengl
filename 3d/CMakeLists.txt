@@ -4,6 +4,7 @@ set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/application.cpp
     src/log.cpp
+    src/render/window.cpp
     src/shader.cpp
 )
 

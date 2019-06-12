@@ -4,24 +4,13 @@ namespace tobanteGaming
 {
 Application::Application(String name) : m_name(name) {}
 
-Application::~Application()
-{
-    // imgui
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
-
-    // glfw
-    glfwDestroyWindow(m_window);
-    glfwTerminate();
-}
+Application::~Application() {}
 
 void Application::Init()
 {
     // glfw, glew, imgui & callbacks
-    openGLInit();
-    imguiInit();
-    registerCallbacks();
+    m_window.reset(new Window());
+    m_window->init();
 
     // Shader
     m_shader.reset(new Shader(VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE));
@@ -43,7 +32,7 @@ void Application::Run()
     int nbFrames    = 0;
 
     // Main loop
-    while (glfwWindowShouldClose(m_window) == 0)
+    while (m_window->isOpen())
     {
 
         // FPS
@@ -82,75 +71,15 @@ void Application::Run()
         // Render
         m_cube->render();
         drawImgui();
-
-        // Check and call events and swap the buffers
-        glfwSwapBuffers(m_window);
-        glfwPollEvents();
+        m_window->swapBuffers();
     }
 }
 
-void Application::openGLInit()
-{
-    // glfw
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+void Application::openGLInit() {}
 
-    // Window
-    m_window = glfwCreateWindow(WIDTH, HEIGHT, "tobanteGaming: 3D", nullptr,
-                                nullptr);
-    if (m_window == nullptr)
-    {
-        LOG_ERROR("Failed to create GLFW window");
-        glfwTerminate();
-        return;
-    }
-    glfwMakeContextCurrent(m_window);
+void Application::imguiInit() {}
 
-    // glew
-    if (glewInit() != GLEW_OK)
-    {
-        LOG_ERROR("Error in glew init");
-    }
-    LOG_INFO("OpenGL: {}", glGetString(GL_VERSION));
-}
-
-void Application::imguiInit()
-{
-    // Context
-    const char* glsl_version = "#version 430";
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-
-    // Style
-    ImGui::StyleColorsDark();
-
-    // Setup Platform/Renderer bindings
-    ImGui_ImplGlfw_InitForOpenGL(m_window, true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
-}
-
-void Application::registerCallbacks()
-{
-    // Keys
-    glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode,
-                                    int action, int mods) {
-        tobanteGaming::ignoreUnused(scancode);
-        tobanteGaming::ignoreUnused(mods);
-        if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        {
-            glfwSetWindowShouldClose(window, GLFW_TRUE);
-        }
-    });
-
-    // Resize
-    glfwSetFramebufferSizeCallback(
-        m_window, [](GLFWwindow* window, int width, int height) {
-            tobanteGaming::ignoreUnused(window);
-            glViewport(0, 0, width, height);
-        });
-}
+void Application::registerCallbacks() {}
 
 void Application::drawImgui()
 {
