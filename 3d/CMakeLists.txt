@@ -4,8 +4,8 @@ set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/application.cpp
     src/log.cpp
+    src/render/shader.cpp
     src/render/window.cpp
-    src/shader.cpp
 )
 
 add_library(${PROJECT_LIBRARY} STATIC ${LIB_SOURCES} )

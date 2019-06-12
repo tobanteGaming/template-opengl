@@ -1,4 +1,4 @@
-#include "shader.hpp"
+#include "render/shader.hpp"
 
 Shader::Shader(const char* vertexSource, const char* fragmentSource)
 {

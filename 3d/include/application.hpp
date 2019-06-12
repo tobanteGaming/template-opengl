@@ -1,8 +1,8 @@
 #pragma once
 
 #include "core/common.hpp"
+#include "render/shader.hpp"
 #include "render/window.hpp"
-#include "shader.hpp"
 #include "shape/cube.hpp"
 
 namespace tobanteGaming
