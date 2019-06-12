@@ -14,23 +14,6 @@ target_compile_features(compiler_options INTERFACE cxx_std_17)
 if(MSVC)
   target_compile_options(compiler_warnings INTERFACE /W4 "/permissive-")
 else()
-  option(ONLY_COVERAGE "Build only tests necessary for coverage" FALSE)
-  option(LIBCPP "Build with libc++" FALSE)
-  option(ENABLE_COVERAGE "Enable coverage reporting for gcc/clang" FALSE)
-  option(ENABLE_FUZZERS "Enable fuzz testing tools" FALSE)
-
-  if(ONLY_COVERAGE OR ENABLE_COVERAGE)
-    target_compile_options(compiler_options INTERFACE --coverage -O0 -g)
-    target_link_libraries(compiler_options INTERFACE --coverage)
-  endif()
-
-  option(ENABLE_ASAN "Enable address sanitizer" FALSE)
-
-  if(ENABLE_ASAN)
-    target_compile_options(compiler_options INTERFACE -fsanitize=address)
-    target_link_libraries(compiler_options INTERFACE -fsanitize=address)
-  endif()
-
   target_compile_options(compiler_warnings
                          INTERFACE -Wall
                                    -Wextra # reasonable and standard
@@ -83,13 +66,6 @@ else()
                                      -Wuseless-cast # warn if you perform a cast
                                                     # to the same type
                            )
-    target_link_libraries(compiler_options INTERFACE stdc++fs)
   else()
-    if(LIBCPP)
-      target_compile_options(compiler_options INTERFACE -stdlib=libc++)
-    else()
-      target_link_libraries(compiler_options INTERFACE stdc++fs)
-    endif()
-
   endif()
 endif()
