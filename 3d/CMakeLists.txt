@@ -3,7 +3,7 @@ project(3d)
 set(PROJECT_LIBRARY ${PROJECT_NAME}-lib)
 set(LIB_SOURCES
     src/application.cpp
-    src/log.cpp
+    src/core/log.cpp
     src/render/shader.cpp
     src/render/window.cpp
 )
@@ -36,4 +36,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include
 target_link_libraries(${PROJECT_NAME}
                     tobanteGaming::3D
                     tobanteGaming::CompilerWarnings
+                    tobanteGaming::CompilerOptions
 )
