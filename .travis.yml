@@ -28,14 +28,14 @@ script-anchors:
     # RELEASE BUILD
     - cmake .. -DCMAKE_BUILD_TYPE:STRING=Release
     - cmake --build . -- -j2
-
+    # CLEAN
+    - rm -rf *
+    # DEBUG BUILD
+    - cmake .. -DCMAKE_BUILD_TYPE:STRING=Debug
+    - cmake --build . -- -j2
 
 matrix:
   include:
-    # - os: osx
-    #   osx_image: xcode9.4
-    #   script: *script-macOS
-
     - os: osx
       osx_image: xcode10.1
       script: *script-macOS
