@@ -34,7 +34,9 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
 
 # Ignoring msvc warning. imgui is really hard to work with warning wise
 if (MSVC)
-  target_compile_options(${PROJECT_NAME} PRIVATE /wd4312)
+    target_compile_options(${PROJECT_NAME} PRIVATE /wd4312)
+else()
+    target_compile_options(${PROJECT_NAME} PRIVATE -Wno-old-style-cast)
 endif()
 
 # Link
