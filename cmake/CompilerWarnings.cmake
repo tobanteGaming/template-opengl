@@ -1,7 +1,3 @@
-#
-# Set compiler flags before running conan
-#
-
 # Link this 'library' to use the standard warnings
 add_library(compiler_warnings INTERFACE)
 add_library(tobanteGaming::CompilerWarnings ALIAS compiler_warnings)
@@ -10,7 +6,10 @@ add_library(tobanteGaming::CompilerWarnings ALIAS compiler_warnings)
 add_library(compiler_options INTERFACE)
 add_library(tobanteGaming::CompilerOptions ALIAS compiler_options)
 
+# Language standard
 target_compile_features(compiler_options INTERFACE cxx_std_17)
+
+# Warnings
 if(MSVC)
   target_compile_options(compiler_warnings INTERFACE /W4 "/permissive-")
 else()

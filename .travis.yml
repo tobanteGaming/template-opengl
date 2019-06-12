@@ -5,24 +5,6 @@ branches:
 language: cpp
 
 script-anchors:
-  - &script-linux
-    - cd $TRAVIS_BUILD_DIR
-    - git submodule update --init --recursive
-    - mkdir build
-    - cd build
-    # RELEASE BUILD
-    - cmake .. -DCMAKE_BUILD_TYPE:STRING=Release
-    - cmake --build . -- -j2
-    # - ctest -j2
-    # Clean
-    - rm -rf *
-    # DEBUG BUILD
-    - cmake -D .. -DCMAKE_BUILD_TYPE:STRING=Debug
-    - cmake --build . -- -j2
-    # - ctest -j2
-    # # COVERAGE REPORT
-    # - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-7
-
   - &script-macOS
     - cd $TRAVIS_BUILD_DIR
     - mkdir build
@@ -41,42 +23,3 @@ matrix:
     - os: osx
       osx_image: xcode10.1
       script: *script-macOS
-
-    - os: linux
-      dist: xenial
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-            - xorg-dev
-            - libxinerama-dev
-            - libxcursor-dev
-            - libxrandr-dev
-      env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-      script: *script-linux
-
-    # - os: linux
-    #   addons:
-    #     apt:
-    #       sources:
-    #         - llvm-toolchain-trusty-5.0
-    #       packages:
-    #         - clang-5.0
-    #         - doxygen
-    #   env:
-    #     - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
-    #   script: *script-linux
-    #   deploy:
-    #     provider: pages
-    #     skip_cleanup: true
-    #     local_dir: build/doc-build/html
-    #     github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-    #     keep_history: true
-    #     on:
-    #       branch: master
-
-before_install:
-  - eval "${MATRIX_EVAL}"
