@@ -2,6 +2,7 @@
  * https://learnopengl.com/Introduction
  */
 
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
 
