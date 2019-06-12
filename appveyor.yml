@@ -10,16 +10,16 @@ clone_folder: c:\template-opengl
 # BUILD
 build_script:
   - cmd: cd c:\template-opengl
-  - cmd:  git submodule update --init --recursive
+  - cmd: git submodule update --init --recursive
   # Debug
-  - cmd:  mkdir build_debug
-  - cmd:  cd build_debug
-  - cmd:  cmake .. -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE:STRING=Debug
-  - cmd:  cmake --build . --config "Debug"
-  - cmd:  cd ..
+  - cmd: mkdir build_debug
+  - cmd: cd build_debug
+  - cmd: cmake .. -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE:STRING=Debug
+  - cmd: cmake --build . --config "Debug"
+  - cmd: cd ..
   # Release
-  - cmd:  mkdir build_release
-  - cmd:  cd build_release
-  - cmd:  cmake .. -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE:STRING=Release
-  - cmd:  cmake --build . --config "Release"
-  - cmd:  cd ..
+  - cmd: mkdir build_release
+  - cmd: cd build_release
+  - cmd: cmake .. -G "Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE:STRING=Release
+  - cmd: cmake --build . --config "Release"
+  - cmd: cd ..
