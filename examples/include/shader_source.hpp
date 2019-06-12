@@ -1,9 +1,9 @@
 #pragma once
 
 // BASIC
-constexpr char* VERTEX_SHADER_SOURCE = R"(
+constexpr const char* VERTEX_SHADER_SOURCE = R"(
     #version 330 core
-    
+
     layout (location = 0) in vec3 aPos;
 
     void main()
@@ -12,21 +12,21 @@ constexpr char* VERTEX_SHADER_SOURCE = R"(
     }
 )";
 
-constexpr char* FRAGMENT_SHADER_SOURCE = R"(
+constexpr const char* FRAGMENT_SHADER_SOURCE = R"(
     #version 330 core
 
     out vec4 FragColor;
 
-    uniform vec4 ourColor; 
+    uniform vec4 ourColor;
 
     void main()
     {
         FragColor = ourColor;
-    } 
+    }
 )";
 
 // TEXTURE
-constexpr char* TEXTURE_VERTEX_SHADER_SOURCE = R"(
+constexpr const char* TEXTURE_VERTEX_SHADER_SOURCE = R"(
     #version 330 core
 
     layout (location = 0) in vec3 aPos;
@@ -44,9 +44,9 @@ constexpr char* TEXTURE_VERTEX_SHADER_SOURCE = R"(
     }
 )";
 
-constexpr char* TEXTURE_FRAGMENT_SHADER_SOURCE = R"(
+constexpr const char* TEXTURE_FRAGMENT_SHADER_SOURCE = R"(
     #version 330 core
-    
+
     out vec4 FragColor;
 
     in vec3 ourColor;
@@ -60,5 +60,5 @@ constexpr char* TEXTURE_FRAGMENT_SHADER_SOURCE = R"(
     {
         // linearly interpolate between both textures (80% container, 20% awesomeface)
         FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
-    } 
+    }
 )";
