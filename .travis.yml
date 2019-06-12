@@ -25,7 +25,6 @@ script-anchors:
 
   - &script-macOS
     - cd $TRAVIS_BUILD_DIR
-    - git submodule update --init --recursive
     - mkdir build
     - cd build
     # RELEASE BUILD
