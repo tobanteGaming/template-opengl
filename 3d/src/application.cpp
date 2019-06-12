@@ -6,27 +6,100 @@ Application::Application(String name) : m_name(name) {}
 
 Application::~Application()
 {
-    // Cleanup
-    // Cleanup
+    // imgui
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
+    // glfw
     glfwDestroyWindow(m_window);
     glfwTerminate();
 }
 
 void Application::Init()
 {
-    // GLFW
+    // glfw, glew, imgui & callbacks
+    openGLInit();
+    imguiInit();
+    registerCallbacks();
+
+    // Shader
+    m_shader.reset(new Shader(VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE));
+
+    // Object
+    m_cube.reset(new Cube());
+}
+void Application::Run()
+{
+    const auto f_width  = static_cast<float>(WIDTH);
+    const auto f_height = static_cast<float>(HEIGHT);
+    const auto fov      = glm::radians(45.0f);
+
+    // 45° FOV, 4:3 ratio, display range : 0.1 unit <-> 100 units
+    auto projection = glm::perspective(fov, f_width / f_height, 0.1f, 100.0f);
+
+    // Time & frame count for animation
+    double lastTime = glfwGetTime();
+    int nbFrames    = 0;
+
+    // Main loop
+    while (glfwWindowShouldClose(m_window) == 0)
+    {
+
+        // FPS
+        auto currentTime = static_cast<float>(glfwGetTime());
+        nbFrames++;
+
+        // If last print was more than 1 sec ago
+        if (currentTime - lastTime >= 1.0)
+        {
+            LOG_INFO("{} fps", ImGui::GetIO().Framerate);
+            nbFrames = 0;
+            lastTime += 1.0;
+        }
+
+        // Clear
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // Color
+        const float greenValue = sin(currentTime) / 2.0f + 0.5f;
+        m_shader->use();
+        m_shader->setFloat4("ourColor", greenValue);
+
+        // Camera matrix
+        glm::mat4 view = glm::lookAt(
+            glm::vec3(nbFrames / currentTime, 2 * nbFrames / currentTime, 3),
+            glm::vec3(0, 0, 0),  // Looks at the origin
+            glm::vec3(0, 1, 0)   // Head is up
+        );
+
+        // Iidentity matrix (model will be at the origin)
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::mat4 mvp   = projection * view * model;
+        m_shader->setMatrix4("MVP", mvp);
+
+        // Render
+        m_cube->render();
+        drawImgui();
+
+        // Check and call events and swap the buffers
+        glfwSwapBuffers(m_window);
+        glfwPollEvents();
+    }
+}
+
+void Application::openGLInit()
+{
+    // glfw
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    // WINDOW
-    m_window = glfwCreateWindow(WIDTH, HEIGHT, "3D", nullptr, nullptr);
+    // Window
+    m_window = glfwCreateWindow(WIDTH, HEIGHT, "tobanteGaming: 3D", nullptr,
+                                nullptr);
     if (m_window == nullptr)
     {
         LOG_ERROR("Failed to create GLFW window");
@@ -35,35 +108,32 @@ void Application::Init()
     }
     glfwMakeContextCurrent(m_window);
 
-    // GLEW
+    // glew
     if (glewInit() != GLEW_OK)
     {
         LOG_ERROR("Error in glew init");
     }
     LOG_INFO("OpenGL: {}", glGetString(GL_VERSION));
+}
 
-    // IMGUI
-    // Setup ImGui binding
-    // Setup Dear ImGui context
-    const char* glsl_version = "#version 330";
+void Application::imguiInit()
+{
+    // Context
+    const char* glsl_version = "#version 430";
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    (void)io;
-    // io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable
-    // Keyboard Controls io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad; //
-    // Enable Gamepad Controls
 
-    // Setup Dear ImGui style
+    // Style
     ImGui::StyleColorsDark();
-    // ImGui::StyleColorsClassic();
 
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(m_window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
+}
 
-    // CALLBACKS
-    // KEYS
+void Application::registerCallbacks()
+{
+    // Keys
     glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode,
                                     int action, int mods) {
         tobanteGaming::ignoreUnused(scancode);
@@ -73,124 +143,33 @@ void Application::Init()
             glfwSetWindowShouldClose(window, GLFW_TRUE);
         }
     });
-    // RESIZE
+
+    // Resize
     glfwSetFramebufferSizeCallback(
         m_window, [](GLFWwindow* window, int width, int height) {
             tobanteGaming::ignoreUnused(window);
             glViewport(0, 0, width, height);
         });
-
-    // SHader
-    ourShader.reset(new Shader(VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE));
-
-    cube.reset(new Cube());
 }
-void Application::Run()
+
+void Application::drawImgui()
 {
-    // Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1
-    // unit <-> 100 units
-    glm::mat4 Projection = glm::perspective(
-        glm::radians(45.0f),
-        static_cast<float>(WIDTH) / static_cast<float>(HEIGHT), 0.1f, 100.0f);
+    // New frame
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
 
-    // Or, for an ortho camera :
-    // glm::mat4 Projection = glm::ortho(-10.0f,10.0f,-10.0f,10.0f,0.0f,100.0f);
-    // // In world coordinates
+    static float f = 0.0f;
+    ImGui::Begin("Test");
+    ImGui::Text("Hello, world!");
+    ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
+    ImGui::ColorEdit3("clear color", (float*)&clear_color);
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
+                1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::End();
 
-    double lastTime = glfwGetTime();
-    int nbFrames    = 0;
-    // MAIN LOOP
-    while (glfwWindowShouldClose(m_window) == 0)
-    {
-        // IMGUI
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        // 1. Show a simple window
-        // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears
-        // in a window automatically called "Debug"
-        {
-            static float f = 0.0f;
-            ImGui::Text("Hello, world!");
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-            ImGui::ColorEdit3("clear color", (float*)&clear_color);
-            if (ImGui::Button("Test Window")) show_test_window ^= 1;
-            if (ImGui::Button("Another Window")) show_another_window ^= 1;
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
-                        1000.0f / ImGui::GetIO().Framerate,
-                        ImGui::GetIO().Framerate);
-        }
-
-        // 2. Show another simple window, this time using an explicit Begin/End
-        // pair
-        if (show_another_window)
-        {
-            ImGui::SetNextWindowSize(ImVec2(200, 100),
-                                     ImGuiSetCond_FirstUseEver);
-            ImGui::Begin("Another Window", &show_another_window);
-            ImGui::Text("Hello");
-            ImGui::End();
-        }
-
-        // 3. Show the ImGui test window. Most of the sample code is in
-        // ImGui::ShowTestWindow()
-        // if (show_test_window)
-        // {
-        //     ImGui::SetNextWindowPos(ImVec2(650, 20),
-        //     ImGuiSetCond_FirstUseEver);
-        //     ImGui::ShowTestWindow(&show_test_window);
-        // }
-
-        // FPS
-        // Measure speed
-        double currentTime = glfwGetTime();
-        nbFrames++;
-        if (currentTime - lastTime >= 1.0)
-        {
-            // If last prinf() was more than 1 sec ago
-            LOG_INFO("{} ms/frame", 1000.0 / double(nbFrames));
-            nbFrames = 0;
-            lastTime += 1.0;
-        }
-
-        // Render
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        // Triangle Color
-        ourShader->use();
-        const auto timeValue   = static_cast<float>(glfwGetTime());
-        const float greenValue = sin(timeValue) / 2.0f + 0.5f;
-        ourShader->setFloat4("ourColor", greenValue);
-
-        // Camera matrix
-        glm::mat4 View = glm::lookAt(
-            glm::vec3(nbFrames / timeValue, 2 * nbFrames / timeValue,
-                      3),        // Camera is at (4,3,3), in World Space
-            glm::vec3(0, 0, 0),  // and looks at the origin
-            glm::vec3(0, 1,
-                      0)  // Head is up (set to 0,-1,0 to look upside-down)
-        );
-
-        // Model matrix : an identity matrix (model will be at the origin)
-        glm::mat4 Model = glm::mat4(1.0f);
-        // Our ModelViewProjection : multiplication of our 3 matrices
-        // Remember, matrix multiplication is the other way around
-        glm::mat4 mvp = Projection * View * Model;
-        ourShader->setMatrix4("MVP", mvp);
-
-        // Draw triangle
-        // shape.render();
-        cube->render();
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-        // Check and call events and swap the buffers
-        glfwSwapBuffers(m_window);
-        glfwPollEvents();
-    }
+    // Render
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
-
 }  // namespace tobanteGaming

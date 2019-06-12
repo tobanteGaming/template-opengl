@@ -15,11 +15,19 @@ public:
     void Run();
 
 private:
+    // Init
+    void openGLInit();
+    void imguiInit();
+    void registerCallbacks();
+
+    void drawImgui();
+
+private:
     String m_name;
     GLFWwindow* m_window;
 
-    Pointer<Shader> ourShader;
-    Pointer<Cube> cube;
+    Pointer<Shader> m_shader;
+    Pointer<Cube> m_cube;
 
     bool show_test_window    = true;
     bool show_another_window = false;
