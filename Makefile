@@ -1,10 +1,8 @@
-.PHONY: all win64 debug doc clean stats format
+.PHONY: all debug win64 doc clean stats format
 default: all
 
 # Source
-TUNNEL_DIR = tunnel
-BREAKOUT_DIR = breakout
-3D_DIR = 3d
+SOURCE_DIR = remisen_run
 EXAMPLES_DIR = examples
 RESOURCE_DIR = resources
 
@@ -33,10 +31,8 @@ clean:
 	@rm -rf $(BUILD_DOC_DIR)
 
 stats:
-	@cloc $(TUNNEL_DIR) $(BREAKOUT_DIR) $(3D_DIR) cmake CMakeLists.txt $(RESOURCE_DIR)/shaders
+	@cloc $(SOURCE_DIR) cmake CMakeLists.txt $(RESOURCE_DIR)/shaders
 
 format:
-	@find $(TUNNEL_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
-	@find $(BREAKOUT_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
-	@find $(3D_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
+	@find $(SOURCE_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
 	@find $(EXAMPLES_DIR) -iname '*.hpp' -o -iname '*.cpp' | xargs clang-format -i
